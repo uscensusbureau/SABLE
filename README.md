@@ -12,22 +12,22 @@ SABLE is based on two main pieces of open-source software: Apache Nutch and Pyth
 
 ## Description of Contents
 
-This repository contains Python programs for converting PDFs to TXT format and fitting classification models for predicting whether the PDF contains useful data based on the PDF's text, which is also referred to as textual metadata.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
+This repository contains Python programs for converting PDFs to TXT format and fitting classification models for predicting whether the PDF contains useful data based on the extracted text, which is also referred to as textual metadata.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
 
 ## Organization of Files
 
-The following organization of programs, data, and other files is assumed.  PDFs that are to be converted to TXT format and used as input into the classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  Additional information can be found in the Python programs. <br />
+The following organization of programs, data, and other files is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  Additional information can be found in the Python programs. <br />
 
 /data/neg_meta/ <br />
 /data/neg_pdf/ <br />
 /data/neg_prob/ <br />
-/data/neg_xml/ <br /> <br />
+/data/neg_xml/ <br />
 /data/pos_meta/ <br />
 /data/pos_pdf/ <br />
 /data/pos_prob/ <br />
 /data/pos_xml/ <br /> <br />
 /classify_convert.py <br />
-/classify_model.py <br /> <br />
+/classify_model.py <br />
 /stop_danish.txt <br />
 /stop_dutch.txt <br />
 /stop_english.txt <br />
