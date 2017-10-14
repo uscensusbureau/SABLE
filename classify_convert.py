@@ -1,5 +1,6 @@
 #Name:            classify_convert.py
-#Purpose:         Convert PDFs that have been manually classified into the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format and extract metadata for use with classify_model.py
+#Purpose:         Convert PDFs that have been manually classified into the /data/pos_pdf/ and /data/neg_pdf/ folders
+#                 to TXT format and extract textual metadata for use with classify_model.py
 #Data Layout:     See README.md
 #Python Version:  2
 
@@ -10,23 +11,6 @@ import string
 
 #Global variables
 stop_words = set([])
-probflag = 0
-
-#Name:       convert_pdf_xml
-#Arguments:  pdffile (location of PDF file)
-#            xmlfile (location of XML output)
-#Purpose:    Convert a PDF file to XML format
-
-def convert_pdf_xml(pdffile, xmlfile):
-    global probflag
-    try:
-        #The pdf2txt.py program comes with the PDFMiner module
-        os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
-    except PDFTextExtractionNotAllowed:
-        #Exception indicates text cannot be extracted from the PDF
-        #The problem PDFs will be moved to the /data/pos_problem/ and /data/neg_problem/ folders for inspection
-        probflag = 1
-    return
 
 #Name:       match_page
 #Arguments:  line (line of text from XML file)
@@ -124,7 +108,7 @@ def get_chars(xmlfile):
 
 #Name:       clean_meta
 #Arguments:  text (string)
-#Purpose:    Process string of text and check each word
+#Purpose:    Process string of text and check each word against a list of stop words
 
 def clean_meta(text):
     text = text.lower()
@@ -194,13 +178,18 @@ def create_files(clss, docname):
     metafile = "/data/" + clss + "_meta/" + docname + ".txt"
 
     newflag = 0
-    global probflag
     probflag = 0
     chars = []
 
     if not os.path.isfile(metafile):
         newflag = 1
-        convert_pdf_xml(pdffile, xmlfile)
+        try:
+            #The pdf2txt.py program comes with the PDFMiner module
+            os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
+        except PDFTextExtractionNotAllowed:
+            #Exception indicates that text cannot be extracted from the PDF
+            #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
+            probflag = 1
         if not os.path.isfile(xmlfile):
             probflag = 1
         elif os.stat(xmlfile).st_size == 0:
@@ -209,22 +198,24 @@ def create_files(clss, docname):
             chars = get_chars(xmlfile)
             if len(chars) == 0:
                 probflag = 1
+
     if newflag == 1 and probflag == 0:
         write_meta(chars, metafile)
         if os.path.isfile(xmlfile):
+            #The intermediate XML files are deleted because they tend to be large
             os.remove(xmlfile)
     elif newflag == 1 and probflag == 1:
         if os.path.isfile(xmlfile):
             os.remove(xmlfile)
         if os.path.isfile(metafile):
             os.remove(metafile)
-        newpdffile = "/data/" + clss + "_problem/" + docname + ".pdf"
-        os.system("mv " + pdffile + " " + newpdffile)
+        probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
+        os.system("mv " + pdffile + " " + probfile)
 
     if newflag == 1 and probflag == 0:
         print(docname)
     elif newflag == 1 and probflag == 1:
-        print("!!! PROBLEM !!!", docname)
+        print("!!! PROBLEM: " + docname)
     return
 
 def main():
