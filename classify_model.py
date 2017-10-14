@@ -35,7 +35,7 @@ def get_feats(text):
     gs = g1s_list + g2s_list
     return dict(gs)
 
-#Name:       get_feat_counts
+#Name:       get_feats_counts
 #Arguments:  text (string of text)
 #Purpose:    Return counts of 1-grams and 2-grams in text
 
