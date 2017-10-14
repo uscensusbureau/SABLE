@@ -1,5 +1,6 @@
 #Name:            classify_model.py
-#Purpose:         Classify PDFs as positive or negative based on the extracted metadata stored in the /data/meta_pos/ and /data/meta_neg/ folders
+#Purpose:         Classify PDFs as positive or negative based on the extracted textual metadata stored in the /data/meta_pos/
+#                 and /data/meta_neg/ folders
 #Data Layout:     See README.md
 #Python Version:  3
 
@@ -20,9 +21,9 @@ from sklearn.naive_bayes import *
 from sklearn.svm import *
 from sklearn.tree import *
 
-#Name:      get_feats
-#Argument:  text (string of text)
-#Purpose:   Return binary indicators of 1-grams and 2-grams in text
+#Name:       get_feats
+#Arguments:  text (string of text)
+#Purpose:    Return binary indicators of 1-grams and 2-grams in text
 
 def get_feats(text):
     tokens = word_tokenize(text)
@@ -34,9 +35,9 @@ def get_feats(text):
     gs = g1s_list + g2s_list
     return dict(gs)
 
-#Name:      get_feat_counts
-#Argument:  text (string of text)
-#Purpose:   Return counts of 1-grams and 2-grams in text
+#Name:       get_feat_counts
+#Arguments:  text (string of text)
+#Purpose:    Return counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
     tokens = word_tokenize(text)
@@ -88,25 +89,24 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
             print(neg_docs_dict[i])
     print("")
     
+    ac = round((tp + tn)/(tp + tn + fn + fp), 3)
+    f1 = round((2*tp)/(2*tp + fn + fp), 3)
+    tpr = round(tp/(tp + fn), 3)
+    ppr = round(tp/(tp + fp), 3)
+    p0 = (tp + tn)/(tp + tn + fn + fp)
+    pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
+    kappa = round((p0 - pe)/(1 - pe), 3)
+    
     print("Summary")
     print("-------")
     print("tp    = " + str(tp))
     print("fn    = " + str(fn))
     print("tn    = " + str(tn))
     print("fp    = " + str(fp))
-    
-    ac = round((tp + tn)/(tp + tn + fn + fp), 3)
-    f1 = round((2*tp)/(2*tp + fn + fp), 3)
-    tpr = round(tp/(tp + fn), 3)
-    ppr = round(tp/(tp + fp), 3)
     print("ac    = " + str(ac))
     print("f1    = " + str(f1))
     print("tpr   = " + str(tpr))
     print("ppr   = " + str(ppr))
-    
-    p0 = (tp + tn)/(tp + tn + fn + fp)
-    pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
-    kappa = round((p0 - pe)/(1 - pe), 3)
     print("kappa = " + str(kappa) + "\n")
     return
 
@@ -148,6 +148,8 @@ def main():
     random.shuffle(pos_index)
     random.shuffle(neg_index)
     
+    #Two-thirds of the observations are used for training
+    #The remaining one-third is used for testing/validation
     poscut = int(round((2.0/3.0)*len(pos_index)))
     negcut = int(round((2.0/3.0)*len(neg_index)))
     train_pos = pos_index[:poscut]
