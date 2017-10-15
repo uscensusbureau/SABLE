@@ -1,6 +1,5 @@
 #Name:            classify_convert.py
-#Purpose:         Convert PDFs that have been manually classified into the /data/pos_pdf/ and /data/neg_pdf/ folders
-#                 to TXT format and extract textual metadata for use with classify_model.py
+#Purpose:         Convert PDFs in the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format for use with classify_model.py
 #Data Layout:     See README.md
 #Python Version:  2
 
@@ -59,7 +58,7 @@ def clean_char(old):
             new = "i"
         elif o == 209 or o == 241:
             new = "n"
-        elif (210 <= o <= 214) or (242 <= o <= 246):
+        elif (210 <= o <= 214) or o == 216 or (242 <= o <= 246) or o == 248:
             new = "o"
         elif (217 <= o <= 220) or (249 <= o <= 252):
             new = "u"
@@ -108,7 +107,7 @@ def get_chars(xmlfile):
 
 #Name:       clean_meta
 #Arguments:  text (string)
-#Purpose:    Process string of text and check each word against a list of stop words
+#Purpose:    Clean string of text and check each word against a list of stop words
 
 def clean_meta(text):
     text = text.lower()
@@ -176,46 +175,41 @@ def create_files(clss, docname):
     pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
     xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
     metafile = "/data/" + clss + "_meta/" + docname + ".txt"
+    probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
 
-    newflag = 0
-    probflag = 0
+    prob_flag = 0
     chars = []
 
     if not os.path.isfile(metafile):
-        newflag = 1
         try:
             #The pdf2txt.py program comes with the PDFMiner module
             os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
         except PDFTextExtractionNotAllowed:
             #Exception indicates that text cannot be extracted from the PDF
             #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
-            probflag = 1
+            prob_flag = 1
         if not os.path.isfile(xmlfile):
-            probflag = 1
+            prob_flag = 1
         elif os.stat(xmlfile).st_size == 0:
-            probflag = 1
-        if probflag == 0:
+            prob_flag = 1
+        if prob_flag == 0:
             chars = get_chars(xmlfile)
             if len(chars) == 0:
-                probflag = 1
+                prob_flag = 1
 
-    if newflag == 1 and probflag == 0:
-        write_meta(chars, metafile)
-        if os.path.isfile(xmlfile):
-            #The intermediate XML files are deleted because they tend to be large
-            os.remove(xmlfile)
-    elif newflag == 1 and probflag == 1:
-        if os.path.isfile(xmlfile):
-            os.remove(xmlfile)
-        if os.path.isfile(metafile):
-            os.remove(metafile)
-        probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
-        os.system("mv " + pdffile + " " + probfile)
-
-    if newflag == 1 and probflag == 0:
-        print(docname)
-    elif newflag == 1 and probflag == 1:
-        print("!!! PROBLEM: " + docname)
+        if prob_flag == 0:
+            write_meta(chars, metafile)
+            if os.path.isfile(xmlfile):
+                #The intermediate XML files are deleted because they tend to be large
+                os.remove(xmlfile)
+            print(docname)
+        elif prob_flag == 1:
+            if os.path.isfile(xmlfile):
+                os.remove(xmlfile)
+            if os.path.isfile(metafile):
+                os.remove(metafile)
+            os.system("mv " + pdffile + " " + probfile)
+            print("!!! PROBLEM: " + docname)
     return
 
 def main():
