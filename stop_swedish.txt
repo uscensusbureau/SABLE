@@ -109,6 +109,3 @@ vilka
 vilkas
 vilken
 vilket
-var
-vara
-vart
