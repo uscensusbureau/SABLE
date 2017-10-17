@@ -72,7 +72,6 @@ kenessa
 kenesta
 kenet
 ketka
-ketka
 keta
 koska
 kuin
@@ -95,7 +94,6 @@ mille
 milla
 milta
 minka
-minka
 minua
 minulla
 minulle
@@ -105,7 +103,6 @@ minussa
 minusta
 minut
 minuun
-mina
 mina
 missa
 mista
@@ -120,7 +117,6 @@ niiksi
 niille
 niilla
 niilta
-niin
 niin
 niina
 niissa
@@ -182,7 +178,6 @@ siita
 siksi
 sille
 silla
-silla
 silta
 sinua
 sinulla
@@ -193,7 +188,6 @@ sinussa
 sinusta
 sinut
 sinuun
-sina
 sina
 sita
 tai
