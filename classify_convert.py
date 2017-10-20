@@ -8,9 +8,6 @@ import os
 import re
 import string
 
-#Global variables
-stop_words = set([])
-
 #Name:       match_page
 #Arguments:  line (line of text from XML file)
 #Purpose:    Match line to an XML page tag
@@ -213,7 +210,9 @@ def create_files(clss, docname):
     return
 
 def main():
+    #Language of PDFs (used to remove stop words)
     lng  = "english"
+    #Class of PDFs ("pos" or "neg")
     clss = "pos"
 
     stop_words_list = []
@@ -226,7 +225,7 @@ def main():
     stop_words = set(stop_words_list)
 
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/data/" + clss + "_pdf"))
+    pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
     for pdf in pdfs:
         pdfmatch = re.search(r"(\S+)\.pdf$", pdf)
         if pdfmatch:
