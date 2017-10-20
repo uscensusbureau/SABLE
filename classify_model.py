@@ -10,8 +10,8 @@ from nltk.classify.util import *
 from nltk.metrics import *
 from nltk import FreqDist
 from nltk import ngrams
-from nltk import word_tokenize
 from nltk import Text
+from nltk import word_tokenize
 import os
 import random
 import re
@@ -89,10 +89,19 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
             print(neg_docs_dict[i])
     print("")
     
+    #Accuracy
     ac = round((tp + tn)/(tp + tn + fn + fp), 3)
+    #F1 score
     f1 = round((2*tp)/(2*tp + fn + fp), 3)
+    #True positive rate (also known as sensitivity and recall)
     tpr = round(tp/(tp + fn), 3)
+    #True negative rate (also known as specificity)
+    tnr = round(tn/(tn + fp), 3)
+    #Positive predictive rate (also known as precision)
     ppr = round(tp/(tp + fp), 3)
+    #Negative predictive rate
+    npr = round(tn/(tn + fn), 3)
+    #Kappa statistic
     p0 = (tp + tn)/(tp + tn + fn + fp)
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
     kappa = round((p0 - pe)/(1 - pe), 3)
@@ -106,7 +115,9 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     print("ac    = " + str(ac))
     print("f1    = " + str(f1))
     print("tpr   = " + str(tpr))
+    print("tnr   = " + str(tnr))
     print("ppr   = " + str(ppr))
+    print("npr   = " + str(npr))
     print("kappa = " + str(kappa) + "\n")
     return
 
