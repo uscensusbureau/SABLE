@@ -62,16 +62,20 @@ def get_feats_counts(text):
 #Purpose:    Evaluate classifier by applying it to the test set
 
 def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict):
+    #Number of true positives
     tp = 0
+    #Number of false negatives
     fn = 0
+    #Number of true negatives
     tn = 0
+    #Number of false positives
     fp = 0
     
     print("False Negatives")
     print("---------------")
     for i in test_pos:
         pred = classifier.classify(get_feats(pos_texts_dict[i]))
-        if pred == 'pos':
+        if pred == "pos":
             tp = tp + 1
         else:
             fn = fn + 1
@@ -82,7 +86,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     print("---------------")
     for i in test_neg:
         pred = classifier.classify(get_feats(neg_texts_dict[i]))
-        if pred == 'neg':
+        if pred == "neg":
             tn = tn + 1
         else:
             fp = fp + 1
@@ -167,8 +171,8 @@ def main():
     test_pos  = pos_index[poscut:]
     train_neg = neg_index[:negcut]
     test_neg  = neg_index[negcut:]
-    feats_train_pos = [(get_feats(pos_texts_dict[i]), 'pos') for i in train_pos]
-    feats_train_neg = [(get_feats(neg_texts_dict[i]), 'neg') for i in train_neg]
+    feats_train_pos = [(get_feats(pos_texts_dict[i]), "pos") for i in train_pos]
+    feats_train_neg = [(get_feats(neg_texts_dict[i]), "neg") for i in train_neg]
     trainfeats = feats_train_pos + feats_train_neg
     
     print("")
