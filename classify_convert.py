@@ -115,6 +115,7 @@ def clean_meta(text):
     text = re.sub(" +", " ", text)
     text_clean = []
     text = text.split(" ")
+    global stop_words
     for word in text:
         word = word.strip()
         if word not in stop_words:
@@ -129,6 +130,7 @@ def clean_meta(text):
 
 def write_meta(chars, metafile):
     meta = []
+    #Sort characters according to page, textbox, textline, y1, and x1
     chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
     
     page_cur = chars[0][0]
