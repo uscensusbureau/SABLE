@@ -76,6 +76,8 @@ def get_chars(xmlfile):
     page = 0
     textbox = 0
     textline = 0
+    
+    #Open XML file and use regular expressions to parse contents
     f = codecs.open(xmlfile, "rU", encoding="utf8")
     for l in f:
         line = l.strip()
@@ -113,6 +115,8 @@ def clean_meta(text):
     text = re.sub("[0-9]+", "", text)
     text = re.sub("-+", " ", text)
     text = re.sub(" +", " ", text)
+    
+    #Remove stop words
     text_clean = []
     text = text.split(" ")
     global stop_words
@@ -130,9 +134,9 @@ def clean_meta(text):
 
 def write_meta(chars, metafile):
     meta = []
+    
     #Sort characters according to page, textbox, textline, y1, and x1
     chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
-    
     page_cur = chars[0][0]
     textbox_cur = chars[0][1]
     textline_cur = chars[0][2]
@@ -171,21 +175,24 @@ def write_meta(chars, metafile):
 #Purpose:    Convert a PDF document of a given class to TXT format
 
 def create_files(clss, docname):
+    #Create file locations
     pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
     xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
     metafile = "/data/" + clss + "_meta/" + docname + ".txt"
     probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
 
+    #prob_flag indicates whether there is a problem extracting text from the PDF
+    #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
     prob_flag = 0
     chars = []
 
+    #If an output textual metadata file does not exist for the PDF, then try creating one
     if not os.path.isfile(metafile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
             os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
         except PDFTextExtractionNotAllowed:
             #Exception indicates that text cannot be extracted from the PDF
-            #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
             prob_flag = 1
         if not os.path.isfile(xmlfile):
             prob_flag = 1
@@ -195,7 +202,7 @@ def create_files(clss, docname):
             chars = get_chars(xmlfile)
             if len(chars) == 0:
                 prob_flag = 1
-
+        #Check prob_flag value and act accordingly
         if prob_flag == 0:
             write_meta(chars, metafile)
             if os.path.isfile(xmlfile):
@@ -204,8 +211,10 @@ def create_files(clss, docname):
             print(docname)
         elif prob_flag == 1:
             if os.path.isfile(xmlfile):
+                #The intermediate XML files are deleted because they tend to be large
                 os.remove(xmlfile)
             if os.path.isfile(metafile):
+                #Any textual metadata output from the problem PDF is deleted
                 os.remove(metafile)
             os.system("mv " + pdffile + " " + probfile)
             print("!!! PROBLEM: " + docname)
@@ -217,6 +226,7 @@ def main():
     #Class of PDFs ("pos" or "neg")
     clss = "pos"
 
+    #Read in stop words
     stop_words_list = []
     f = codecs.open("stop_" + lng + ".txt", "rU")
     for w in f:
@@ -226,6 +236,7 @@ def main():
     global stop_words
     stop_words = set(stop_words_list)
 
+    #Iterate through PDFs of a given class, extract textual metadata, and create output files
     print("\n*****  " + clss + "  *****\n")
     pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
     for pdf in pdfs:
