@@ -4,11 +4,11 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted By LEarning, is a collection of tools for crawling, scraping, and classifying data with the help of machine learning.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape the data.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling, web scraping, and classifying text with the help of machine learning.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape the data.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statical agencies.
 
 ## Software
 
-SABLE is based on two main pieces of open-source software: Apache Nutch and Python.  Nutch is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit classification models for predicting whether a PDF contains useful data.  For the PDFs containing useful data, templates in the form of additional Python programs can be developed to scrape the data.  SABLE uses the following Python modules: Scikit-Learn, Natural Language Toolkit (NLTK), PDFMiner (Python 2.X version), and PDFMiner3K (a Python 3.X port of PDFMiner).
+SABLE is based on two main pieces of open-source software: Apache Nutch and Python.  Nutch is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit classification models for predicting whether a PDF contains useful data.  For PDFs containing useful data, templates in the form of Python programs can be developed to scrape the data.  SABLE uses the following Python modules: scikit-learn, Natural Language Toolkit (NLTK), PDFMiner (Python 2.X version), and PDFMiner3K (a Python 3.X port of PDFMiner).
 
 ## Description of Contents
 
@@ -16,7 +16,7 @@ This repository contains Python programs for converting PDFs to TXT format and f
 
 ## Organization of Files
 
-The following organization of programs, data, and other files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  The extracted text, which is also known as textual metadata, is output to the /data/pos_meta/ and /data/neg_meta/ folders.  Additional information can be found in the Python programs. <br />
+The following organization of programs, data, and other files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  The extracted text, which is also known as textual metadata, is output to the /data/pos_meta/ and /data/neg_meta/ folders.  Additional information can be found in the comments in the Python programs. <br />
 
 /data/neg_meta/ <br />
 /data/neg_pdf/ <br />
