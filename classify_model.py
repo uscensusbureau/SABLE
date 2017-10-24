@@ -59,7 +59,7 @@ def get_feats_counts(text):
 #            neg_texts_dict (dictionary of negative texts)
 #            pos_docs_dict (dictionary of positive document names)
 #            neg_docs_dict (dictionary of negative document names)
-#Purpose:    Evaluate classifier by applying it to the test set
+#Purpose:    Evaluate classifier by applying it to the test set and calculating various performance statistics
 
 def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict):
     #Number of true positives
@@ -71,6 +71,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     #Number of false positives
     fp = 0
     
+    #Print document names of false negatives
     print("False Negatives")
     print("---------------")
     for i in test_pos:
@@ -82,6 +83,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
             print(pos_docs_dict[i])
     print("")
     
+    #Print document names of false positives
     print("False Positives")
     print("---------------")
     for i in test_neg:
@@ -94,7 +96,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     print("")
     
     #Accuracy
-    ac = round((tp + tn)/(tp + tn + fn + fp), 3)
+    acc = round((tp + tn)/(tp + tn + fn + fp), 3)
     #F1 score
     f1 = round((2*tp)/(2*tp + fn + fp), 3)
     #True positive rate (also known as sensitivity and recall)
@@ -110,13 +112,14 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
     kappa = round((p0 - pe)/(1 - pe), 3)
     
+    #Print classifier performance statistics
     print("Summary")
     print("-------")
     print("tp    = " + str(tp))
     print("fn    = " + str(fn))
     print("tn    = " + str(tn))
     print("fp    = " + str(fp))
-    print("ac    = " + str(ac))
+    print("acc   = " + str(acc))
     print("f1    = " + str(f1))
     print("tpr   = " + str(tpr))
     print("tnr   = " + str(tnr))
@@ -131,6 +134,7 @@ def main():
     neg_texts = []
     neg_docs  = []
     
+    #Read in positive textual metadata
     pos_directory = os.listdir("/data/pos_meta/")
     for f in pos_directory:
         namematch = re.search(r"(\S+)\.txt$", f)
@@ -141,6 +145,7 @@ def main():
             pos_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
+    #Read in negative textual metadata
     neg_directory = os.listdir("/data/neg_meta/")
     for f in neg_directory:
         namematch = re.search(r"(\S+)\.txt$", f)
@@ -151,6 +156,7 @@ def main():
             neg_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
+    #Create dictionaries to facilitate referencing observations and their corresponding metadata 
     pos_index      = [i for i in range(0, len(pos_texts))]
     pos_texts_dict = dict([(i, pos_texts[i]) for i in pos_index])
     pos_docs_dict  = dict([(i, pos_docs[i]) for i in pos_index])
@@ -159,22 +165,24 @@ def main():
     neg_docs_dict  = dict([(i, neg_docs[i]) for i in neg_index])
     
     #Set random number seed if desired
-    #random.seed(1234567890)
+    random.seed(1234567890)
     random.shuffle(pos_index)
     random.shuffle(neg_index)
     
-    #Two-thirds of the observations are used for training
-    #The remaining one-third is used for testing/validation
+    #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
     poscut = int(round((2.0/3.0)*len(pos_index)))
     negcut = int(round((2.0/3.0)*len(neg_index)))
     train_pos = pos_index[:poscut]
     test_pos  = pos_index[poscut:]
     train_neg = neg_index[:negcut]
     test_neg  = neg_index[negcut:]
+    
+    #Create features based on n-gram indicators
     feats_train_pos = [(get_feats(pos_texts_dict[i]), "pos") for i in train_pos]
     feats_train_neg = [(get_feats(neg_texts_dict[i]), "neg") for i in train_neg]
     trainfeats = feats_train_pos + feats_train_neg
     
+    #Print number of positive and negative observations used for training and testing
     print("")
     print("Positive Training: " + str(len(train_pos)))
     print("Positive Testing:  " + str(len(test_pos)))
@@ -183,7 +191,7 @@ def main():
     
     print("Naive Bayes Classifier (NLTK Implementation)\n")
     classifier_nb = NaiveBayesClassifier.train(trainfeats)
-    classifier_nb.show_most_informative_features(n=20)
+    classifier_nb.show_most_informative_features(n=50)
     print("")
     
     print("==================================================")
@@ -212,7 +220,7 @@ def main():
     
     print("==================================================")
     print("Random Forest\n")
-    classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=30))
+    classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50))
     classifier_forest.train(trainfeats)
     evaluate(classifier_forest, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     return
