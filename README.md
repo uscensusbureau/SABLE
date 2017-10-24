@@ -16,27 +16,41 @@ This repository contains Python programs for converting PDFs to TXT format and f
 
 ## Organization of Files
 
-The following organization of programs, data, and other files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  The extracted text, which is also known as textual metadata, is output to the /data/pos_meta/ and /data/neg_meta/ folders.  Additional information can be found in the comments in the Python programs. <br />
+The following organization of data, programs, and other files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the /data/pos_pdf/ and /data/neg_pdf/ folders.  The extracted text, which is also known as textual metadata, is output to the /data/pos_meta/ and /data/neg_meta/ folders.  Additional information can be found in the comments in the Python programs. <br />
 
-/data/neg_meta/ <br />
-/data/neg_pdf/ <br />
-/data/neg_prob/ <br />
-/data/neg_xml/ <br />
-/data/pos_meta/ <br />
-/data/pos_pdf/ <br />
-/data/pos_prob/ <br />
-/data/pos_xml/ <br /> <br />
-/classify_convert.py <br />
-/classify_model.py <br /> <br />
-/stop_danish.txt <br />
-/stop_dutch.txt <br />
-/stop_english.txt <br />
-/stop_finnish.txt <br />
-/stop_french.txt <br />
-/stop_german.txt <br />
-/stop_hungarian.txt <br />
-/stop_italian.txt <br />
-/stop_norwegian.txt <br />
-/stop_portuguese.txt <br />
-/stop_spanish.txt <br />
+### Folders
+
+```
+/data/neg_meta/
+/data/neg_pdf/
+/data/neg_prob/
+/data/neg_xml/
+/data/pos_meta/
+/data/pos_pdf/
+/data/pos_prob/
+/data/pos_xml/
+```
+
+### Python Programs
+
+```
+/classify_convert.py
+/classify_model.py
+```
+
+### Lists of Stop Words
+
+```
+/stop_danish.txt
+/stop_dutch.txt
+/stop_english.txt
+/stop_finnish.txt
+/stop_french.txt
+/stop_german.txt
+/stop_hungarian.txt
+/stop_italian.txt
+/stop_norwegian.txt
+/stop_portuguese.txt
+/stop_spanish.txt
 /stop_swedish.txt
+```
