@@ -2,6 +2,8 @@ a
 alle
 at
 av
+bade
+bae
 bare
 begge
 ble
@@ -9,8 +11,6 @@ blei
 bli
 blir
 blitt
-bade
-bae
 da
 de
 deg
@@ -33,7 +33,6 @@ ditt
 du
 dykk
 dykkar
-da
 eg
 ein
 eit
@@ -49,7 +48,6 @@ etter
 for
 fordi
 fra
-for
 ha
 hadde
 han
@@ -112,6 +110,8 @@ mine
 mitt
 mot
 mykje
+na
+nar
 ned
 no
 noe
@@ -121,8 +121,6 @@ noko
 nokon
 nokor
 nokre
-na
-nar
 og
 ogsa
 om
@@ -130,7 +128,9 @@ opp
 oss
 over
 pa
+sa
 samme
+sann
 seg
 selv
 si
@@ -148,13 +148,13 @@ so
 som
 somme
 somt
-sa
-sann
 til
 um
 upp
 ut
 uten
+vaere
+vaert
 var
 vart
 varte
@@ -167,6 +167,3 @@ ville
 vore
 vors
 vort
-var
-vaere
-vaert
