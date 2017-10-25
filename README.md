@@ -12,7 +12,7 @@ SABLE is based on two main pieces of open-source software: Apache Nutch and Pyth
 
 ## Description of Contents
 
-This repository contains Python programs for converting PDFs to TXT format and fitting classification models for predicting whether the PDF contains useful data based on the extracted text.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
+This repository contains Python programs for converting PDFs to TXT format and fitting classification models for predicting whether a PDF contains useful data based on the extracted text.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
 
 ## Organization of Files
 
