@@ -44,6 +44,7 @@ def clean_char(old):
     if len(old) > 1:
         new = " "
     else:
+        #The function "ord" returns the integer representing the Unicode code point of a character
         o = ord(old)
         if (192 <= o <= 198) or (224 <= o <= 230):
             new = "a"
@@ -105,7 +106,7 @@ def get_chars(xmlfile):
     return chars
 
 #Name:       clean_meta
-#Arguments:  text (string)
+#Arguments:  text (string of text)
 #Purpose:    Clean string of text and check each word against a list of stop words
 
 def clean_meta(text):
@@ -186,7 +187,7 @@ def create_files(clss, docname):
     prob_flag = 0
     chars = []
 
-    #If an output textual metadata file does not exist for the PDF, then try creating one
+    #If a textual metadata file does not already exist for the PDF, then try creating it
     if not os.path.isfile(metafile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
@@ -206,12 +207,12 @@ def create_files(clss, docname):
         if prob_flag == 0:
             write_meta(chars, metafile)
             if os.path.isfile(xmlfile):
-                #The intermediate XML files are deleted because they tend to be large
+                #The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlfile)
             print(docname)
         elif prob_flag == 1:
             if os.path.isfile(xmlfile):
-                #The intermediate XML files are deleted because they tend to be large
+                #The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlfile)
             if os.path.isfile(metafile):
                 #Any textual metadata output from the problem PDF is deleted
