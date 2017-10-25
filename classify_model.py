@@ -1,6 +1,6 @@
 #Name:            classify_model.py
-#Purpose:         Classify PDFs as positive or negative based on the extracted textual metadata stored in the /data/meta_pos/
-#                 and /data/meta_neg/ folders
+#Purpose:         Classify PDFs as positive or negative based on the extracted textual metadata stored in the /data/pos_meta/
+#                 and /data/neg_meta/ folders
 #Data Layout:     See README.md
 #Python Version:  3
 
@@ -21,11 +21,11 @@ from sklearn.naive_bayes import *
 from sklearn.svm import *
 from sklearn.tree import *
 
-#Name:       get_feats
+#Name:       get_feats_inds
 #Arguments:  text (string of text)
 #Purpose:    Return binary indicators of 1-grams and 2-grams in text
 
-def get_feats(text):
+def get_feats_inds(text):
     tokens = word_tokenize(text)
     t = Text(tokens)
     g1s = ngrams(t, 1)
@@ -178,8 +178,8 @@ def main():
     test_neg  = neg_index[negcut:]
     
     #Create features based on n-gram indicators
-    feats_train_pos = [(get_feats(pos_texts_dict[i]), "pos") for i in train_pos]
-    feats_train_neg = [(get_feats(neg_texts_dict[i]), "neg") for i in train_neg]
+    feats_train_pos = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in train_pos]
+    feats_train_neg = [(get_feats_inds(neg_texts_dict[i]), "neg") for i in train_neg]
     trainfeats = feats_train_pos + feats_train_neg
     
     #Print number of positive and negative observations used for training and testing
