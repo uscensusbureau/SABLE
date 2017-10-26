@@ -107,6 +107,7 @@ facevi
 facevo
 fai
 fanno
+fara
 farai
 faranno
 farebbe
@@ -117,7 +118,6 @@ faremo
 fareste
 faresti
 farete
-fara
 faro
 fece
 fecero
@@ -187,6 +187,7 @@ questa
 queste
 questi
 questo
+sara
 sarai
 saranno
 sarebbe
@@ -197,7 +198,6 @@ saremo
 sareste
 saresti
 sarete
-sara
 saro
 se
 sei
