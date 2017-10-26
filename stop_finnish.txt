@@ -3,8 +3,8 @@ eivat
 emme
 en
 et
-ette
 etta
+ette
 han
 haneen
 hanella
@@ -93,6 +93,7 @@ mika
 milla
 mille
 milta
+mina
 minka
 minua
 minulla
@@ -103,7 +104,6 @@ minussa
 minusta
 minut
 minuun
-mina
 missa
 mista
 mitka
@@ -179,6 +179,7 @@ siksi
 silla
 sille
 silta
+sina
 sinua
 sinulla
 sinulle
@@ -188,7 +189,6 @@ sinussa
 sinusta
 sinut
 sinuun
-sina
 sita
 tahan
 tai
