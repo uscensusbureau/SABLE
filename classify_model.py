@@ -170,8 +170,9 @@ def main():
     random.shuffle(neg_index)
     
     #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
-    poscut = int(round((2.0/3.0)*len(pos_index)))
-    negcut = int(round((2.0/3.0)*len(neg_index)))
+    frac = 2.0/3.0
+    poscut = int(round(frac*len(pos_index)))
+    negcut = int(round(frac*len(neg_index)))
     train_pos = pos_index[:poscut]
     test_pos  = pos_index[poscut:]
     train_neg = neg_index[:negcut]
@@ -189,6 +190,7 @@ def main():
     print("Negative Training: " + str(len(train_neg)))
     print("Negative Testing:  " + str(len(test_neg)) + "\n")
     
+    print("==================================================")
     print("Naive Bayes Classifier (NLTK Implementation)\n")
     classifier_nb = NaiveBayesClassifier.train(trainfeats)
     classifier_nb.show_most_informative_features(n=50)
