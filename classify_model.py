@@ -170,9 +170,9 @@ def main():
     random.shuffle(neg_index)
     
     #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
-    frac = 2.0/3.0
-    poscut = int(round(frac*len(pos_index)))
-    negcut = int(round(frac*len(neg_index)))
+    train_frac = 2.0/3.0
+    poscut = int(round(train_frac*len(pos_index)))
+    negcut = int(round(train_frac*len(neg_index)))
     train_pos = pos_index[:poscut]
     test_pos  = pos_index[poscut:]
     train_neg = neg_index[:negcut]
