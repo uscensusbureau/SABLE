@@ -75,7 +75,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     print("False Negatives")
     print("---------------")
     for i in test_pos:
-        pred = classifier.classify(get_feats(pos_texts_dict[i]))
+        pred = classifier.classify(get_feats_inds(pos_texts_dict[i]))
         if pred == "pos":
             tp = tp + 1
         else:
@@ -87,7 +87,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     print("False Positives")
     print("---------------")
     for i in test_neg:
-        pred = classifier.classify(get_feats(neg_texts_dict[i]))
+        pred = classifier.classify(get_feats_inds(neg_texts_dict[i]))
         if pred == "neg":
             tn = tn + 1
         else:
@@ -181,7 +181,7 @@ def main():
     #Create features based on n-gram indicators
     feats_train_pos = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in train_pos]
     feats_train_neg = [(get_feats_inds(neg_texts_dict[i]), "neg") for i in train_neg]
-    trainfeats = feats_train_pos + feats_train_neg
+    feats_train = feats_train_pos + feats_train_neg
     
     #Print number of positive and negative observations used for training and testing
     print("")
@@ -192,38 +192,38 @@ def main():
     
     print("==================================================")
     print("Naive Bayes Classifier (NLTK Implementation)\n")
-    classifier_nb = NaiveBayesClassifier.train(trainfeats)
+    classifier_nb = NaiveBayesClassifier.train(feats_train)
     classifier_nb.show_most_informative_features(n=50)
     print("")
     
     print("==================================================")
     print("Naive Bayes Classifier for Bernoulli Models\n")
     classifier_nbber = nltk.classify.SklearnClassifier(BernoulliNB())
-    classifier_nbber.train(trainfeats)
+    classifier_nbber.train(feats_train)
     evaluate(classifier_nbber, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Linear Support Vector Classifier\n")
     classifier_svc = nltk.classify.SklearnClassifier(LinearSVC())
-    classifier_svc.train(trainfeats)
+    classifier_svc.train(feats_train)
     evaluate(classifier_svc, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Logistic Regression\n")
     classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression())
-    classifier_logit.train(trainfeats)
+    classifier_logit.train(feats_train)
     evaluate(classifier_logit, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Decision Tree\n")
     classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier())
-    classifier_tree.train(trainfeats)
+    classifier_tree.train(feats_train)
     evaluate(classifier_tree, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Random Forest\n")
     classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50))
-    classifier_forest.train(trainfeats)
+    classifier_forest.train(feats_train)
     evaluate(classifier_forest, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     return
 
