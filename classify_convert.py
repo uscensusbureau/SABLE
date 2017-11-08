@@ -38,10 +38,19 @@ def match_text(line):
 
 #Name:       clean_char
 #Arguments:  old (character)
-#Purpose:    Remove foreign accent from character
+#Purpose:    Clean character to deal with punctuation, numbers, and foreign accent marks
 
 def clean_char(old):
     if len(old) > 1:
+        new = " "
+    #Apostrophe
+    elif old == "'":
+        new = ""
+    #Other punctuation
+    elif old in string.punctuation:
+        new = " "
+    #Numbers
+    elif old in "0123456789":
         new = " "
     else:
         #The function "ord" returns the integer representing the Unicode code point of a character
@@ -58,6 +67,8 @@ def clean_char(old):
             new = "n"
         elif (210 <= o <= 214) or o == 216 or (242 <= o <= 246) or o == 248:
             new = "o"
+        elif o == 223:
+            new = "ss"
         elif (217 <= o <= 220) or (249 <= o <= 252):
             new = "u"
         elif o == 221 or o == 253 or o == 255:
@@ -111,11 +122,7 @@ def get_chars(xmlfile):
 
 def clean_meta(text):
     text = text.lower()
-    text = re.sub("\t+", " ", text)
-    text = re.sub("\n+", " ", text)
-    text = re.sub("[0-9]+", "", text)
-    text = re.sub("-+", " ", text)
-    text = re.sub(" +", " ", text)
+    text = re.sub("\s+", " ", text)
     
     #Remove stop words
     text_clean = []
@@ -158,10 +165,7 @@ def write_meta(chars, metafile):
             space_flag = 1
         if space_flag == 1:
             meta.append(" ")
-        if char[9] in string.punctuation:
-            meta.append(" ")
-        else:
-            meta.append(char[9])
+        meta.append(char[9])
 
     meta = "".join(meta)
     meta_clean = clean_meta(meta)
