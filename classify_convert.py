@@ -219,7 +219,7 @@ def create_files(clss, docname):
                 #The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlfile)
             if os.path.isfile(metafile):
-                #Any textual metadata output from the problem PDF is deleted
+                #Any textual metadata that has been extracted from the problem PDF is deleted
                 os.remove(metafile)
             os.system("mv " + pdffile + " " + probfile)
             print("!!! PROBLEM: " + docname)
