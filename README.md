@@ -8,11 +8,11 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 
 ## Software
 
-SABLE is based on two main pieces of open-source software: Apache Nutch and Python.  Nutch is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit classification models for predicting whether a PDF contains useful data.  For PDFs containing useful data, templates in the form of Python programs can be developed to scrape the data.  SABLE uses the following Python modules: scikit-learn, Natural Language Toolkit (NLTK), PDFMiner (Python 2.X version), and PDFMiner3K (a Python 3.X port of PDFMiner).
+SABLE is based on two main pieces of open-source software: Apache Nutch and Python.  Nutch is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate classification models.  For PDFs containing useful data, templates in the form of Python programs can be developed to scrape the data.  SABLE uses the following Python modules: scikit-learn, Natural Language Toolkit (NLTK), PDFMiner (Python 2.X version), and PDFMiner3K (a Python 3.X port of PDFMiner).
 
 ## Description of Contents
 
-This repository contains Python programs for converting PDFs to TXT format and fitting classification models for predicting whether a PDF contains useful data based on the extracted text.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
+This repository contains Python programs for converting PDFs to TXT format and fitting and evaluating classification models for predicting whether a PDF contains useful data based on the extracted text.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
 
 ## Organization of Files
 
