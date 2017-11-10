@@ -8,7 +8,6 @@ als
 also
 am
 an
-ans
 ander
 andere
 anderem
@@ -18,6 +17,7 @@ anderes
 anderm
 andern
 anders
+ans
 auch
 auf
 aufs
@@ -31,9 +31,9 @@ da
 damit
 dann
 das
+dass
 dasselbe
 dazu
-dass
 dein
 deine
 deinem
