@@ -54,26 +54,26 @@ def clean_char(old):
         new = " "
     else:
         #The function "ord" returns the integer representing the Unicode code point of a character
-        o = ord(old)
-        if (192 <= o <= 198) or (224 <= o <= 230):
+        ucp = ord(old)
+        if (192 <= ucp <= 198) or (224 <= ucp <= 230):
             new = "a"
-        elif o == 199 or o == 231:
+        elif ucp == 199 or ucp == 231:
             new = "c"
-        elif (200 <= o <= 203) or (232 <= o <= 235):
+        elif (200 <= ucp <= 203) or (232 <= ucp <= 235):
             new = "e"
-        elif (204 <= o <= 207) or (236 <= o <= 239):
+        elif (204 <= ucp <= 207) or (236 <= ucp <= 239):
             new = "i"
-        elif o == 209 or o == 241:
+        elif ucp == 209 or ucp == 241:
             new = "n"
-        elif (210 <= o <= 214) or o == 216 or (242 <= o <= 246) or o == 248:
+        elif (210 <= ucp <= 214) or ucp == 216 or (242 <= ucp <= 246) or ucp == 248:
             new = "o"
-        elif o == 223:
+        elif ucp == 223:
             new = "ss"
-        elif (217 <= o <= 220) or (249 <= o <= 252):
+        elif (217 <= ucp <= 220) or (249 <= ucp <= 252):
             new = "u"
-        elif o == 221 or o == 253 or o == 255:
+        elif ucp == 221 or ucp == 253 or ucp == 255:
             new = "y"
-        elif o >= 128:
+        elif ucp >= 128:
             new = " "
         else:
             new = old
