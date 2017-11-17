@@ -103,7 +103,7 @@ def get_chars(xmlfile):
             textline = 0
             textbox = int(textboxmatch.group(1))
         elif textlinematch:
-            textline = textline + 1
+            textline += 1
         elif textmatch:
             font = textmatch.group(1)
             x1 = float(textmatch.group(2))
@@ -191,7 +191,7 @@ def create_files(clss, docname):
     prob_flag = 0
     chars = []
 
-    #If a textual metadata file does not already exist for the PDF, then try creating it
+    #If the textual metadata file does not already exist, then try creating it
     if not os.path.isfile(metafile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
@@ -245,9 +245,13 @@ def main():
     print("\n*****  " + clss + "  *****\n")
     pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
     for pdf in pdfs:
-        pdfmatch = re.search(r"(\S+)\.pdf$", pdf)
+        pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfmatch:
             docname = pdfmatch.group(1)
+            if pdfmatch.group(2) != "pdf":
+                oldfile  = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile  = "/data/" + clss + "_pdf/" + docname + ".pdf"
+                os.system("mv " + oldfile + " " + newfile)
             create_files(clss, docname)
     print("")
     return
