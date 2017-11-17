@@ -26,13 +26,10 @@ from sklearn.tree import *
 #Purpose:    Return binary indicators of 1-grams and 2-grams in text
 
 def get_feats_inds(text):
-    tokens = word_tokenize(text)
-    t = Text(tokens)
-    g1s = ngrams(t, 1)
-    g1s_list = [(g, True) for g in g1s]
-    g2s = ngrams(t, 2)
-    g2s_list = [(g, True) for g in g2s]
-    gs = g1s_list + g2s_list
+    t = Text(word_tokenize(text))
+    g1s = [(g, True) for g in ngrams(t, 1)]
+    g2s = [(g, True) for g in ngrams(t, 2)]
+    gs = g1s + g2s
     return dict(gs)
 
 #Name:       get_feats_counts
@@ -40,15 +37,10 @@ def get_feats_inds(text):
 #Purpose:    Return counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
-    tokens = word_tokenize(text)
-    t = Text(tokens)
-    g1s = ngrams(t, 1)
-    freq1 = FreqDist(g1s)
-    g1s_list = [(g, count) for g, count in freq1.items()]
-    g2s = ngrams(t, 2)
-    freq2 = FreqDist(g2s)
-    g2s_list = [(g, count) for g, count in freq2.items()]
-    gs = g1s_list + g2s_list
+    t = Text(word_tokenize(text))
+    g1s = [(g, count) for g, count in FreqDist(ngrams(t, 1)).items()]
+    g2s = [(g, count) for g, count in FreqDist(ngrams(t, 2)).items()]
+    gs = g1s + g2s
     return dict(gs)
 
 #Name:       evaluate
@@ -77,9 +69,9 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     for i in test_pos:
         pred = classifier.classify(get_feats_inds(pos_texts_dict[i]))
         if pred == "pos":
-            tp = tp + 1
+            tp += 1
         else:
-            fn = fn + 1
+            fn += 1
             print(pos_docs_dict[i])
     print("")
     
@@ -89,9 +81,9 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     for i in test_neg:
         pred = classifier.classify(get_feats_inds(neg_texts_dict[i]))
         if pred == "neg":
-            tn = tn + 1
+            tn += 1
         else:
-            fp = fp + 1
+            fp += 1
             print(neg_docs_dict[i])
     print("")
     
@@ -137,7 +129,7 @@ def main():
     #Read in positive textual metadata
     pos_directory = os.listdir("/data/pos_meta/")
     for f in pos_directory:
-        namematch = re.search(r"(\S+)\.txt$", f)
+        namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             pos_docs.append(namematch.group(1))
             metafile = "/data/pos_meta/" + namematch.group(1) + ".txt"
@@ -148,7 +140,7 @@ def main():
     #Read in negative textual metadata
     neg_directory = os.listdir("/data/neg_meta/")
     for f in neg_directory:
-        namematch = re.search(r"(\S+)\.txt$", f)
+        namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             neg_docs.append(namematch.group(1))
             metafile = "/data/neg_meta/" + namematch.group(1) + ".txt"
