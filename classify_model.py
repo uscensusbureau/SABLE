@@ -149,10 +149,10 @@ def main():
             tmpfile.close()
     
     #Create dictionaries to facilitate referencing observations and their corresponding metadata 
-    pos_index      = [i for i in range(0, len(pos_texts))]
+    pos_index      = [i for i in range(len(pos_texts))]
     pos_texts_dict = dict([(i, pos_texts[i]) for i in pos_index])
     pos_docs_dict  = dict([(i, pos_docs[i]) for i in pos_index])
-    neg_index      = [i for i in range(0, len(neg_texts))]
+    neg_index      = [i for i in range(len(neg_texts))]
     neg_texts_dict = dict([(i, neg_texts[i]) for i in neg_index])
     neg_docs_dict  = dict([(i, neg_docs[i]) for i in neg_index])
     
