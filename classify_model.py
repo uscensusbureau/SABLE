@@ -1,6 +1,6 @@
 #Name:            classify_model.py
-#Purpose:         Classify PDFs as positive or negative based on the extracted textual metadata stored in the /data/pos_meta/
-#                 and /data/neg_meta/ folders
+#Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /data/pos_txt/
+#                 and /data/neg_txt/ folders
 #Data Layout:     See README.md
 #Python Version:  3
 
@@ -126,29 +126,29 @@ def main():
     neg_texts = []
     neg_docs  = []
     
-    #Read in positive textual metadata
-    pos_directory = os.listdir("/data/pos_meta/")
+    #Read in text from documents classified as positive
+    pos_directory = os.listdir("/data/pos_txt/")
     for f in pos_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             pos_docs.append(namematch.group(1))
-            metafile = "/data/pos_meta/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(metafile, "rU")
+            txtfile = "/data/pos_txt/" + namematch.group(1) + ".txt"
+            tmpfile = codecs.open(txtfile, "rU")
             pos_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
-    #Read in negative textual metadata
-    neg_directory = os.listdir("/data/neg_meta/")
+    #Read in text from documents classified as negative
+    neg_directory = os.listdir("/data/neg_txt/")
     for f in neg_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             neg_docs.append(namematch.group(1))
-            metafile = "/data/neg_meta/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(metafile, "rU")
+            txtfile = "/data/neg_txt/" + namematch.group(1) + ".txt"
+            tmpfile = codecs.open(txtfile, "rU")
             neg_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
-    #Create dictionaries to facilitate referencing observations and their corresponding metadata 
+    #Create dictionaries to facilitate referencing observations and their corresponding text 
     pos_index      = [i for i in range(len(pos_texts))]
     pos_texts_dict = dict([(i, pos_texts[i]) for i in pos_index])
     pos_docs_dict  = dict([(i, pos_docs[i]) for i in pos_index])
@@ -163,8 +163,8 @@ def main():
     
     #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
     train_frac = 2.0/3.0
-    poscut = int(round(train_frac*len(pos_index)))
-    negcut = int(round(train_frac*len(neg_index)))
+    poscut = int(round(train_frac * len(pos_index)))
+    negcut = int(round(train_frac * len(neg_index)))
     train_pos = pos_index[:poscut]
     test_pos  = pos_index[poscut:]
     train_neg = neg_index[:negcut]
