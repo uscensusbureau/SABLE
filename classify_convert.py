@@ -116,11 +116,11 @@ def get_chars(xmlfile):
     f.close()
     return chars
 
-#Name:       clean_meta
+#Name:       clean_text
 #Arguments:  text (string of text)
 #Purpose:    Clean string of text and check each word against a list of stop words
 
-def clean_meta(text):
+def clean_text(text):
     text = text.lower()
     text = re.sub("\s+", " ", text)
     
@@ -135,13 +135,13 @@ def clean_meta(text):
     text_clean = " ".join(text_clean)
     return text_clean
 
-#Name:       write_meta
+#Name:       write_text
 #Arguments:  chars (list of tuples)
-#            metafile (location of TXT metafile)
+#            txtfile (location of TXT file)
 #Purpose:    Construct words character by character
 
-def write_meta(chars, metafile):
-    meta = []
+def write_text(chars, txtfile):
+    text = []
     
     #Sort characters according to page, textbox, textline, y1, and x1
     chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
@@ -164,13 +164,13 @@ def write_meta(chars, metafile):
             textline_cur = textline_new
             space_flag = 1
         if space_flag == 1:
-            meta.append(" ")
-        meta.append(char[9])
+            text.append(" ")
+        text.append(char[9])
 
-    meta = "".join(meta)
-    meta_clean = clean_meta(meta)
-    f = codecs.open(metafile, "w")
-    f.write(meta_clean)
+    text = "".join(text)
+    text_clean = clean_text(text)
+    f = codecs.open(txtfile, "w")
+    f.write(text_clean)
     f.close()
     return
 
@@ -183,7 +183,7 @@ def create_files(clss, docname):
     #Create file locations
     pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
     xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
-    metafile = "/data/" + clss + "_meta/" + docname + ".txt"
+    txtfile  = "/data/" + clss + "_txt/"  + docname + ".txt"
     probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
 
     #prob_flag indicates whether there is a problem extracting text from the PDF
@@ -191,8 +191,8 @@ def create_files(clss, docname):
     prob_flag = 0
     chars = []
 
-    #If the textual metadata file does not already exist, then try creating it
-    if not os.path.isfile(metafile):
+    #If the TXT file does not already exist, then try creating it
+    if not os.path.isfile(txtfile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
             os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
@@ -209,7 +209,7 @@ def create_files(clss, docname):
                 prob_flag = 1
         #Check prob_flag value and act accordingly
         if prob_flag == 0:
-            write_meta(chars, metafile)
+            write_text(chars, txtfile)
             if os.path.isfile(xmlfile):
                 #The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlfile)
@@ -218,9 +218,9 @@ def create_files(clss, docname):
             if os.path.isfile(xmlfile):
                 #The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlfile)
-            if os.path.isfile(metafile):
-                #Any textual metadata that has been extracted from the problem PDF is deleted
-                os.remove(metafile)
+            if os.path.isfile(txtfile):
+                #Any text that has been extracted from the problem PDF is deleted
+                os.remove(txtfile)
             os.system("mv " + pdffile + " " + probfile)
             print("!!! PROBLEM: " + docname)
     return
@@ -241,7 +241,7 @@ def main():
     global stop_words
     stop_words = set(stop_words_list)
 
-    #Iterate through PDFs of a given class, extract textual metadata, and create output files
+    #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
     pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
     for pdf in pdfs:
