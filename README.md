@@ -16,18 +16,18 @@ This repository contains Python programs for converting PDFs to TXT format and f
 
 ## Organization of Files
 
-The following organization of data, programs, and supplementary files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/data/pos_pdf/``` and ```/data/neg_pdf/``` folders.  The extracted text, which is also known as textual metadata, is output to the ```/data/pos_meta/``` and ```/data/neg_meta/``` folders.  Additional information can be found in the comments in the Python programs. <br />
+The following organization of data, programs, and supplementary files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/data/pos_pdf/``` and ```/data/neg_pdf/``` folders.  The extracted text is output to the ```/data/pos_txt/``` and ```/data/neg_txt/``` folders.  Additional information can be found in the comments in the Python programs. <br />
 
 ### Data Folders
 
 ```
-/data/neg_meta/
 /data/neg_pdf/
 /data/neg_prob/
+/data/neg_txt/
 /data/neg_xml/
-/data/pos_meta/
 /data/pos_pdf/
 /data/pos_prob/
+/data/pos_txt/
 /data/pos_xml/
 ```
 
