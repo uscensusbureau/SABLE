@@ -166,11 +166,10 @@ def write_text(chars, txtfile):
         if space_flag == 1:
             text.append(" ")
         text.append(char[9])
-
     text = "".join(text)
-    text_clean = clean_text(text)
+    
     f = codecs.open(txtfile, "w")
-    f.write(text_clean)
+    f.write(clean_text(text))
     f.close()
     return
 
@@ -249,8 +248,8 @@ def main():
         if pdfmatch:
             docname = pdfmatch.group(1)
             if pdfmatch.group(2) != "pdf":
-                oldfile  = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
-                newfile  = "/data/" + clss + "_pdf/" + docname + ".pdf"
+                oldfile = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile = "/data/" + clss + "_pdf/" + docname + ".pdf"
                 os.system("mv " + oldfile + " " + newfile)
             create_files(clss, docname)
     print("")
