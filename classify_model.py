@@ -45,15 +45,15 @@ def get_feats_counts(text):
 
 #Name:       evaluate
 #Arguments:  classifier (fitted classification model)
-#            test_pos (list of indices of positive test observations)
-#            test_neg (list of indices of negative test observations)
+#            pos_test (list of indices of positive test observations)
+#            neg_test (list of indices of negative test observations)
 #            pos_texts_dict (dictionary of positive texts)
 #            neg_texts_dict (dictionary of negative texts)
 #            pos_docs_dict (dictionary of positive document names)
 #            neg_docs_dict (dictionary of negative document names)
 #Purpose:    Evaluate classifier by applying it to the test set and calculating various performance statistics
 
-def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict):
+def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict):
     #Number of true positives
     tp = 0
     #Number of false negatives
@@ -66,7 +66,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     #Print document names of false negatives
     print("False Negatives")
     print("---------------")
-    for i in test_pos:
+    for i in pos_test:
         pred = classifier.classify(get_feats_inds(pos_texts_dict[i]))
         if pred == "pos":
             tp += 1
@@ -78,7 +78,7 @@ def evaluate(classifier, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos
     #Print document names of false positives
     print("False Positives")
     print("---------------")
-    for i in test_neg:
+    for i in neg_test:
         pred = classifier.classify(get_feats_inds(neg_texts_dict[i]))
         if pred == "neg":
             tn += 1
@@ -163,24 +163,24 @@ def main():
     
     #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
     train_frac = 2.0/3.0
-    poscut = int(round(train_frac * len(pos_index)))
-    negcut = int(round(train_frac * len(neg_index)))
-    train_pos = pos_index[:poscut]
-    test_pos  = pos_index[poscut:]
-    train_neg = neg_index[:negcut]
-    test_neg  = neg_index[negcut:]
+    pos_cut = int(round(train_frac * len(pos_index)))
+    neg_cut = int(round(train_frac * len(neg_index)))
+    pos_train = pos_index[:pos_cut]
+    pos_test  = pos_index[pos_cut:]
+    neg_train = neg_index[:neg_cut]
+    neg_test  = neg_index[neg_cut:]
     
     #Create features based on n-gram indicators
-    feats_train_pos = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in train_pos]
-    feats_train_neg = [(get_feats_inds(neg_texts_dict[i]), "neg") for i in train_neg]
-    feats_train = feats_train_pos + feats_train_neg
+    pos_feats_train = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in pos_train]
+    neg_feats_train = [(get_feats_inds(neg_texts_dict[i]), "neg") for i in neg_train]
+    feats_train = pos_feats_train + neg_feats_train
     
     #Print number of positive and negative observations used for training and testing
     print("")
-    print("Positive Training: " + str(len(train_pos)))
-    print("Positive Testing:  " + str(len(test_pos)))
-    print("Negative Training: " + str(len(train_neg)))
-    print("Negative Testing:  " + str(len(test_neg)) + "\n")
+    print("Positive Training: " + str(len(pos_train)))
+    print("Positive Testing:  " + str(len(pos_test)))
+    print("Negative Training: " + str(len(neg_train)))
+    print("Negative Testing:  " + str(len(neg_test)) + "\n")
     
     print("==================================================")
     print("Naive Bayes Classifier (NLTK Implementation)\n")
@@ -192,31 +192,31 @@ def main():
     print("Naive Bayes Classifier for Bernoulli Models\n")
     classifier_nbber = nltk.classify.SklearnClassifier(BernoulliNB())
     classifier_nbber.train(feats_train)
-    evaluate(classifier_nbber, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    evaluate(classifier_nbber, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Linear Support Vector Classifier\n")
     classifier_svc = nltk.classify.SklearnClassifier(LinearSVC())
     classifier_svc.train(feats_train)
-    evaluate(classifier_svc, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    evaluate(classifier_svc, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Logistic Regression\n")
     classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression())
     classifier_logit.train(feats_train)
-    evaluate(classifier_logit, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    evaluate(classifier_logit, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Decision Tree\n")
     classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier())
     classifier_tree.train(feats_train)
-    evaluate(classifier_tree, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    evaluate(classifier_tree, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("==================================================")
     print("Random Forest\n")
     classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50))
     classifier_forest.train(feats_train)
-    evaluate(classifier_forest, test_pos, test_neg, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    evaluate(classifier_forest, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     return
 
 if __name__ == "__main__":
