@@ -42,7 +42,9 @@ def match_text(line):
 
 def clean_char(old):
     #Check the length of the argument
-    if len(old) > 1:
+    if len(old) == 0:
+        new = ""
+    elif len(old) >= 2:
         new = " "
     #Apostrophe
     elif old == "'":
