@@ -41,6 +41,7 @@ def match_text(line):
 #Purpose:    Clean character to deal with punctuation, numbers, and foreign accent marks
 
 def clean_char(old):
+    #Check the length of the argument
     if len(old) > 1:
         new = " "
     #Apostrophe
