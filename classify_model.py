@@ -29,8 +29,7 @@ def get_feats_inds(text):
     t = Text(word_tokenize(text))
     g1s = [(g, True) for g in ngrams(t, 1)]
     g2s = [(g, True) for g in ngrams(t, 2)]
-    gs = g1s + g2s
-    return dict(gs)
+    return dict(g1s + g2s)
 
 #Name:       get_feats_counts
 #Arguments:  text (string of text)
@@ -40,8 +39,7 @@ def get_feats_counts(text):
     t = Text(word_tokenize(text))
     g1s = [(g, count) for g, count in FreqDist(ngrams(t, 1)).items()]
     g2s = [(g, count) for g, count in FreqDist(ngrams(t, 2)).items()]
-    gs = g1s + g2s
-    return dict(gs)
+    return dict(g1s + g2s)
 
 #Name:       evaluate
 #Arguments:  classifier (fitted classification model)
