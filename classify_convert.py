@@ -238,7 +238,7 @@ def main():
     f = codecs.open("stop_" + lng + ".txt", "rU")
     for word in f:
         if word.strip() != "":
-            stop_words_list.append(word)
+            stop_words_list.append(word.strip())
     f.close()
     global stop_words
     stop_words = set(stop_words_list)
