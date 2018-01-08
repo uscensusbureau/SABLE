@@ -6,7 +6,6 @@
 import codecs
 import os
 import re
-import string
 
 #Name:       match_page
 #Arguments:  line (line of text from XML file)
@@ -46,19 +45,23 @@ def clean_char(old):
         new = ""
     elif len(old) >= 2:
         new = " "
-    #Apostrophe
-    elif old == "'":
-        new = ""
-    #Other punctuation
-    elif old in string.punctuation:
-        new = " "
-    #Numbers
-    elif old in "0123456789":
-        new = " "
     else:
         #The function "ord" returns the integer representing the Unicode code point of a character
         ucp = ord(old)
-        if (192 <= ucp <= 198) or (224 <= ucp <= 230):
+        #Control codes
+        if (0 <= ucp <= 31):
+            new = " "
+        #Punctuation
+        elif (32 <= ucp <= 38) or (40 <= ucp <= 47) or (58 <= ucp <= 64) or (91 <= ucp <= 96) or (121 <= ucp <= 126) or ucp == 8221:
+            new = " "
+        #Apostrophe
+        elif ucp == 39 or ucp == 8217:
+            new = ""
+        #Numbers
+        elif (48 <= ucp <= 57):
+            new = " "
+        #Letters
+        elif (192 <= ucp <= 198) or (224 <= ucp <= 230):
             new = "a"
         elif ucp == 199 or ucp == 231:
             new = "c"
