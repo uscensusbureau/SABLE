@@ -52,7 +52,7 @@ def clean_char(old):
         if (0 <= ucp <= 31):
             new = " "
         #Punctuation
-        elif (32 <= ucp <= 38) or (40 <= ucp <= 47) or (58 <= ucp <= 64) or (91 <= ucp <= 96) or (121 <= ucp <= 126) or ucp == 8221:
+        elif (32 <= ucp <= 38) or (40 <= ucp <= 47) or (58 <= ucp <= 64) or (91 <= ucp <= 96) or (123 <= ucp <= 126) or ucp == 8221:
             new = " "
         #Apostrophe
         elif ucp == 39 or ucp == 8217:
