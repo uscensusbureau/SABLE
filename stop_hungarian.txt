@@ -16,10 +16,10 @@ amelyeket
 amelyet
 amelynek
 ami
+amig
 amikor
 amit
 amolyan
-amig
 annak
 arra
 arrol
@@ -57,10 +57,10 @@ ekkor
 el
 eleg
 ellen
-elso
 elo
 eloszor
 elott
+elso
 emilyen
 en
 ennek
@@ -159,10 +159,10 @@ semmi
 sok
 sokat
 sokkal
+szamara
 szemben
 szerint
 szinte
-szamara
 talan
 tehat
 teljes
