@@ -61,6 +61,7 @@ etes
 eu
 eue
 eues
+eumes
 eurent
 eus
 eusse
@@ -69,10 +70,9 @@ eusses
 eussiez
 eussions
 eut
-eux
-eumes
-eut
 eutes
+eux
+fumes
 furent
 fus
 fusse
@@ -80,8 +80,6 @@ fussent
 fusses
 fussiez
 fussions
-fut
-fumes
 fut
 futes
 il
@@ -96,10 +94,10 @@ m
 ma
 mais
 me
+meme
 mes
 moi
 mon
-meme
 n
 ne
 nos
