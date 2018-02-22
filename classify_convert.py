@@ -1,32 +1,11 @@
 #Name:            classify_convert.py
-#Purpose:         Convert PDFs that have been manually classified into the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format and extract metadata for use with classify_model.py
+#Purpose:         Convert PDFs in the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format for use with classify_model.py
 #Data Layout:     See README.md
 #Python Version:  2
 
 import codecs
 import os
 import re
-import string
-
-#Global variables
-stop_words = set([])
-probflag = 0
-
-#Name:       convert_pdf_xml
-#Arguments:  pdffile (location of PDF file)
-#            xmlfile (location of XML output)
-#Purpose:    Convert a PDF file to XML format
-
-def convert_pdf_xml(pdffile, xmlfile):
-    global probflag
-    try:
-        #The pdf2txt.py program comes with the PDFMiner module
-        os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
-    except PDFTextExtractionNotAllowed:
-        #Exception indicates text cannot be extracted from the PDF
-        #The problem PDFs will be moved to the /data/pos_problem/ and /data/neg_problem/ folders for inspection
-        probflag = 1
-    return
 
 #Name:       match_page
 #Arguments:  line (line of text from XML file)
@@ -58,30 +37,49 @@ def match_text(line):
 
 #Name:       clean_char
 #Arguments:  old (character)
-#Purpose:    Remove foreign accent from character
+#Purpose:    Clean character to deal with punctuation, numbers, and foreign accent marks
 
 def clean_char(old):
-    if len(old) > 1:
+    #Check the length of the argument
+    if len(old) == 0:
+        new = ""
+    elif len(old) >= 2:
         new = " "
     else:
-        o = ord(old)
-        if (192 <= o <= 198) or (224 <= o <= 230):
+        #The function "ord" returns the integer representing the Unicode code point of a character
+        ucp = ord(old)
+        #Control codes
+        if (0 <= ucp <= 31):
+            new = " "
+        #Punctuation
+        elif (32 <= ucp <= 38) or (40 <= ucp <= 47) or (58 <= ucp <= 64) or (91 <= ucp <= 96) or (123 <= ucp <= 126) or ucp == 8221:
+            new = " "
+        #Apostrophe
+        elif ucp == 39 or ucp == 8217:
+            new = ""
+        #Numbers
+        elif (48 <= ucp <= 57):
+            new = " "
+        #Letters
+        elif (192 <= ucp <= 198) or (224 <= ucp <= 230):
             new = "a"
-        elif o == 199 or o == 231:
+        elif ucp == 199 or ucp == 231:
             new = "c"
-        elif (200 <= o <= 203) or (232 <= o <= 235):
+        elif (200 <= ucp <= 203) or (232 <= ucp <= 235):
             new = "e"
-        elif (204 <= o <= 207) or (236 <= o <= 239):
+        elif (204 <= ucp <= 207) or (236 <= ucp <= 239):
             new = "i"
-        elif o == 209 or o == 241:
+        elif ucp == 209 or ucp == 241:
             new = "n"
-        elif (210 <= o <= 214) or (242 <= o <= 246):
+        elif (210 <= ucp <= 214) or ucp == 216 or (242 <= ucp <= 246) or ucp == 248:
             new = "o"
-        elif (217 <= o <= 220) or (249 <= o <= 252):
+        elif ucp == 223:
+            new = "ss"
+        elif (217 <= ucp <= 220) or (249 <= ucp <= 252):
             new = "u"
-        elif o == 221 or o == 253 or o == 255:
+        elif ucp == 221 or ucp == 253 or ucp == 255:
             new = "y"
-        elif o >= 128:
+        elif ucp >= 128:
             new = " "
         else:
             new = old
@@ -96,6 +94,8 @@ def get_chars(xmlfile):
     page = 0
     textbox = 0
     textline = 0
+    
+    #Open XML file and use regular expressions to parse contents
     f = codecs.open(xmlfile, "rU", encoding="utf8")
     for l in f:
         line = l.strip()
@@ -109,7 +109,7 @@ def get_chars(xmlfile):
             textline = 0
             textbox = int(textboxmatch.group(1))
         elif textlinematch:
-            textline = textline + 1
+            textline += 1
         elif textmatch:
             font = textmatch.group(1)
             x1 = float(textmatch.group(2))
@@ -122,19 +122,18 @@ def get_chars(xmlfile):
     f.close()
     return chars
 
-#Name:       clean_meta
-#Arguments:  text (string)
-#Purpose:    Process string of text and check each word
+#Name:       clean_text
+#Arguments:  text (string of text)
+#Purpose:    Clean string of text and check each word against a list of stop words
 
-def clean_meta(text):
+def clean_text(text):
     text = text.lower()
-    text = re.sub("\t+", " ", text)
-    text = re.sub("\n+", " ", text)
-    text = re.sub("[0-9]+", "", text)
-    text = re.sub("-+", " ", text)
-    text = re.sub(" +", " ", text)
+    text = re.sub("\s+", " ", text)
+    
+    #Remove stop words
     text_clean = []
     text = text.split(" ")
+    global stop_words
     for word in text:
         word = word.strip()
         if word not in stop_words:
@@ -142,15 +141,16 @@ def clean_meta(text):
     text_clean = " ".join(text_clean)
     return text_clean
 
-#Name:       write_meta
+#Name:       write_text
 #Arguments:  chars (list of tuples)
-#            metafile (location of TXT metafile)
+#            txtfile (location of TXT file)
 #Purpose:    Construct words character by character
 
-def write_meta(chars, metafile):
-    meta = []
-    chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
+def write_text(chars, txtfile):
+    text = []
     
+    #Sort characters according to page, textbox, textline, y1, and x1
+    chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
     page_cur = chars[0][0]
     textbox_cur = chars[0][1]
     textline_cur = chars[0][2]
@@ -170,16 +170,12 @@ def write_meta(chars, metafile):
             textline_cur = textline_new
             space_flag = 1
         if space_flag == 1:
-            meta.append(" ")
-        if char[9] in string.punctuation:
-            meta.append(" ")
-        else:
-            meta.append(char[9])
-
-    meta = "".join(meta)
-    meta_clean = clean_meta(meta)
-    f = codecs.open(metafile, "w")
-    f.write(meta_clean)
+            text.append(" ")
+        text.append(char[9])
+    text = "".join(text)
+    
+    f = codecs.open(txtfile, "w")
+    f.write(clean_text(text))
     f.close()
     return
 
@@ -189,63 +185,78 @@ def write_meta(chars, metafile):
 #Purpose:    Convert a PDF document of a given class to TXT format
 
 def create_files(clss, docname):
+    #Create file locations
     pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
     xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
-    metafile = "/data/" + clss + "_meta/" + docname + ".txt"
+    txtfile  = "/data/" + clss + "_txt/"  + docname + ".txt"
+    probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
 
-    newflag = 0
-    global probflag
-    probflag = 0
+    #prob_flag indicates whether there is a problem extracting text from the PDF
+    #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
+    prob_flag = 0
     chars = []
 
-    if not os.path.isfile(metafile):
-        newflag = 1
-        convert_pdf_xml(pdffile, xmlfile)
+    #If the TXT file does not already exist, then try creating it
+    if not os.path.isfile(txtfile):
+        try:
+            #The pdf2txt.py program comes with the PDFMiner module
+            os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
+        except PDFTextExtractionNotAllowed:
+            #Exception indicates that text cannot be extracted from the PDF
+            prob_flag = 1
         if not os.path.isfile(xmlfile):
-            probflag = 1
+            prob_flag = 1
         elif os.stat(xmlfile).st_size == 0:
-            probflag = 1
-        if probflag == 0:
+            prob_flag = 1
+        if prob_flag == 0:
             chars = get_chars(xmlfile)
             if len(chars) == 0:
-                probflag = 1
-    if newflag == 1 and probflag == 0:
-        write_meta(chars, metafile)
-        if os.path.isfile(xmlfile):
-            os.remove(xmlfile)
-    elif newflag == 1 and probflag == 1:
-        if os.path.isfile(xmlfile):
-            os.remove(xmlfile)
-        if os.path.isfile(metafile):
-            os.remove(metafile)
-        newpdffile = "/data/" + clss + "_problem/" + docname + ".pdf"
-        os.system("mv " + pdffile + " " + newpdffile)
-
-    if newflag == 1 and probflag == 0:
-        print(docname)
-    elif newflag == 1 and probflag == 1:
-        print("!!! PROBLEM !!!", docname)
+                prob_flag = 1
+        #Check prob_flag value and act accordingly
+        if prob_flag == 0:
+            write_text(chars, txtfile)
+            if os.path.isfile(xmlfile):
+                #The intermediate XML file is deleted because it tends to be large
+                os.remove(xmlfile)
+            print(docname)
+        elif prob_flag == 1:
+            if os.path.isfile(xmlfile):
+                #The intermediate XML file is deleted because it tends to be large
+                os.remove(xmlfile)
+            if os.path.isfile(txtfile):
+                #Any text that has been extracted from the problem PDF is deleted
+                os.remove(txtfile)
+            os.system("mv " + pdffile + " " + probfile)
+            print("!!! PROBLEM: " + docname)
     return
 
 def main():
+    #Language of PDFs (used to remove stop words)
     lng  = "english"
+    #Class of PDFs ("pos" or "neg")
     clss = "pos"
 
+    #Read in stop words
     stop_words_list = []
     f = codecs.open("stop_" + lng + ".txt", "rU")
-    for w in f:
-        if w.strip() != "":
-            stop_words_list.append(w)
+    for word in f:
+        if word.strip() != "":
+            stop_words_list.append(word.strip())
     f.close()
     global stop_words
     stop_words = set(stop_words_list)
 
+    #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/data/" + clss + "_pdf"))
+    pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
     for pdf in pdfs:
-        pdfmatch = re.search(r"(\S+)\.pdf$", pdf)
+        pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfmatch:
             docname = pdfmatch.group(1)
+            if pdfmatch.group(2) != "pdf":
+                oldfile = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile = "/data/" + clss + "_pdf/" + docname + ".pdf"
+                os.system("mv " + oldfile + " " + newfile)
             create_files(clss, docname)
     print("")
     return
