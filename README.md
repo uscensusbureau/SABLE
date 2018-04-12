@@ -4,11 +4,17 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling, web scraping, and text classification with the help of machine learning.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape the data.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling, web scraping, and text classification with the help of machine learning.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
 
 ## Software
 
-SABLE is based on two main pieces of open-source software: Apache Nutch, a Java-based web crawler, and Python.  Nutch is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate classification models.  For PDFs containing useful data, templates in the form of additional Python programs can be developed to scrape the data.  SABLE uses the following Python modules: scikit-learn, Natural Language Toolkit (NLTK), PDFMiner (Python 2.X version), and PDFMiner3K (a Python 3.X port of PDFMiner).
+SABLE is based on the following pieces of open-source software.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate classification models.
+
+* [Apache Nutch](http://nutch.apache.org/)
+* [Python](http://www.python.org/)
+  * [scikit-learn](http://www.scikit-learn.org/stable/)
+  * [Natural Language Toolkit (NLTK)](https://www.nltk.org/)
+  * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
 ## Description of Contents
 
