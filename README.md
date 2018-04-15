@@ -4,11 +4,11 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling, web scraping, and text classification with the help of machine learning.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new sources of data on the web in PDF format, apply a classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
 
 ## Software
 
-SABLE is based on the following pieces of open-source software.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate classification models.
+SABLE is based on the following pieces of open-source software.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms.
 
 * [Apache Nutch](http://nutch.apache.org/)
 * [Python](http://www.python.org/)
@@ -18,7 +18,7 @@ SABLE is based on the following pieces of open-source software.  Apache Nutch is
 
 ## Description of Contents
 
-This repository contains Python programs for converting PDFs to TXT format and for fitting and evaluating classification models that predict whether a PDF contains useful data based on the extracted text.  Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly.
+This repository contains Python programs for converting PDFs to TXT format and for fitting and evaluating classification models that predict whether a PDF contains useful data based on the extracted text.  Example PDFs and their corresponding TXT files are provided.  This repository also contains lists of NLTK stop words for multiple languages.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Organization of Files
 
