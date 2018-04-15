@@ -59,4 +59,5 @@ The following organization of data, programs, and supplementary files on a Linux
 /stop_portuguese.txt
 /stop_spanish.txt
 /stop_swedish.txt
+/stop_turkish.txt
 ```
