@@ -17,6 +17,8 @@ import random
 import re
 from sklearn.ensemble import *
 from sklearn.linear_model import *
+from sklearn.metrics import *
+from sklearn.model_selection import *
 from sklearn.naive_bayes import *
 from sklearn.svm import *
 from sklearn.tree import *
@@ -29,6 +31,8 @@ def get_feats_inds(text):
     t = Text(word_tokenize(text))
     g1s = [(g, True) for g in ngrams(t, 1)]
     g2s = [(g, True) for g in ngrams(t, 2)]
+    #3-grams, 4-grams, and so on can also be used
+    #g3s = [(g, True) for g in ngrams(t, 3)]
     return dict(g1s + g2s)
 
 #Name:       get_feats_counts
@@ -39,6 +43,8 @@ def get_feats_counts(text):
     t = Text(word_tokenize(text))
     g1s = [(g, count) for g, count in FreqDist(ngrams(t, 1)).items()]
     g2s = [(g, count) for g, count in FreqDist(ngrams(t, 2)).items()]
+    #3-grams, 4-grams, and so on can also be used
+    #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
 #Name:       evaluate
@@ -60,12 +66,18 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     tn = 0
     #Number of false positives
     fp = 0
+    #List of true classes
+    true_all = []
+    #List of predicted classes
+    pred_all = []
     
     #Print document names of false negatives
     print("False Negatives")
     print("---------------")
     for i in pos_test:
+        true_all.append("pos")
         pred = classifier.classify(get_feats_inds(pos_texts_dict[i]))
+        pred_all.append(pred)
         if pred == "pos":
             tp += 1
         else:
@@ -77,7 +89,9 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     print("False Positives")
     print("---------------")
     for i in neg_test:
+        true_all.append("neg")
         pred = classifier.classify(get_feats_inds(neg_texts_dict[i]))
+        pred_all.append(pred)
         if pred == "neg":
             tn += 1
         else:
@@ -87,20 +101,44 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     
     #Accuracy
     acc = round((tp + tn)/(tp + tn + fn + fp), 3)
+    
     #F1 score
-    f1 = round((2*tp)/(2*tp + fn + fp), 3)
+    if (2*tp + fn + fp) > 0:
+        f1 = round((2*tp)/(2*tp + fn + fp), 3)
+    else:
+        f1 = "NaN"
+    
     #True positive rate (also known as sensitivity and recall)
-    tpr = round(tp/(tp + fn), 3)
+    if (tp + fn) > 0:
+        tpr = round(tp/(tp + fn), 3)
+    else:
+        tpr = "NaN"
+    
     #True negative rate (also known as specificity)
-    tnr = round(tn/(tn + fp), 3)
+    if (tn + fp) > 0:
+        tnr = round(tn/(tn + fp), 3)
+    else:
+        tnr = "NaN"
+    
     #Positive predictive rate (also known as precision)
-    ppr = round(tp/(tp + fp), 3)
+    if (tp + fp) > 0:
+        ppr = round(tp/(tp + fp), 3)
+    else:
+        ppr = "NaN"
+    
     #Negative predictive rate
-    npr = round(tn/(tn + fn), 3)
+    if (tn + fn) > 0:
+        npr = round(tn/(tn + fn), 3)
+    else:
+        npr = "NaN"
+    
     #Kappa statistic
     p0 = (tp + tn)/(tp + tn + fn + fp)
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
-    kappa = round((p0 - pe)/(1 - pe), 3)
+    if pe < 1:
+        kappa = round((p0 - pe)/(1 - pe), 3)
+    else:
+        kappa = 1
     
     #Print classifier performance statistics
     print("Summary")
@@ -115,7 +153,14 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     print("tnr   = " + str(tnr))
     print("ppr   = " + str(ppr))
     print("npr   = " + str(npr))
-    print("kappa = " + str(kappa) + "\n")
+    print("kappa = " + str(kappa))
+    print("")
+    
+    #Print confusion matrix
+    print("Confusion Matrix")
+    print("----------------")
+    print(confusion_matrix(true_all, pred_all, ["pos", "neg"]))
+    print("")
     return
 
 def main():
@@ -125,7 +170,7 @@ def main():
     neg_docs  = []
     
     #Read in text from documents classified as positive
-    pos_directory = os.listdir("/data/pos_txt/")
+    pos_directory = sorted(os.listdir("/data/pos_txt/"))
     for f in pos_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
@@ -136,7 +181,7 @@ def main():
             tmpfile.close()
     
     #Read in text from documents classified as negative
-    neg_directory = os.listdir("/data/neg_txt/")
+    neg_directory = sorted(os.listdir("/data/neg_txt/"))
     for f in neg_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
@@ -163,10 +208,10 @@ def main():
     train_frac = 2.0/3.0
     pos_cut = int(round(train_frac * len(pos_index)))
     neg_cut = int(round(train_frac * len(neg_index)))
-    pos_train = pos_index[:pos_cut]
-    pos_test  = pos_index[pos_cut:]
-    neg_train = neg_index[:neg_cut]
-    neg_test  = neg_index[neg_cut:]
+    pos_train = sorted(pos_index[:pos_cut])
+    pos_test  = sorted(pos_index[pos_cut:])
+    neg_train = sorted(neg_index[:neg_cut])
+    neg_test  = sorted(neg_index[neg_cut:])
     
     #Create features based on n-gram indicators
     pos_feats_train = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in pos_train]
@@ -180,39 +225,54 @@ def main():
     print("Negative Training: " + str(len(neg_train)))
     print("Negative Testing:  " + str(len(neg_test)) + "\n")
     
-    print("==================================================")
-    print("Naive Bayes Classifier (NLTK Implementation)\n")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Naive Bayes Classifier (NLTK Implementation)   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     classifier_nb = NaiveBayesClassifier.train(feats_train)
     classifier_nb.show_most_informative_features(n=50)
     print("")
     
-    print("==================================================")
-    print("Naive Bayes Classifier for Bernoulli Models\n")
-    classifier_nbber = nltk.classify.SklearnClassifier(BernoulliNB())
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Naive Bayes Classifier (Bernoulli Model)   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_nbber = nltk.classify.SklearnClassifier(BernoulliNB(alpha=1.0))
     classifier_nbber.train(feats_train)
     evaluate(classifier_nbber, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("==================================================")
-    print("Linear Support Vector Classifier\n")
-    classifier_svc = nltk.classify.SklearnClassifier(LinearSVC())
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Naive Bayes Classifier (Bernoulli Model) with Cross-Validated Smoothing Parameter   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    n_folds = 10
+    alpha_list = [0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 5.0]
+    classifier_nbbercv = nltk.classify.SklearnClassifier(GridSearchCV(BernoulliNB(), cv=n_folds, param_grid={"alpha": alpha_list}))
+    classifier_nbbercv.train(feats_train)
+    evaluate(classifier_nbbercv, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Linear Support Vector Classifier   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_svc = nltk.classify.SklearnClassifier(LinearSVC(class_weight="balanced"))
     classifier_svc.train(feats_train)
     evaluate(classifier_svc, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("==================================================")
-    print("Logistic Regression\n")
-    classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression())
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Logistic Regression   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression(class_weight="balanced"))
     classifier_logit.train(feats_train)
     evaluate(classifier_logit, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("==================================================")
-    print("Decision Tree\n")
-    classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier())
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Decision Tree   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier(class_weight="balanced"))
     classifier_tree.train(feats_train)
     evaluate(classifier_tree, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("==================================================")
-    print("Random Forest\n")
-    classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50))
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Random Forest   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50, class_weight="balanced"))
     classifier_forest.train(feats_train)
     evaluate(classifier_forest, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     return
