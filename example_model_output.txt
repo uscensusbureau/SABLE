@@ -1,0 +1,531 @@
+
+Positive Training: 275
+Positive Testing:  137
+Negative Training: 617
+Negative Testing:  309
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Naive Bayes Classifier (NLTK Implementation)   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+Most Informative Features
+  ('hazardous', 'waste') = True              pos : neg    =     69.4 : 1.0
+('collections', 'fiscal') = True              pos : neg    =     56.0 : 1.0
+       ('fees', 'total') = True              pos : neg    =     54.5 : 1.0
+('gross', 'collections') = True              pos : neg    =     48.5 : 1.0
+('miscellaneous', 'taxes') = True              pos : neg    =     48.5 : 1.0
+('revenue', 'collections') = True              pos : neg    =     45.5 : 1.0
+       ('waste', 'tire') = True              pos : neg    =     45.5 : 1.0
+('total', 'collections') = True              pos : neg    =     44.3 : 1.0
+      ('total', 'motor') = True              pos : neg    =     41.1 : 1.0
+    ('tax', 'alcoholic') = True              pos : neg    =     41.1 : 1.0
+        ('fee', 'motor') = True              pos : neg    =     39.6 : 1.0
+ ('percent', 'increase') = True              pos : neg    =     36.6 : 1.0
+      ('taxes', 'total') = True              pos : neg    =     34.5 : 1.0
+           ('scotland',) = True              pos : neg    =     33.6 : 1.0
+     ('adams', 'county') = True              pos : neg    =     33.6 : 1.0
+               ('util',) = True              pos : neg    =     32.1 : 1.0
+ ('districts', 'county') = True              pos : neg    =     32.1 : 1.0
+            ('nuclear',) = True              pos : neg    =     32.1 : 1.0
+   ('services', 'total') = True              pos : neg    =     32.1 : 1.0
+  ('revenue', 'monthly') = True              pos : neg    =     32.1 : 1.0
+             ('portal',) = True              pos : neg    =     30.6 : 1.0
+         ('tax', 'lieu') = True              pos : neg    =     30.6 : 1.0
+    ('history', 'major') = True              pos : neg    =     30.6 : 1.0
+      ('stabilization',) = True              pos : neg    =     30.6 : 1.0
+ ('revenue', 'millions') = True              pos : neg    =     30.6 : 1.0
+ ('million', 'increase') = True              pos : neg    =     30.6 : 1.0
+         ('tax', 'beer') = True              pos : neg    =     30.6 : 1.0
+              ('gates',) = True              pos : neg    =     30.6 : 1.0
+ ('total', 'individual') = True              pos : neg    =     30.6 : 1.0
+            ('novelty',) = True              pos : neg    =     29.1 : 1.0
+         ('rutherford',) = True              pos : neg    =     29.1 : 1.0
+('county', 'distribution') = True              pos : neg    =     29.1 : 1.0
+  ('harrison', 'county') = True              pos : neg    =     29.1 : 1.0
+            ('millage',) = True              pos : neg    =     29.1 : 1.0
+ ('plumbing', 'heating') = True              pos : neg    =     29.1 : 1.0
+  ('forest', 'products') = True              pos : neg    =     29.1 : 1.0
+   ('exceed', 'percent') = True              pos : neg    =     29.1 : 1.0
+        ('lubricating',) = True              pos : neg    =     29.1 : 1.0
+            ('halifax',) = True              pos : neg    =     29.1 : 1.0
+     ('tax', 'research') = True              pos : neg    =     29.1 : 1.0
+       ('fuel', 'motor') = True              pos : neg    =     27.6 : 1.0
+('increased', 'percent') = True              pos : neg    =     27.6 : 1.0
+        ('fy', 'change') = True              pos : neg    =     27.6 : 1.0
+('collections', 'state') = True              pos : neg    =     27.6 : 1.0
+('pollution', 'control') = True              pos : neg    =     27.6 : 1.0
+    ('sections', 'ohio') = True              pos : neg    =     27.6 : 1.0
+ ('millions', 'dollars') = True              pos : neg    =     27.6 : 1.0
+              ('olive',) = True              pos : neg    =     27.6 : 1.0
+              ('scrap',) = True              pos : neg    =     27.6 : 1.0
+ ('major', 'exemptions') = True              pos : neg    =     27.6 : 1.0
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Naive Bayes Classifier (Bernoulli Model)   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+0602
+07_January_2016
+082015coll
+0909
+10-007%20Press%20Release%20Prelim_Fall%202010
+10-15TaxesFees
+10dolChart
+1115lo
+12-13txrank
+1205
+13coretr
+1996
+2003TaxCollectionsByCounty
+2007-IIT-Stratifcation
+2007MotorVehicleReport
+2009-ZIP-Code
+2012-13_stat_supp
+20121019_01
+2012_AR_Section_3_Tangible_Property_Tax_Replacement_Fund
+2012_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2013_BSOT_Section2_Commercial_Activity_Tax
+2013_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2014_AR_Section_2_Corporation_Franchise_Tax
+2014_AR_Section_5_Sales_and_Use_Tax_Counties_and_Transit_Authorities
+201505Local1PercentMealBeverageCollections
+201511Local1PercentHotelTaxCollection
+201512Local1PercentMealBeverageTaxCollection
+2015GamingAnnualReport
+2015_AR_Section_2_Alcoholic_Beverage_Taxes
+2QTR_2014_COGSQuarterlyCountyDistribution_CoverLetter
+2QTR_2015_COGOil-Gas-Coal_NaturalResourceDistributions
+36%20-%20property%20tax%20-%20real
+58orange2015
+60palmbeach2015
+Aggregate_Tax_Information
+BRE%20Posters
+CASH0106
+Exec%20%20Dashboard%2007-31-15
+FY14_hotel_collections_february2014
+FY14_hotel_collections_may2014
+FY15_hotel_allocation_november2014
+FY15_mealsandbeverage%20_collections_september2014
+FY2016_DEC%20Fincl%20Comp%20Sum%20FINAL%2001%2006%2016
+FebruaryFY2014RevenueReport
+Form_CIT_%20Booklet_2014
+HIGHWAYREPORT037022010
+HWY%20REPORT%20DECEMBER%202015%20INFOBook1
+IIT-ZIPCode-2011-Preliminary
+Iowa%20Motor%20Fuel%20Monthly%20Report%20June%202015_%20821000615
+June2012stat
+June_07_Stat
+MCR0613
+NetCollectionDistribution122015
+Net_Collection_June_2015_Final
+RevenueAtAGlance
+SUQR1213
+SUT_Stat_Dec_13
+SUT_Stat_Jan_11
+SUT_Stat_July_10
+SUT_Stat_July_12
+SUT_Stat_Mar_13
+SUT_Stat_Nov_14
+SUT_Stat_Nov_15
+SUT_Stat_Sep_15
+Sales_Tax
+TAXCOL2008
+abs_112014
+abs_112015
+absjun08
+abssep03
+cmreb12
+corp2008
+corp2011
+estate13
+fn1205_oil-prices
+january15
+liquorRevenueFYE2005
+liquorTaxCollection
+manufactured_home_tax
+mcr0605_fy05
+monthly_sales_4-09
+monthly_sales_5-11
+monthly_sales_8-09
+p081612a
+revenue_fromtaxes_administered_by_the_tc
+revrevu3_08
+revtaxcode_revtaxcode
+scs201602
+severence_tax
+stats_45D0911
+stats_cash0215
+stats_cash0712
+stats_cash1010
+stats_div0913
+stats_div0915
+stats_tran0510
+stats_tran0715_revised2
+stats_tran1211
+summary2015
+tgfy12
+utility_distribution_9-11
+wasteTireRevenue
+wineRevenueFYE2007
+wineRevenueFYE2011
+
+False Positives
+---------------
+2014_Legislative_Summary
+guide_rptg_holderhandbook
+
+Summary
+-------
+tp    = 32
+fn    = 105
+tn    = 307
+fp    = 2
+acc   = 0.76
+f1    = 0.374
+tpr   = 0.234
+tnr   = 0.994
+ppr   = 0.941
+npr   = 0.745
+kappa = 0.287
+
+Confusion Matrix
+----------------
+[[ 32 105]
+ [  2 307]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Naive Bayes Classifier (Bernoulli Model) with Cross-Validated Smoothing Parameter   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+07_January_2016
+082015coll
+10-007%20Press%20Release%20Prelim_Fall%202010
+10-15TaxesFees
+1115lo
+13coretr
+2003TaxCollectionsByCounty
+2007-IIT-Stratifcation
+2007MotorVehicleReport
+2009-ZIP-Code
+20121019_01
+2012_AR_Section_3_Tangible_Property_Tax_Replacement_Fund
+2012_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2013_BSOT_Section2_Commercial_Activity_Tax
+2013_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2014_AR_Section_2_Corporation_Franchise_Tax
+201505Local1PercentMealBeverageCollections
+201511Local1PercentHotelTaxCollection
+201512Local1PercentMealBeverageTaxCollection
+2015GamingAnnualReport
+2015_AR_Section_2_Alcoholic_Beverage_Taxes
+2QTR_2014_COGSQuarterlyCountyDistribution_CoverLetter
+2QTR_2015_COGOil-Gas-Coal_NaturalResourceDistributions
+58orange2015
+60palmbeach2015
+Aggregate_Tax_Information
+BRE%20Posters
+CASH0106
+Exec%20%20Dashboard%2007-31-15
+FY14_hotel_collections_february2014
+FY14_hotel_collections_may2014
+FY15_hotel_allocation_november2014
+FY15_mealsandbeverage%20_collections_september2014
+FY2016_DEC%20Fincl%20Comp%20Sum%20FINAL%2001%2006%2016
+FebruaryFY2014RevenueReport
+Form_CIT_%20Booklet_2014
+HIGHWAYREPORT037022010
+HWY%20REPORT%20DECEMBER%202015%20INFOBook1
+IIT-ZIPCode-2011-Preliminary
+Iowa%20Motor%20Fuel%20Monthly%20Report%20June%202015_%20821000615
+June2012stat
+June_07_Stat
+NetCollectionDistribution122015
+RevenueAtAGlance
+SUT_Stat_Jan_11
+SUT_Stat_July_10
+SUT_Stat_July_12
+SUT_Stat_Nov_14
+SUT_Stat_Nov_15
+SUT_Stat_Sep_15
+Sales_Tax
+TAXCOL2008
+abs_112014
+abs_112015
+absjun08
+abssep03
+corp2008
+corp2011
+estate13
+fn1205_oil-prices
+liquorRevenueFYE2005
+liquorTaxCollection
+manufactured_home_tax
+mcr0605_fy05
+p081612a
+revenue_fromtaxes_administered_by_the_tc
+revrevu3_08
+revtaxcode_revtaxcode
+scs201602
+severence_tax
+stats_cash0215
+stats_cash0712
+stats_cash1010
+stats_div0913
+stats_div0915
+tgfy12
+wasteTireRevenue
+wineRevenueFYE2007
+wineRevenueFYE2011
+
+False Positives
+---------------
+2014%20Legislative%20Update
+2014_Legislative_Summary
+Form_2EC_2012
+IL07-20
+hist-taxes-handout-2011
+
+Summary
+-------
+tp    = 57
+fn    = 80
+tn    = 304
+fp    = 5
+acc   = 0.809
+f1    = 0.573
+tpr   = 0.416
+tnr   = 0.984
+ppr   = 0.919
+npr   = 0.792
+kappa = 0.472
+
+Confusion Matrix
+----------------
+[[ 57  80]
+ [  5 304]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Linear Support Vector Classifier   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+082015coll
+10-007%20Press%20Release%20Prelim_Fall%202010
+2012_AR_Section_3_Tangible_Property_Tax_Replacement_Fund
+Aggregate_Tax_Information
+Form_2EZ_Booklet_2010
+Form_CIT_%20Booklet_2014
+LongBooklet_2010
+TAXCOL2008
+ar-2004
+cmreb12
+estate13
+liquorTaxCollection
+munagi13
+revrevu3_08
+revtaxcode_revtaxcode
+
+False Positives
+---------------
+115localratios
+ROADS_10FWDem
+Tax_Commissioner_Training_Schedule_by_Date
+
+Summary
+-------
+tp    = 121
+fn    = 16
+tn    = 306
+fp    = 3
+acc   = 0.957
+f1    = 0.927
+tpr   = 0.883
+tnr   = 0.99
+ppr   = 0.976
+npr   = 0.95
+kappa = 0.897
+
+Confusion Matrix
+----------------
+[[121  16]
+ [  3 306]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Logistic Regression   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+10-007%20Press%20Release%20Prelim_Fall%202010
+Aggregate_Tax_Information
+Form_2EZ_Booklet_2010
+Form_CIT_%20Booklet_2014
+LongBooklet_2010
+TAXCOL2008
+ar-2004
+cmreb12
+estate13
+liquorTaxCollection
+munagi13
+revrevu3_08
+revtaxcode_revtaxcode
+
+False Positives
+---------------
+115localratios
+1750209
+ROADS_10FWDem
+Tax_Commissioner_Training_Schedule_by_Date
+stats_1751209
+
+Summary
+-------
+tp    = 123
+fn    = 14
+tn    = 304
+fp    = 5
+acc   = 0.957
+f1    = 0.928
+tpr   = 0.898
+tnr   = 0.984
+ppr   = 0.961
+npr   = 0.956
+kappa = 0.898
+
+Confusion Matrix
+----------------
+[[123  14]
+ [  5 304]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Decision Tree   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+10-007%20Press%20Release%20Prelim_Fall%202010
+10-15TaxesFees
+13coretr
+2009-ZIP-Code
+2012_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2013_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+Aggregate_Tax_Information
+Form_2EZ_Booklet_2010
+IIT-ZIPCode-2011-Preliminary
+June2012stat
+June_07_Stat
+LongBooklet_2010
+SUT_Stat_Jan_11
+SUT_Stat_July_10
+Sales_Tax
+TAXCOL2008
+cmreb12
+munagi13
+revrevu3_08
+revtaxcode_revtaxcode
+wineRevenueFYE2011
+
+False Positives
+---------------
+115localratios
+12a638_i
+1QTR_2014_COGSSpecialRevenueLetter
+2014%20Legislative%20Update
+2014T_AR_Introduction_Tax_Commissioner_Letter.
+2014_Legislative_Summary
+IL07-20
+INT-3_2015
+RN_05-04
+ROADS_10FWDem
+Rule%20560-7-8-.03%20Alternate%20Method%20of%20Determining%20Income
+SB502
+Tax_Commissioner_Training_Schedule_by_Date
+const%20fee%20adjustment
+edi_specs_2013_revised2
+hist-taxes-handout-2011
+kerford_order
+nil
+pitguide_chapter_20
+
+Summary
+-------
+tp    = 116
+fn    = 21
+tn    = 290
+fp    = 19
+acc   = 0.91
+f1    = 0.853
+tpr   = 0.847
+tnr   = 0.939
+ppr   = 0.859
+npr   = 0.932
+kappa = 0.788
+
+Confusion Matrix
+----------------
+[[116  21]
+ [ 19 290]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Random Forest   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+07_January_2016
+10-007%20Press%20Release%20Prelim_Fall%202010
+2007-IIT-Stratifcation
+2009-ZIP-Code
+2014_AR_Section_2_Corporation_Franchise_Tax
+Aggregate_Tax_Information
+BRE%20Posters
+Form_2EZ_Booklet_2010
+Form_CIT_%20Booklet_2014
+IIT-ZIPCode-2011-Preliminary
+LongBooklet_2010
+Sales_Tax
+TAXCOL2008
+estate13
+fn1205_oil-prices
+liquorTaxCollection
+munagi13
+revrevu3_08
+revtaxcode_revtaxcode
+
+False Positives
+---------------
+115localratios
+2014%20Legislative%20Update
+2014_Legislative_Summary
+IL07-20
+hist-taxes-handout-2011
+
+Summary
+-------
+tp    = 117
+fn    = 20
+tn    = 304
+fp    = 5
+acc   = 0.944
+f1    = 0.903
+tpr   = 0.854
+tnr   = 0.984
+ppr   = 0.959
+npr   = 0.938
+kappa = 0.864
+
+Confusion Matrix
+----------------
+[[117  20]
+ [  5 304]]
+
