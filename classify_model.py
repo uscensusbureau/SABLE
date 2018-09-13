@@ -20,6 +20,7 @@ from sklearn.linear_model import *
 from sklearn.metrics import *
 from sklearn.model_selection import *
 from sklearn.naive_bayes import *
+from sklearn.neighbors import *
 from sklearn.svm import *
 from sklearn.tree import *
 
@@ -239,14 +240,32 @@ def main():
     classifier_nbber.train(feats_train)
     evaluate(classifier_nbber, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("@@@   Naive Bayes Classifier (Bernoulli Model) with Cross-Validated Smoothing Parameter   @@@")
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Naive Bayes Classifier (Bernoulli Model)   @@@")
+    print("@@@   with Cross-Validated Smoothing Parameter   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     n_folds = 10
     alpha_list = [0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 5.0]
     classifier_nbbercv = nltk.classify.SklearnClassifier(GridSearchCV(BernoulliNB(), cv=n_folds, param_grid={"alpha": alpha_list}))
     classifier_nbbercv.train(feats_train)
     evaluate(classifier_nbbercv, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   K-Nearest Neighbors Classifier   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    classifier_knn = nltk.classify.SklearnClassifier(KNeighborsClassifier(n_neighbors=5))
+    classifier_knn.train(feats_train)
+    evaluate(classifier_knn, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   K-Nearest Neighbors Classifier                       @@@")
+    print("@@@   with Cross-Validated Number of Neighbors Parameter   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    n_folds = 10
+    n_neighbors_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    classifier_knncv = nltk.classify.SklearnClassifier(GridSearchCV(KNeighborsClassifier(), cv=n_folds, param_grid={"n_neighbors": n_neighbors_list}))
+    classifier_knncv.train(feats_train)
+    evaluate(classifier_knncv, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Linear Support Vector Classifier   @@@")
@@ -262,19 +281,20 @@ def main():
     classifier_logit.train(feats_train)
     evaluate(classifier_logit, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("@@@   Decision Tree   @@@")
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Decision Tree Classifier   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier(class_weight="balanced"))
     classifier_tree.train(feats_train)
     evaluate(classifier_tree, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("@@@   Random Forest   @@@")
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@   Random Forest Classifier   @@@")
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50, class_weight="balanced"))
     classifier_forest.train(feats_train)
     evaluate(classifier_forest, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    
     return
 
 if __name__ == "__main__":

@@ -196,9 +196,10 @@ Confusion Matrix
 [[ 32 105]
  [  2 307]]
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@   Naive Bayes Classifier (Bernoulli Model) with Cross-Validated Smoothing Parameter   @@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Naive Bayes Classifier (Bernoulli Model)   @@@
+@@@   with Cross-Validated Smoothing Parameter   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 False Negatives
 ---------------
@@ -310,6 +311,188 @@ Confusion Matrix
 [[ 57  80]
  [  5 304]]
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   K-Nearest Neighbors Classifier   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+07_January_2016
+082015coll
+10-007%20Press%20Release%20Prelim_Fall%202010
+10-15TaxesFees
+10dolChart
+12-13txrank
+13coretr
+1996
+2000
+2003TaxCollectionsByCounty
+20042005AnnualReport
+2007-IIT-Stratifcation
+2007MotorVehicleReport
+2009-ZIP-Code
+2012-13_stat_supp
+20121019_01
+2012_AR_Section_3_Tangible_Property_Tax_Replacement_Fund
+2012_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2013_BSOT_Section2_Commercial_Activity_Tax
+2013_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2014_AR_Section_2_Corporation_Franchise_Tax
+2014_AR_Section_5_Sales_and_Use_Tax_Counties_and_Transit_Authorities
+201505Local1PercentMealBeverageCollections
+201511Local1PercentHotelTaxCollection
+201512Local1PercentMealBeverageTaxCollection
+2015GamingAnnualReport
+2015_AR_Section_2_Alcoholic_Beverage_Taxes
+201602MonthlyAndYTDCashCollections
+36%20-%20property%20tax%20-%20real
+96-318-04
+96-318-05
+Aggregate_Tax_Information
+AnnualReportFY2008-Rev11Dec09
+AnnualRpt0506
+BRE%20Posters
+BiennialReport14-NaturalResourceTaxes
+BiennialReport14-OtherTaxes
+FY11_Annual_Report_Web
+FY12_Annual_Report_Web
+FY14_hotel_collections_february2014
+FY14_hotel_collections_may2014
+FY15_hotel_allocation_november2014
+FY15_mealsandbeverage%20_collections_september2014
+FY2016_DEC%20Fincl%20Comp%20Sum%20FINAL%2001%2006%2016
+FebruaryFY2014RevenueReport
+Form_2EZ_Booklet_2010
+Form_CIT_%20Booklet_2014
+Form_CLT-4S_Booklet_2013
+Form_CLT-4S_Booklet_2015
+IIT-ZIPCode-2011-Preliminary
+Iowa%20Motor%20Fuel%20Monthly%20Report%20June%202015_%20821000615
+LongBooklet_2010
+NetCollectionDistribution122015
+RevenueAtAGlance
+SUQR1213
+Sales_Tax
+TAXCOL2008
+annualreport9798
+ar-2004
+cmreb12
+corp2008
+corp2011
+estate13
+fn
+fn1205_oil-prices
+liquorRevenueFYE2005
+liquorTaxCollection
+manufactured_home_tax
+munagi13
+p081612a
+revenue_fromtaxes_administered_by_the_tc
+revrevu3_08
+revtaxcode_revtaxcode
+severence_tax
+summary2015
+
+False Positives
+---------------
+115localratios
+
+Summary
+-------
+tp    = 61
+fn    = 76
+tn    = 308
+fp    = 1
+acc   = 0.827
+f1    = 0.613
+tpr   = 0.445
+tnr   = 0.997
+ppr   = 0.984
+npr   = 0.802
+kappa = 0.521
+
+Confusion Matrix
+----------------
+[[ 61  76]
+ [  1 308]]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   K-Nearest Neighbors Classifier                       @@@
+@@@   with Cross-Validated Number of Neighbors Parameter   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+False Negatives
+---------------
+052015coll
+07_January_2016
+082015coll
+10-007%20Press%20Release%20Prelim_Fall%202010
+10-15TaxesFees
+12-13txrank
+1996
+2007-IIT-Stratifcation
+2012-13_stat_supp
+2012_AR_Section_3_Tangible_Property_Tax_Replacement_Fund
+2012_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2013_BSOT_Section3_Resort_Area_Gross_Receipts_Tax
+2014_AR_Section_2_Corporation_Franchise_Tax
+2015GamingAnnualReport
+2015_AR_Section_2_Alcoholic_Beverage_Taxes
+201602MonthlyAndYTDCashCollections
+36%20-%20property%20tax%20-%20real
+96-318-04
+96-318-05
+Aggregate_Tax_Information
+BRE%20Posters
+BiennialReport14-NaturalResourceTaxes
+FY14_hotel_collections_may2014
+Form_2EZ_Booklet_2010
+Form_CIT_%20Booklet_2014
+LongBooklet_2010
+NetCollectionDistribution122015
+RevenueAtAGlance
+SUQR1213
+Sales_Tax
+TAXCOL2008
+annualreport9798
+ar-2004
+cmreb12
+corp2008
+corp2011
+estate13
+fn
+fn1205_oil-prices
+liquorTaxCollection
+manufactured_home_tax
+munagi13
+revrevu3_08
+revtaxcode_revtaxcode
+severence_tax
+
+False Positives
+---------------
+115localratios
+
+Summary
+-------
+tp    = 92
+fn    = 45
+tn    = 308
+fp    = 1
+acc   = 0.897
+f1    = 0.8
+tpr   = 0.672
+tnr   = 0.997
+ppr   = 0.989
+npr   = 0.873
+kappa = 0.734
+
+Confusion Matrix
+----------------
+[[ 92  45]
+ [  1 308]]
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@   Linear Support Vector Classifier   @@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -406,9 +589,9 @@ Confusion Matrix
 [[123  14]
  [  5 304]]
 
-@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@   Decision Tree   @@@
-@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Decision Tree Classifier   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 False Negatives
 ---------------
@@ -475,9 +658,9 @@ Confusion Matrix
 [[116  21]
  [ 19 290]]
 
-@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@   Random Forest   @@@
-@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@   Random Forest Classifier   @@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 False Negatives
 ---------------
