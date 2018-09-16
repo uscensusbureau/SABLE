@@ -1,4 +1,4 @@
-#Name:            classify_convert.py
+#Name:            s2_convert.py
 #Purpose:         Convert PDFs in the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format for use with classify_model.py
 #Data Layout:     See README.md
 #Python Version:  3
