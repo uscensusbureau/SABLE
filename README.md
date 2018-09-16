@@ -31,26 +31,32 @@ This repository contains Python programs for converting PDFs to TXT format and f
 
 ## Organization of Files
 
-The following organization of data, programs, and supplementary files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/data/pos_pdf/``` and ```/data/neg_pdf/``` folders.  The extracted text is output to the ```/data/pos_txt/``` and ```/data/neg_txt/``` folders.  Additional information can be found in the comments in the Python programs. <br />
+The following organization of data, programs, and supplementary files on a Linux/Unix system is assumed.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  The extracted text is output to the ```/project/pos_txt/``` and ```/project/neg_txt/``` folders.  Additional information can be found in the comments in the Python programs. <br />
 
-### Data Folders
+### Folders
 
 ```
-/data/neg_pdf/
-/data/neg_prob/
-/data/neg_txt/
-/data/neg_xml/
-/data/pos_pdf/
-/data/pos_prob/
-/data/pos_txt/
-/data/pos_xml/
+/project/crawl/
+/project/download/
+/project/dump/
+/project/neg_pdf/
+/project/neg_prob/
+/project/neg_txt/
+/project/neg_xml/
+/project/pos_pdf/
+/project/pos_prob/
+/project/pos_txt/
+/project/pos_xml/
+/project/urls/
 ```
 
 ### Python Programs
 
 ```
-/classify_convert.py
-/classify_model.py
+/s0_setup.py
+/s1_download.py
+/s2_convert.py
+/s3_model.py
 ```
 
 ### Lists of Stop Words
