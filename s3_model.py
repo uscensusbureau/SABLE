@@ -1,4 +1,4 @@
-#Name:            classify_model.py
+#Name:            s3_model.py
 #Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /data/pos_txt/
 #                 and /data/neg_txt/ folders
 #Data Layout:     See README.md
