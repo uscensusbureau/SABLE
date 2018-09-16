@@ -1,5 +1,5 @@
 #Name:            s2_convert.py
-#Purpose:         Convert PDFs in the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format for use with classify_model.py
+#Purpose:         Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
 #Data Layout:     See README.md
 #Python Version:  3
 
@@ -186,13 +186,13 @@ def write_text(chars, txtfile):
 
 def create_files(clss, docname):
     #Create file locations
-    pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
-    xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
-    txtfile  = "/data/" + clss + "_txt/"  + docname + ".txt"
-    probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
+    pdffile  = "/project/" + clss + "_pdf/"  + docname + ".pdf"
+    xmlfile  = "/project/" + clss + "_xml/"  + docname + ".xml"
+    txtfile  = "/project/" + clss + "_txt/"  + docname + ".txt"
+    probfile = "/project/" + clss + "_prob/" + docname + ".pdf"
 
     #prob_flag indicates whether there is a problem extracting text from the PDF
-    #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
+    #The problem PDFs are moved to the /project/pos_prob/ and /project/neg_prob/ folders where they can be inspected
     prob_flag = 0
     chars = []
 
@@ -248,14 +248,14 @@ def main():
 
     #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
+    pdfs = sorted(os.listdir("/project/" + clss + "_pdf/"))
     for pdf in pdfs:
         pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfmatch:
             docname = pdfmatch.group(1)
             if pdfmatch.group(2) != "pdf":
-                oldfile = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
-                newfile = "/data/" + clss + "_pdf/" + docname + ".pdf"
+                oldfile = "/project/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile = "/project/" + clss + "_pdf/" + docname + ".pdf"
                 os.system("mv " + oldfile + " " + newfile)
             create_files(clss, docname)
     print("")
