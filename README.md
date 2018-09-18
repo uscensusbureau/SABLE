@@ -27,11 +27,11 @@ Apache Nutch is a Java-based web crawler and is used to crawl websites, discover
 
 ## Description of Contents
 
-This repository contains Python programs, lists of stop words, and example input and output.  PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  The extracted text is output to the ```/project/pos_txt/``` and ```/project/neg_txt/``` folders.
+This repository contains Python programs, lists of stop words, and example input and output.
 
 ### Python Programs
 
-The following table briefly describes the four Python programs in this repository.  Additional information can be found in the comments in the Python programs.
+The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the comments in the programs.  A fifth program, ```pdf2txt.py```, comes with the PDFMiner3K Python module.
 
 | Program              | Purpose                                                         |
 | -------------------- | --------------------------------------------------------------- |
@@ -60,9 +60,11 @@ Lists of NLTK stop words for multiple languages are provided.  Foreign accent ma
 
 ## Organization of Files
 
-The following organization of files and folders on a Linux/Unix system is assumed.  The ```pdf2txt.py``` program comes with the PDFMiner3K Python module. <br />
+The following organization of files and folders on a Linux/Unix system is assumed.
 
 ### Python Programs
+
+As mentioned above, the ```pdf2txt.py``` program comes with the PDFMiner3K Python module.
 
 ```
 /pdf2txt.py
@@ -92,6 +94,8 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ### Folders
 
+PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  The extracted text is output to the ```/project/pos_txt/``` and ```/project/neg_txt/``` folders.
+
 ```
 /project/crawl/
 /project/download/
@@ -113,8 +117,8 @@ This section is a work in progress.
 
 ```
 python3 s0_setup.py
-nutch/bin/crawl /project/urls/ /project/crawl/ <desired_depth_of_crawl>
-nutch/bin/readdb /project/crawl/crawldb/ -output dump -format csv
+crawl /project/urls/ /project/crawl/ 3
+readdb /project/crawl/crawldb/ -dump dump -format csv
 python3 s1_download.py
 python3 s2_convert.py
 python3 s2_convert.py
