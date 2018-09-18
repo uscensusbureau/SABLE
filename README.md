@@ -31,14 +31,14 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-| Program              | Description                                                     |
+The following table briefly describes the four Python programs in this repository.  Additional information can be found in the comments in the Python programs.
+
+| Program              | Purpose                                                         |
 | -------------------- | --------------------------------------------------------------- |
 | ```s0_setup.py```    | Sets up project directories                                     |
 | ```s1_download.py``` | Downloads PDFs from an Apache Nutch database dump in CSV format |
 | ```s2_convert.py```  | Converts PDFs to TXT format                                     |
 | ```s3_model.py ```   | Fits and evaluates text classification models                   |
-
-Additional information can be found in the comments in the Python programs.
 
 ### Lists of Stop Words
 
@@ -46,25 +46,26 @@ Lists of NLTK stop words for multiple languages are provided.  Foreign accent ma
 
 ### Examples
 
-| Program                        | Description                                          |
-| ------------------------------ | ---------------------------------------------------- |
-| ```example_g12-cg-org.pdf```   | placeholder text                                     |
-| ```example_g12-cg-org.txt```   | placeholder text                                     |
-| ```example_g16_aspp-sl.pdf```  | placeholder text                                     |
-| ```example_g16-aspp-sl.txt```  | placeholder text                                     |
-| ```example_g17-qtax4.pdf```    | placeholder text                                     |
-| ```example_g17-qtax4.txt```    | placeholder text                                     |
-| ```/neg_txt/```                | placeholder text                                     |
-| ```/pos_txt/```                | placeholder text                                     |
-| ```example_model_output.txt``` | placeholder text                                     |
+| Program                        | Description                                                                       |
+| ------------------------------ | --------------------------------------------------------------------------------- |
+| ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
+| ```example_g12-cg-org.txt```   | Output after applying ```s2_convert.py```                                         |
+| ```example_g16_aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
+| ```example_g16-aspp-sl.txt```  | Output after applying ```s2_convert.py```                                         |
+| ```example_g17-qtax4.pdf```    | 2017 Quarter 4 Quarterly Summary of State and Local Government Tax Revenue report |
+| ```example_g17-qtax4.txt```    | Output after applying ```s2_convert.py```                                         |
+| ```/neg_txt/```                | TXT files belonging to the negative class in the training set                     |
+| ```/pos_txt/```                | TXT files belonging to the positive class in the training set                     |
+| ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
 
 ## Organization of Files
 
-The following organization of files and folders on a Linux/Unix system is assumed. <br />
+The following organization of files and folders on a Linux/Unix system is assumed.  The ```pdf2txt.py``` program comes with the PDFMiner3K Python module. <br />
 
 ### Python Programs
 
 ```
+/pdf2txt.py
 /s0_setup.py
 /s1_download.py
 /s2_convert.py
@@ -112,9 +113,10 @@ This section is a work in progress.
 
 ```
 python3 s0_setup.py
-nutch/bin/crawl ./urls ./crawl 3
-nutch/bin/readdb ./crawl/crawldb -output dump -format csv
+nutch/bin/crawl /project/urls/ /project/crawl/ <desired_depth_of_crawl>
+nutch/bin/readdb /project/crawl/crawldb/ -output dump -format csv
 python3 s1_download.py
+python3 s2_convert.py
 python3 s2_convert.py
 python3 s3_model.py
 ```
