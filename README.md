@@ -33,12 +33,12 @@ This repository contains Python programs, lists of stop words, and example input
 
 The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the comments in the programs.  A fifth Python program used in SABLE, ```pdf2txt.py```, comes with the PDFMiner3K module.
 
-| Program              | Purpose                                                         |
-| -------------------- | --------------------------------------------------------------- |
-| ```s0_setup.py```    | Sets up project folders                                         |
-| ```s1_download.py``` | Downloads PDFs from an Apache Nutch database dump in CSV format |
-| ```s2_convert.py```  | Converts PDFs to TXT format                                     |
-| ```s3_model.py ```   | Fits and evaluates text classification models                   |
+| Program              | Purpose                                       |
+| -------------------- | --------------------------------------------- |
+| ```s0_setup.py```    | Sets up project folders                       |
+| ```s1_download.py``` | Downloads PDFs discovered during web crawling |
+| ```s2_convert.py```  | Converts PDFs to TXT format                   |
+| ```s3_model.py ```   | Fits and evaluates text classification models |
 
 ### Lists of Stop Words
 
@@ -119,23 +119,27 @@ Set up project folders.
 python3 s0_setup.py
 ```
 
-Run Apache Nutch.
+Create ```seed.txt```, which contains seed URLs.  Run Apache Nutch.  Output contents of Apache Nutch database to CSV format.
 
 ```
+vi /project/urls/seed.txt
 crawl /project/urls/ /project/crawl/ 3
 readdb /project/crawl/crawldb/ -dump dump -format csv
+cat /project/dump/part-00000 > dump.csv
 ```
 
-Download PDFs discovered during the web crawl
+Download PDFs discovered during the web crawl.
 
 ```
 python3 s1_download.py
 ```
 
-Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs to TXT format and fit and evaluate text classification models.
+Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/neg_pdf/``` and ```/project/pos_pdf/``` folders.  Convert the PDFs to TXT format for the negative class.  Convert the PDFs to TXT format the positive class.  Fit and evaluate text classification models.
 
 ```
+vi s2_convert.py
 python3 s2_convert.py
+vi s2_convert.py
 python3 s2_convert.py
 python3 s3_model.py
 ```
