@@ -31,11 +31,11 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the comments in the programs.  A fifth program, ```pdf2txt.py```, comes with the PDFMiner3K Python module.
+The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the comments in the programs.  A fifth Python program used in SABLE, ```pdf2txt.py```, comes with the PDFMiner3K module.
 
 | Program              | Purpose                                                         |
 | -------------------- | --------------------------------------------------------------- |
-| ```s0_setup.py```    | Sets up project directories                                     |
+| ```s0_setup.py```    | Sets up project folders                                         |
 | ```s1_download.py``` | Downloads PDFs from an Apache Nutch database dump in CSV format |
 | ```s2_convert.py```  | Converts PDFs to TXT format                                     |
 | ```s3_model.py ```   | Fits and evaluates text classification models                   |
@@ -45,6 +45,8 @@ The following table describes the purpose of each of the four Python programs in
 Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ### Examples
+
+Three before-and-after examples of the PDF-to-TXT conversion program ```s2_convert.py``` are provided.  An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the ```s3_model.py``` program to this training set.
 
 | Program                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -64,7 +66,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ### Python Programs
 
-As mentioned above, the ```pdf2txt.py``` program comes with the PDFMiner3K Python module.
+As mentioned above, the ```pdf2txt.py``` program comes with the PDFMiner3K module.
 
 ```
 /pdf2txt.py
@@ -94,8 +96,6 @@ As mentioned above, the ```pdf2txt.py``` program comes with the PDFMiner3K Pytho
 
 ### Folders
 
-PDFs that are to be converted to TXT format and used as input into building classification models should be manually classified as "positive" (contains useful data) or "negative" and placed accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  The extracted text is output to the ```/project/pos_txt/``` and ```/project/neg_txt/``` folders.
-
 ```
 /project/crawl/
 /project/download/
@@ -113,13 +113,28 @@ PDFs that are to be converted to TXT format and used as input into building clas
 
 ## Example Run
 
-This section is a work in progress.
+Set up project folders.
 
 ```
 python3 s0_setup.py
+```
+
+Run Apache Nutch.
+
+```
 crawl /project/urls/ /project/crawl/ 3
 readdb /project/crawl/crawldb/ -dump dump -format csv
+```
+
+Download PDFs discovered during the web crawl
+
+```
 python3 s1_download.py
+```
+
+Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs to TXT format and fit and evaluate text classification models.
+
+```
 python3 s2_convert.py
 python3 s2_convert.py
 python3 s3_model.py
