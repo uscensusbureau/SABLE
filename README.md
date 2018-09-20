@@ -48,7 +48,7 @@ Lists of NLTK stop words for multiple languages are provided.  Foreign accent ma
 
 Three before-and-after examples of the PDF-to-TXT conversion program ```s2_convert.py``` are provided.  An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the ```s3_model.py``` program to this training set.
 
-| Program                        | Description                                                                       |
+| Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
 | ```example_g12-cg-org.txt```   | Output after applying ```s2_convert.py```                                         |
@@ -119,7 +119,7 @@ Set up project folders.
 python3 s0_setup.py
 ```
 
-Create ```seed.txt```, which contains seed URLs.  Run Apache Nutch.  Output contents of Apache Nutch database to CSV format.
+Create ```seed.txt```, which contains seed URLs, or starting points of the web crawl.  Run Apache Nutch.  Output contents of Apache Nutch database to CSV format.
 
 ```
 vi /project/urls/seed.txt
