@@ -46,21 +46,16 @@ Lists of NLTK stop words for multiple languages are provided.  Foreign accent ma
 
 ### Examples
 
-Three before-and-after examples of the PDF-to-TXT conversion program ```s2_convert.py``` are provided.
+Three before-and-after examples of the PDF-to-TXT conversion program ```s2_convert.py``` are provided.  An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the ```s3_model.py``` program to the training set.
 
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   |    Output after applying ```s2_convert.py```                                      |
+| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```example_g16_aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  |    Output after applying ```s2_convert.py```                                      |
+| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```example_g17-qtax4.pdf```    | 2017 Quarter 4 Quarterly Summary of State and Local Government Tax Revenue report |
-| ```example_g17-qtax4.txt```    |    Output after applying ```s2_convert.py```                                      |
-
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the ```s3_model.py``` program to the training set.
-
-| Example                        | Description                                                                       |
-| ------------------------------ | --------------------------------------------------------------------------------- |
+| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
 | ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
@@ -140,7 +135,7 @@ Download PDFs discovered during the web crawl.
 python3 s1_download.py
 ```
 
-Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/neg_pdf/``` and ```/project/pos_pdf/``` folders.  Convert the PDFs to TXT format for the negative class.  Convert the PDFs to TXT format for the positive class.  Fit and evaluate text classification models.
+Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs to TXT format for the positive class.  Convert the PDFs to TXT format for the negative class.  Fit and evaluate text classification models.
 
 ```
 vi s2_convert.py
