@@ -125,8 +125,8 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 vi /project/urls/seed.txt
 #Enter seed URLs
 crawl /project/urls/ /project/crawl/ 3
-readdb /project/crawl/crawldb/ -dump dump -format csv
-cat /project/dump/part-00000 > dump.csv
+readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
+cat /project/dump/part-00000 > /project/dump/dump.csv
 ```
 
 Download PDFs discovered during the web crawl.
