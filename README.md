@@ -31,7 +31,7 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program used in SABLE, ```pdf2txt.py```, comes with the PDFMiner3K module.
+The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program named ```pdf2txt.py``` comes with the PDFMiner3K module and is called by ```s2_convert.py```.
 
 | Program              | Purpose                                       |
 | -------------------- | --------------------------------------------- |
@@ -46,7 +46,7 @@ Lists of NLTK stop words for multiple languages are provided.  Foreign accent ma
 
 ### Examples
 
-Three before-and-after examples of the PDF-to-TXT conversion program ```s2_convert.py``` are provided.  An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the ```s3_model.py``` program to the training set.
+Three before-and-after examples of the PDF-to-TXT conversion program, ```s2_convert.py```, are provided.  An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The corresponding ```example_model_output.txt``` file was created by applying the model fitting and evaluation program, ```s3_model.py```, to the training set.
 
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
