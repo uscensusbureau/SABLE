@@ -129,13 +129,13 @@ readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
 cat /project/dump/part-00000 > /project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl.
+Download PDFs discovered during the web crawl to the ```/project/download/``` folder.
 
 ```
 python3 s1_download.py
 ```
 
-Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.  Fit and evaluate text classification models.
+Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
 vi s2_convert.py
@@ -144,5 +144,10 @@ python3 s2_convert.py
 vi s2_convert.py
 #Change the value of clss
 python3 s2_convert.py
+```
+
+Fit and evaluate text classification models.
+
+```
 python3 s3_model.py
 ```
