@@ -14,7 +14,7 @@ def main():
         os.system("mkdir " + projdir)
         os.system("mkdir " + projdir + "crawl/")
         os.system("mkdir " + projdir + "download/")
-        #The /project/dump/ subfolder is created by Apache Nutch as its database contents are output to CSV format
+        #The /project/dump/ folder is created by Apache Nutch when its database contents are output to CSV format
         os.system("mkdir " + projdir + "neg_pdf/")
         os.system("mkdir " + projdir + "neg_prob/")
         os.system("mkdir " + projdir + "neg_txt/")
