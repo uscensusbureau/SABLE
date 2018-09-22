@@ -1,8 +1,9 @@
 #Name:            s1_download.py
-#Purpose:         Download PDFs that were discovered during web crawling and whose URLs are found on /project/dump/dump.csv
+#Purpose:         Download PDFs that were discovered during web crawling and whose URLs are found in /project/dump/dump.csv
 #Data Layout:     See README.md
 #Python Version:  3
 
+import csv
 import os
 
 def main():
