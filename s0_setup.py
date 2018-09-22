@@ -10,7 +10,9 @@ def main():
     projname = "project"
     
     projdir = "/" + projname + "/"
-    if not os.path.isdir(projdir):
+    if os.path.isdir(projdir):
+        print("\nProject folder " + projdir + " already exists\n")
+    else:
         os.system("mkdir " + projdir)
         os.system("mkdir " + projdir + "crawl/")
         os.system("mkdir " + projdir + "download/")
@@ -25,8 +27,6 @@ def main():
         os.system("mkdir " + projdir + "pos_xml/")
         os.system("mkdir " + projdir + "urls/")
         print("\nProject folder " + projdir + " and subfolders created\n")
-    else:
-        print("\nProject folder " + projdir + " already exists\n")
         
     return
 
