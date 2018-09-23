@@ -51,11 +51,11 @@ Three before-and-after examples of the PDF-to-TXT conversion program, ```s2_conv
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```example_g16_aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```example_g17-qtax4.pdf```    | 2017 Quarter 4 Quarterly Summary of State and Local Government Tax Revenue report |
-| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
 | ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
@@ -65,8 +65,6 @@ Three before-and-after examples of the PDF-to-TXT conversion program, ```s2_conv
 The following organization of files and folders on a Linux/Unix system is assumed.
 
 ### Python Programs
-
-As mentioned above, the ```pdf2txt.py``` program comes with the PDFMiner3K module.
 
 ```
 /pdf2txt.py
@@ -129,20 +127,20 @@ readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
 cat /project/dump/part-00000 > /project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the ```/project/download/``` folder.
+Download PDFs discovered during the web crawl to the ```/project/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.
 
 ```
 python3 s1_download.py
 ```
 
-Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.  Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
+Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
 vi s2_convert.py
-#Change the value of clss
+#Change the value of the variable clss
 python3 s2_convert.py
 vi s2_convert.py
-#Change the value of clss
+#Change the value of the variable clss
 python3 s2_convert.py
 ```
 
