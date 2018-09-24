@@ -1,6 +1,5 @@
 #Name:            s2_convert.py
 #Purpose:         Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
-#Data Layout:     See README.md
 #Python Version:  3
 
 import codecs
