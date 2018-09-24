@@ -23,7 +23,7 @@ def is_pdf(url, metadata):
 #Purpose:    Download the PDF
 
 def download_pdf(url):
-    #Use the Unix/Linux utility wget to download the PDF
+    #Use the Linux/Unix utility wget to download the PDF
     os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
     return
 
@@ -31,7 +31,7 @@ def main():
     #Project name
     projname = "project"
     
-    #Read in list of URLs and download PDFs
+    #Read in the list of URLs and download the PDFs
     f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
     for row in rdr:
