@@ -1,5 +1,5 @@
 #Name:            s1_download.py
-#Purpose:         Download PDFs that were discovered during web crawling and whose URLs are found in /project/dump/dump.csv
+#Purpose:         Download PDFs that were discovered during web crawling
 #Data Layout:     See README.md
 #Python Version:  3
 
@@ -20,10 +20,11 @@ def is_pdf(url, metadata):
 
 #Name:       download_pdf
 #Arguments:  url
+#            projname
 #Purpose:    Download the PDF
 
 def download_pdf(url):
-    os.system("wget --no-check-certificate -nv -P /project/download/ " + url)
+    os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
     return
 
 def main():
@@ -31,11 +32,11 @@ def main():
     projname = "project"
     
     #Read in list of URLs and download PDFs
-    f = codecs.open("/project/dump/dump.csv", "rU")
+    f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
     for row in rdr:
         if is_pdf(row["Url"], row["Metadata"]):
-            download_pdf(row["Url"], project)
+            download_pdf(row["Url"], projname)
     f.close()
     
     return
