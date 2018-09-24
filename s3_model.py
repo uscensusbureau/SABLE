@@ -1,7 +1,6 @@
 #Name:            s3_model.py
 #Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /project/pos_txt/
 #                 and /project/neg_txt/ folders
-#Data Layout:     See README.md
 #Python Version:  3
 
 import codecs
