@@ -1,6 +1,5 @@
 #Name:            s0_setup.py
-#Purpose:         Set up project folders
-#Data Layout:     See README.md
+#Purpose:         Set-up project folders
 #Python Version:  3
 
 import os
