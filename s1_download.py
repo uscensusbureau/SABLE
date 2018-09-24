@@ -1,6 +1,5 @@
 #Name:            s1_download.py
 #Purpose:         Download PDFs that were discovered during web crawling
-#Data Layout:     See README.md
 #Python Version:  3
 
 import codecs
@@ -24,6 +23,7 @@ def is_pdf(url, metadata):
 #Purpose:    Download the PDF
 
 def download_pdf(url):
+    #Use the Unix/Linux utility wget to download the PDF
     os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
     return
 
