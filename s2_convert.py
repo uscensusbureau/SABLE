@@ -180,16 +180,17 @@ def write_text(chars, txtfile):
     return
 
 #Name:       create_files
-#Arguments:  clss ("pos" or "neg")
+#Arguments:  projname
+#            clss ("pos" or "neg")
 #            docname (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
 
-def create_files(clss, docname):
+def create_files(projname, clss, docname):
     #Create file locations
-    pdffile  = "/project/" + clss + "_pdf/"  + docname + ".pdf"
-    xmlfile  = "/project/" + clss + "_xml/"  + docname + ".xml"
-    txtfile  = "/project/" + clss + "_txt/"  + docname + ".txt"
-    probfile = "/project/" + clss + "_prob/" + docname + ".pdf"
+    pdffile  = "/" + projname + "/" + clss + "_pdf/"  + docname + ".pdf"
+    xmlfile  = "/" + projname + "/" + clss + "_xml/"  + docname + ".xml"
+    txtfile  = "/" + projname + "/" + clss + "_txt/"  + docname + ".txt"
+    probfile = "/" + projname + "/" + clss + "_prob/" + docname + ".pdf"
 
     #prob_flag indicates whether there is a problem extracting text from the PDF
     #The problem PDFs are moved to the /project/pos_prob/ and /project/neg_prob/ folders where they can be inspected
@@ -231,6 +232,8 @@ def create_files(clss, docname):
     return
 
 def main():
+    #Project name
+    projname = "project"
     #Language of PDFs (used to remove stop words)
     lng  = "english"
     #Class of PDFs ("pos" or "neg")
@@ -248,16 +251,16 @@ def main():
 
     #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/project/" + clss + "_pdf/"))
+    pdfs = sorted(os.listdir("/" + projname + "/" + clss + "_pdf/"))
     for pdf in pdfs:
         pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfmatch:
             docname = pdfmatch.group(1)
             if pdfmatch.group(2) != "pdf":
-                oldfile = "/project/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
-                newfile = "/project/" + clss + "_pdf/" + docname + ".pdf"
+                oldfile = "/" + projname + "/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile = "/" + projname + "/" + clss + "_pdf/" + docname + ".pdf"
                 os.system("mv " + oldfile + " " + newfile)
-            create_files(clss, docname)
+            create_files(projname, clss, docname)
     print("")
     return
 
