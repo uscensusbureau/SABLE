@@ -1,5 +1,5 @@
 #Name:            s1_download.py
-#Purpose:         Download PDFs that were discovered during web crawling
+#Purpose:         Download PDFs that were discovered during web crawling and are listed in /project/dump/dump.csv
 #Python Version:  3
 
 import codecs
