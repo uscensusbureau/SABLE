@@ -117,7 +117,7 @@ Set up project folders.
 python3 s0_setup.py
 ```
 
-Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch.  Output contents of the Apache Nutch database to CSV format.
+Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in the example below).  Output contents of the Apache Nutch database to CSV format.
 
 ```
 vi /project/urls/seed.txt
