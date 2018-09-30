@@ -179,7 +179,7 @@ def write_text(chars, txtfile):
     return
 
 #Name:       create_files
-#Arguments:  projname
+#Arguments:  projname (project name)
 #            clss ("pos" or "neg")
 #            docname (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
