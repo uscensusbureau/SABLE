@@ -33,12 +33,12 @@ This repository contains Python programs, lists of stop words, and example input
 
 The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program named ```pdf2txt.py``` comes with the PDFMiner3K module and is called by ```s2_convert.py```.
 
-| Program              | Purpose                                       |
-| -------------------- | --------------------------------------------- |
-| ```s0_setup.py```    | Sets up project folders                       |
-| ```s1_download.py``` | Downloads PDFs discovered during web crawling |
-| ```s2_convert.py```  | Converts PDFs to TXT format                   |
-| ```s3_model.py ```   | Fits and evaluates text classification models |
+| Program              | Purpose                                      |
+| -------------------- | -------------------------------------------- |
+| ```s0_setup.py```    | Set up project folders                       |
+| ```s1_download.py``` | Download PDFs discovered during web crawling |
+| ```s2_convert.py```  | Convert PDFs to TXT format                   |
+| ```s3_model.py ```   | Fit and evaluate text classification models  |
 
 ### Lists of Stop Words
 
@@ -117,7 +117,7 @@ Set up project folders.
 python3 s0_setup.py
 ```
 
-Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in the example below).  Output contents of the Apache Nutch database to CSV format.
+Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
 vi /project/urls/seed.txt
