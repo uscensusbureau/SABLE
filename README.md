@@ -8,12 +8,13 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 
 ## Software
 
-SABLE is based on the following pieces of open-source software:
+SABLE is based on the following open-source software:
 
+* [Linux](https://www.linux.org/)
 * [Apache Nutch](http://nutch.apache.org/)
 * [Python](http://www.python.org/)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
-  * [Natural Language Toolkit (NLTK)](https://www.nltk.org/)
+  * [NLTK (Natural Language Toolkit)](https://www.nltk.org/)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
 Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms.  These algorithms consist of:
@@ -31,7 +32,7 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program named ```pdf2txt.py``` comes with the PDFMiner3K module and is called by ```s2_convert.py```.
+The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program used in SABLE is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is called by ```s2_convert.py```.
 
 | Program              | Purpose                                      |
 | -------------------- | -------------------------------------------- |
@@ -42,7 +43,7 @@ The following table describes the purpose of each of the four Python programs in
 
 ### Lists of Stop Words
 
-Lists of NLTK stop words for multiple languages are provided.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ### Examples
 
