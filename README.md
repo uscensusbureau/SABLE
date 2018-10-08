@@ -115,38 +115,38 @@ The following organization of files and folders on a Linux/Unix system is assume
 Set up project folders.
 
 ```
-python3 s0_setup.py
+>> python3 s0_setup.py
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
-vi /project/urls/seed.txt
+>> vi /project/urls/seed.txt
 #Enter seed URLs
-crawl /project/urls/ /project/crawl/ 3
-readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
-cat /project/dump/part-00000 > /project/dump/dump.csv
+>> crawl /project/urls/ /project/crawl/ 3
+>> readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
+>> cat /project/dump/part-00000 > /project/dump/dump.csv
 ```
 
 Download PDFs discovered during the web crawl to the ```/project/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.
 
 ```
-python3 s1_download.py
+>> python3 s1_download.py
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
-vi s2_convert.py
+>> vi s2_convert.py
 #Change the value of the variable clss
-python3 s2_convert.py
-vi s2_convert.py
+>> python3 s2_convert.py
+>> vi s2_convert.py
 #Change the value of the variable clss
-python3 s2_convert.py
+>> python3 s2_convert.py
 ```
 
 Fit and evaluate text classification models.
 
 ```
-python3 s3_model.py
+>> python3 s3_model.py
 ```
