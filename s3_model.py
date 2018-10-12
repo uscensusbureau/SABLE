@@ -1,7 +1,6 @@
-#Name:            classify_model.py
-#Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /data/pos_txt/
-#                 and /data/neg_txt/ folders
-#Data Layout:     See README.md
+#Name:            s3_model.py
+#Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /project/pos_txt/
+#                 and /project/neg_txt/ folders
 #Python Version:  3
 
 import codecs
@@ -165,29 +164,32 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     return
 
 def main():
+    #Project name
+    projname = "project"
+    
     pos_texts = []
     pos_docs  = []
     neg_texts = []
     neg_docs  = []
     
     #Read in text from documents classified as positive
-    pos_directory = sorted(os.listdir("/data/pos_txt/"))
+    pos_directory = sorted(os.listdir("/" + projname + "/pos_txt/"))
     for f in pos_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             pos_docs.append(namematch.group(1))
-            txtfile = "/data/pos_txt/" + namematch.group(1) + ".txt"
+            txtfile = "/" + projname + "/pos_txt/" + namematch.group(1) + ".txt"
             tmpfile = codecs.open(txtfile, "rU")
             pos_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
     #Read in text from documents classified as negative
-    neg_directory = sorted(os.listdir("/data/neg_txt/"))
+    neg_directory = sorted(os.listdir("/" + projname + "/neg_txt/"))
     for f in neg_directory:
         namematch = re.search(r"^(\S+)\.txt$", f)
         if namematch:
             neg_docs.append(namematch.group(1))
-            txtfile = "/data/neg_txt/" + namematch.group(1) + ".txt"
+            txtfile = "/" + projname + "/neg_txt/" + namematch.group(1) + ".txt"
             tmpfile = codecs.open(txtfile, "rU")
             neg_texts.append(tmpfile.readlines()[0])
             tmpfile.close()

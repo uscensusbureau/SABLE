@@ -1,6 +1,5 @@
-#Name:            classify_convert.py
-#Purpose:         Convert PDFs in the /data/pos_pdf/ and /data/neg_pdf/ folders to TXT format for use with classify_model.py
-#Data Layout:     See README.md
+#Name:            s2_convert.py
+#Purpose:         Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
 #Python Version:  3
 
 import codecs
@@ -180,19 +179,20 @@ def write_text(chars, txtfile):
     return
 
 #Name:       create_files
-#Arguments:  clss ("pos" or "neg")
+#Arguments:  projname (project name)
+#            clss ("pos" or "neg")
 #            docname (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
 
-def create_files(clss, docname):
+def create_files(projname, clss, docname):
     #Create file locations
-    pdffile  = "/data/" + clss + "_pdf/"  + docname + ".pdf"
-    xmlfile  = "/data/" + clss + "_xml/"  + docname + ".xml"
-    txtfile  = "/data/" + clss + "_txt/"  + docname + ".txt"
-    probfile = "/data/" + clss + "_prob/" + docname + ".pdf"
+    pdffile  = "/" + projname + "/" + clss + "_pdf/"  + docname + ".pdf"
+    xmlfile  = "/" + projname + "/" + clss + "_xml/"  + docname + ".xml"
+    txtfile  = "/" + projname + "/" + clss + "_txt/"  + docname + ".txt"
+    probfile = "/" + projname + "/" + clss + "_prob/" + docname + ".pdf"
 
     #prob_flag indicates whether there is a problem extracting text from the PDF
-    #The problem PDFs are moved to the /data/pos_prob/ and /data/neg_prob/ folders where they can be inspected
+    #The problem PDFs are moved to the /project/pos_prob/ and /project/neg_prob/ folders where they can be inspected
     prob_flag = 0
     chars = []
 
@@ -231,6 +231,8 @@ def create_files(clss, docname):
     return
 
 def main():
+    #Project name
+    projname = "project"
     #Language of PDFs (used to remove stop words)
     lng  = "english"
     #Class of PDFs ("pos" or "neg")
@@ -248,16 +250,16 @@ def main():
 
     #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/data/" + clss + "_pdf/"))
+    pdfs = sorted(os.listdir("/" + projname + "/" + clss + "_pdf/"))
     for pdf in pdfs:
         pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfmatch:
             docname = pdfmatch.group(1)
             if pdfmatch.group(2) != "pdf":
-                oldfile = "/data/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
-                newfile = "/data/" + clss + "_pdf/" + docname + ".pdf"
+                oldfile = "/" + projname + "/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
+                newfile = "/" + projname + "/" + clss + "_pdf/" + docname + ".pdf"
                 os.system("mv " + oldfile + " " + newfile)
-            create_files(clss, docname)
+            create_files(projname, clss, docname)
     print("")
     return
 
