@@ -32,7 +32,7 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program used in SABLE is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is called by ```s2_convert.py```.
+The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program used in SABLE is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program              | Purpose                                      |
 | -------------------- | -------------------------------------------- |
@@ -43,23 +43,23 @@ The following table describes the purpose of each of the four Python programs in
 
 ### Lists of Stop Words
 
-Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK Python module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ### Examples
 
-Three examples of the PDF-to-TXT conversion program, ```s2_convert.py```, are provided.  Also, an example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the ```s2_convert.py``` program to PDFs discovered on various websites.  The associated ```example_model_output.txt``` file was created by applying the model fitting and evaluation program, ```s3_model.py```, to this training set.
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the PDF-to-TXT conversion program, ```s2_convert.py```, to PDFs discovered on various websites.  The associated ```example_model_output.txt``` file in the ```/examples/``` folder was created by applying the model fitting and evaluation program, ```s3_model.py```, to this training set.  Also found in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website.  The following table summarizes all of the example input and output.
 
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
-| ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
-| ```example_g16_aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
-| ```example_g17-qtax4.pdf```    | 2017 Quarter 4 Quarterly Summary of State and Local Government Tax Revenue report |
-| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
 | ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
+| ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
+| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
+| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
+| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 
 ## Organization of Files
 
