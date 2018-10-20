@@ -47,7 +47,7 @@ Lists of common "stop" words useful in text analysis are provided for multiple l
 
 ### Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the PDF-to-TXT conversion program, ```s2_convert.py```, to PDFs discovered on various websites.  The associated ```example_model_output.txt``` file in the ```/examples/``` folder was created by applying the model fitting and evaluation program, ```s3_model.py```, to this training set.  Also provided in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications on the U.S. Census Bureau website.  
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the PDF-to-TXT conversion program, ```s2_convert.py```, to PDFs discovered on various websites.  The associated ```example_model_output.txt``` file in the ```/examples/``` folder was created by applying the model fitting and evaluation program, ```s3_model.py```, to this training set.  Also found in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website.  The following table summarizes all of the example input and output.
 
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -56,7 +56,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
 | ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
-| ```example_g16_aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
+| ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
 | ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
 | ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
 | ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
