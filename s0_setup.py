@@ -3,6 +3,15 @@
 #Python Version:  3
 
 import os
+import re
+import sys
+
+#Name:       valid_arguments
+#Arguments:  sys.argv (global)
+#Purpose:    Checks whether command-line arguments are valid
+
+def valid_arguments():
+    return len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None
 
 def main():
     #Project name
