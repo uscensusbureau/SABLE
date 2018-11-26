@@ -1,10 +1,24 @@
-#Name:            s2_convert.py
-#Purpose:         Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
-#Python Version:  3
+#Name:        s2_convert.py
+#Purpose:     Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
+#Invocation:  python3 s2_convert.py <project name> <language> <class>
 
 import codecs
 import os
 import re
+import sys
+
+#Name:       are_valid_arguments
+#Arguments:  sys.argv (globally defined list of command-line arguments)
+#Purpose:    Checks whether the command-line arguments are valid
+
+def are_valid_arguments():
+    valid = False
+    if len(sys.argv) == 4:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and
+        sys.argv[2] in set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"]) and
+        sys.argv[3] in set(["neg", "pos"]):
+            valid = True
+    return valid
 
 #Name:       match_page
 #Arguments:  line (line of text from XML file)
@@ -178,13 +192,13 @@ def write_text(chars, txtfile):
     f.close()
     return
 
-#Name:       create_files
+#Name:       create_output
 #Arguments:  projname (project name)
 #            clss ("pos" or "neg")
 #            docname (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
 
-def create_files(projname, clss, docname):
+def create_output(projname, clss, docname):
     #Create file locations
     pdffile  = "/" + projname + "/" + clss + "_pdf/"  + docname + ".pdf"
     xmlfile  = "/" + projname + "/" + clss + "_xml/"  + docname + ".xml"
@@ -230,14 +244,13 @@ def create_files(projname, clss, docname):
             print("!!! PROBLEM: " + docname)
     return
 
-def main():
-    #Project name
-    projname = "project"
-    #Language of PDFs (used to remove stop words)
-    lng  = "english"
-    #Class of PDFs ("pos" or "neg")
-    clss = "pos"
+#Name:       convert_files
+#Arguments:  projname (project name)
+#            lng (language)
+#            clss ("pos" or "neg")
+#Purpose:    Download PDFs
 
+def convert_files(projname, lng, clss):
     #Read in stop words
     stop_words_list = []
     f = codecs.open("stop_" + lng + ".txt", "rU")
@@ -259,8 +272,15 @@ def main():
                 oldfile = "/" + projname + "/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
                 newfile = "/" + projname + "/" + clss + "_pdf/" + docname + ".pdf"
                 os.system("mv " + oldfile + " " + newfile)
-            create_files(projname, clss, docname)
+            create_output(projname, clss, docname)
     print("")
+    return
+
+def main():
+    if are_valid_arguments():
+        convert_files(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        print("\nInvalid arguments\n")
     return
 
 if __name__ == "__main__":
