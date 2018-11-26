@@ -1,6 +1,6 @@
 #Name:        s1_download.py
 #Purpose:     Download PDFs discovered during web crawling
-#Invocation:  python3 s1_download.py <project>
+#Invocation:  python3 s1_download.py <project name>
 
 import codecs
 import csv
@@ -9,7 +9,7 @@ import re
 import sys
 
 #Name:       are_valid_arguments
-#Arguments:  sys.argv (global)
+#Arguments:  sys.argv (globally defined list of command-line arguments)
 #Purpose:    Checks whether command-line arguments are valid
 
 def are_valid_arguments():
@@ -36,13 +36,10 @@ def download_pdf(url, projname):
     return
 
 #Name:       download_pdfs
-#Arguments:  sys.argv (global)
+#Arguments:  projname (project name)
 #Purpose:    Download PDFs
 
-def download_pdfs():
-    #Project name
-    projname = sys.argv[1]
-    
+def download_pdfs(projname):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
     f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
@@ -55,7 +52,7 @@ def download_pdfs():
 
 def main():
     if are_valid_arguments():
-        download_pdfs()
+        download_pdfs(sys.argv[1])
     else:
         print("\nInvalid arguments\n")
     return
