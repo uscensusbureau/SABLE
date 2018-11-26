@@ -6,11 +6,11 @@ import os
 import re
 import sys
 
-#Name:       validate_arguments
+#Name:       are_valid_arguments
 #Arguments:  sys.argv (global)
 #Purpose:    Checks whether command-line arguments are valid
 
-def validate_arguments():
+def are_valid_arguments():
     return len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None
 
 #Name:       create_folders
@@ -42,7 +42,7 @@ def create_folders():
     return
 
 def main():
-    if validate_arguments():
+    if are_valid_arguments():
         create_folders()
     else:
         print("\nInvalid arguments\n")
