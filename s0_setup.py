@@ -8,10 +8,14 @@ import sys
 
 #Name:       are_valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Checks whether command-line arguments are valid
+#Purpose:    Checks whether the command-line arguments are valid
 
 def are_valid_arguments():
-    return len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None
+    valid = False
+    if len(sys.argv) == 2:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
+            valid = True
+    return valid
 
 #Name:       create_folders
 #Arguments:  projname (project name)
