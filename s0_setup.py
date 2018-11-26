@@ -1,26 +1,23 @@
 #Name:        s0_setup.py
 #Purpose:     Set-up project folders
-#Invocation:  python3 s0_setup.py <project>
+#Invocation:  python3 s0_setup.py <project name>
 
 import os
 import re
 import sys
 
 #Name:       are_valid_arguments
-#Arguments:  sys.argv (global)
+#Arguments:  sys.argv (globally defined list of command-line arguments)
 #Purpose:    Checks whether command-line arguments are valid
 
 def are_valid_arguments():
     return len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None
 
 #Name:       create_folders
-#Arguments:  sys.argv (global)
+#Arguments:  projname (project name)
 #Purpose:    Creates project folders
 
-def create_folders():
-    #Project name
-    projname = sys.argv[1]
-    
+def create_folders(projname):
     projdir = "/" + projname + "/"
     if os.path.isdir(projdir):
         print("\nProject folder " + projdir + " already exists\n")
@@ -43,7 +40,7 @@ def create_folders():
 
 def main():
     if are_valid_arguments():
-        create_folders()
+        create_folders(sys.argv[1])
     else:
         print("\nInvalid arguments\n")
     return
