@@ -1,11 +1,19 @@
-#Name:            s1_download.py
-#Purpose:         Download PDFs discovered during web crawling
-#Python Version:  3
+#Name:        s1_download.py
+#Purpose:     Download PDFs discovered during web crawling
+#Invocation:  python3 s1_download.py <project>
 
 import codecs
 import csv
 import os
 import re
+import sys
+
+#Name:       are_valid_arguments
+#Arguments:  sys.argv (global)
+#Purpose:    Checks whether command-line arguments are valid
+
+def are_valid_arguments():
+    return len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None
 
 #Name:       is_pdf
 #Arguments:  url
@@ -27,9 +35,13 @@ def download_pdf(url, projname):
     os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
     return
 
-def main():
+#Name:       download_pdfs
+#Arguments:  sys.argv (global)
+#Purpose:    Download PDFs
+
+def download_pdfs():
     #Project name
-    projname = "project"
+    projname = sys.argv[1]
     
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
     f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
@@ -39,6 +51,13 @@ def main():
             download_pdf(row["Url"], projname)
     f.close()
     
+    return
+
+def main():
+    if are_valid_arguments():
+        download_pdfs()
+    else:
+        print("\nInvalid arguments\n")
     return
 
 if __name__ == "__main__":
