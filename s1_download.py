@@ -51,7 +51,6 @@ def download_pdfs(projname):
         if is_pdf(row["Url"], row["Metadata"]):
             download_pdf(row["Url"], projname)
     f.close()
-    
     return
 
 def main():
