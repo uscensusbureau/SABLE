@@ -1,7 +1,6 @@
-#Name:            s3_model.py
-#Purpose:         Classify PDFs as positive or negative based on the extracted text stored in the /project/pos_txt/
-#                 and /project/neg_txt/ folders
-#Python Version:  3
+#Name:        s3_model.py
+#Purpose:     Classify PDFs as positive or negative based on the extracted text in the /project/pos_txt/ and /project/neg_txt/ folders
+#Invocation:  python3 s3_model.py <project name>
 
 import codecs
 from nltk.classify import *
@@ -22,6 +21,18 @@ from sklearn.naive_bayes import *
 from sklearn.neighbors import *
 from sklearn.svm import *
 from sklearn.tree import *
+import sys
+
+#Name:       are_valid_arguments
+#Arguments:  sys.argv (globally defined list of command-line arguments)
+#Purpose:    Checks whether the command-line arguments are valid
+
+def are_valid_arguments():
+    valid = False
+    if len(sys.argv) == 2:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
+            valid = True
+    return valid
 
 #Name:       get_feats_inds
 #Arguments:  text (string of text)
@@ -163,10 +174,11 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     print("")
     return
 
-def main():
-    #Project name
-    projname = "project"
-    
+#Name:       fit_models
+#Arguments:  projname (project name)
+#Purpose:    Fit text classification models
+
+def fit_models(projname):
     pos_texts = []
     pos_docs  = []
     neg_texts = []
@@ -297,6 +309,13 @@ def main():
     classifier_forest.train(feats_train)
     evaluate(classifier_forest, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
     
+    return
+
+def main():
+    if are_valid_arguments():
+        fit_models(sys.argv[1])
+    else:
+        print("\nInvalid arguments\n")
     return
 
 if __name__ == "__main__":
