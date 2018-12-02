@@ -123,9 +123,9 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 ```
 >> vi /project/urls/seed.txt
 #Enter seed URLs
->> crawl /project/urls/ /project/crawl/ 3
+>> crawl -s /project/urls/ /project/crawl/ 3
 >> readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
->> cat /project/dump/part-00000 > /project/dump/dump.csv
+>> cat /project/dump/part-r-00000 > /project/dump/dump.csv
 ```
 
 Download PDFs discovered during the web crawl to the ```/project/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.
