@@ -8,11 +8,11 @@ import os
 import re
 import sys
 
-#Name:       are_valid_arguments
+#Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
 #Purpose:    Checks whether the command-line arguments are valid
 
-def are_valid_arguments():
+def valid_arguments():
     valid = False
     if len(sys.argv) == 2:
         if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
@@ -54,7 +54,7 @@ def download_pdfs(projname):
     return
 
 def main():
-    if are_valid_arguments():
+    if valid_arguments():
         download_pdfs(sys.argv[1])
     else:
         print("\nInvalid arguments\n")
