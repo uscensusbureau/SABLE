@@ -7,11 +7,11 @@ import os
 import re
 import sys
 
-#Name:       are_valid_arguments
+#Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
 #Purpose:    Checks whether the command-line arguments are valid
 
-def are_valid_arguments():
+def valid_arguments():
     valid = False
     if len(sys.argv) == 4:
         if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and
@@ -248,7 +248,7 @@ def create_output(projname, clss, docname):
 #Arguments:  projname (project name)
 #            lng (language)
 #            clss ("pos" or "neg")
-#Purpose:    Download PDFs
+#Purpose:    Convert PDFs to TXT format
 
 def convert_files(projname, lng, clss):
     #Read in stop words
@@ -277,7 +277,7 @@ def convert_files(projname, lng, clss):
     return
 
 def main():
-    if are_valid_arguments():
+    if valid_arguments():
         convert_files(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
         print("\nInvalid arguments\n")
