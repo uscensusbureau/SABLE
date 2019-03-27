@@ -23,11 +23,11 @@ from sklearn.svm import *
 from sklearn.tree import *
 import sys
 
-#Name:       are_valid_arguments
+#Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
 #Purpose:    Checks whether the command-line arguments are valid
 
-def are_valid_arguments():
+def valid_arguments():
     valid = False
     if len(sys.argv) == 2:
         if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
@@ -219,7 +219,7 @@ def fit_models(projname):
     random.shuffle(pos_index)
     random.shuffle(neg_index)
     
-    #Two-thirds of the observations are used for training, and the remaining one-third is used for testing/validation
+    #Divide the data into training and test sets
     train_frac = 2.0/3.0
     pos_cut = int(round(train_frac * len(pos_index)))
     neg_cut = int(round(train_frac * len(neg_index)))
@@ -312,7 +312,7 @@ def fit_models(projname):
     return
 
 def main():
-    if are_valid_arguments():
+    if valid_arguments():
         fit_models(sys.argv[1])
     else:
         print("\nInvalid arguments\n")
