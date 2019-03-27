@@ -115,34 +115,34 @@ The following organization of files and folders on a Linux/Unix system is assume
 Set up project folders.
 
 ```
->> python3 s0_setup.py project
+>> python3 s0_setup.py myproject
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /project/urls/seed.txt
+>> vi /myproject/urls/seed.txt
 #Enter seed URLs
->> crawl -s /project/urls/ /project/crawl/ 3
->> readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
->> cat /project/dump/part-r-00000 > /project/dump/dump.csv
+>> crawl -s /myproject/urls/ /myproject/crawl/ 3
+>> readdb /myproject/crawl/crawldb/ -dump /myproject/dump/ -format csv
+>> cat /myproject/dump/part-r-00000 > /myproject/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the ```/project/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.
+Download PDFs discovered during the web crawl to the ```/myproject/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/``` folders.
 
 ```
->> python3 s1_download.py project
+>> python3 s1_download.py myproject
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py project english pos
->> python3 s2_convert.py project english neg
+>> python3 s2_convert.py myproject english pos
+>> python3 s2_convert.py myproject english neg
 ```
 
 Fit and evaluate text classification models.
 
 ```
->> python3 s3_model.py project
+>> python3 s3_model.py myproject
 ```
