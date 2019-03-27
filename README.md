@@ -11,8 +11,8 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-* [Apache Nutch](http://nutch.apache.org/)
-* [Python](http://www.python.org/)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.15)
+* [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK (Natural Language Toolkit)](https://www.nltk.org/)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
