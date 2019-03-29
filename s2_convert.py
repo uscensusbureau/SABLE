@@ -13,10 +13,10 @@ import sys
 
 def valid_arguments():
     valid = False
+    lng_valid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
+    clss_valid = set(["neg", "pos"])
     if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and
-        sys.argv[2] in set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"]) and
-        sys.argv[3] in set(["neg", "pos"]):
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and sys.argv[2] in lng_valid and sys.argv[3] in clss_valid:
             valid = True
     return valid
 
