@@ -31,7 +31,7 @@ def is_pdf(url, metadata):
 
 #Name:       download_pdf
 #Arguments:  url
-#            projname
+#            projname (project name)
 #Purpose:    Download the PDF
 
 def download_pdf(url, projname):
