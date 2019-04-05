@@ -1,11 +1,23 @@
-#Name:            s1_download.py
-#Purpose:         Download PDFs discovered during web crawling
-#Python Version:  3
+#Name:        s1_download.py
+#Purpose:     Download PDFs discovered during web crawling
+#Invocation:  python3 s1_download.py <project name>
 
 import codecs
 import csv
 import os
 import re
+import sys
+
+#Name:       valid_arguments
+#Arguments:  sys.argv (globally defined list of command-line arguments)
+#Purpose:    Checks whether the command-line arguments are valid
+
+def valid_arguments():
+    valid = False
+    if len(sys.argv) == 2:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
+            valid = True
+    return valid
 
 #Name:       is_pdf
 #Arguments:  url
@@ -19,7 +31,7 @@ def is_pdf(url, metadata):
 
 #Name:       download_pdf
 #Arguments:  url
-#            projname
+#            projname (project name)
 #Purpose:    Download the PDF
 
 def download_pdf(url, projname):
@@ -27,10 +39,11 @@ def download_pdf(url, projname):
     os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
     return
 
-def main():
-    #Project name
-    projname = "project"
-    
+#Name:       download_pdfs
+#Arguments:  projname (project name)
+#Purpose:    Download PDFs
+
+def download_pdfs(projname):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
     f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
@@ -38,7 +51,13 @@ def main():
         if is_pdf(row["Url"], row["Metadata"]):
             download_pdf(row["Url"], projname)
     f.close()
-    
+    return
+
+def main():
+    if valid_arguments():
+        download_pdfs(sys.argv[1])
+    else:
+        print("\nInvalid arguments\n")
     return
 
 if __name__ == "__main__":

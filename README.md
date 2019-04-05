@@ -11,8 +11,8 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-* [Apache Nutch](http://nutch.apache.org/)
-* [Python](http://www.python.org/)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.15)
+* [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK (Natural Language Toolkit)](https://www.nltk.org/)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
@@ -55,11 +55,11 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
 | ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g12-cg-org.txt```   | Output after applying ```s2_convert.py```                                         |
 | ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g16-aspp-sl.txt```  | Output after applying ```s2_convert.py```                                         |
 | ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
-| ```example_g17-qtax4.txt```    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output after applying ```s2_convert.py```           |
+| ```example_g17-qtax4.txt```    | Output after applying ```s2_convert.py```                                         |
 
 ## Organization of Files
 
@@ -115,38 +115,34 @@ The following organization of files and folders on a Linux/Unix system is assume
 Set up project folders.
 
 ```
->> python3 s0_setup.py
+>> python3 s0_setup.py myproject
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /project/urls/seed.txt
+>> vi /myproject/urls/seed.txt
 #Enter seed URLs
->> crawl /project/urls/ /project/crawl/ 3
->> readdb /project/crawl/crawldb/ -dump /project/dump/ -format csv
->> cat /project/dump/part-00000 > /project/dump/dump.csv
+>> crawl -s /myproject/urls/ /myproject/crawl/ 3
+>> readdb /myproject/crawl/crawldb/ -dump /myproject/dump/ -format csv
+>> cat /myproject/dump/part-r-00000 > /myproject/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the ```/project/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/project/pos_pdf/``` and ```/project/neg_pdf/``` folders.
+Download PDFs discovered during the web crawl to the ```/myproject/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/``` folders.
 
 ```
->> python3 s1_download.py
+>> python3 s1_download.py myproject
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> vi s2_convert.py
-#Change the value of the variable clss
->> python3 s2_convert.py
->> vi s2_convert.py
-#Change the value of the variable clss
->> python3 s2_convert.py
+>> python3 s2_convert.py myproject english pos
+>> python3 s2_convert.py myproject english neg
 ```
 
 Fit and evaluate text classification models.
 
 ```
->> python3 s3_model.py
+>> python3 s3_model.py myproject
 ```
