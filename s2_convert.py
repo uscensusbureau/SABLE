@@ -1,5 +1,5 @@
 #Name:        s2_convert.py
-#Purpose:     Convert PDFs in the /project/pos_pdf/ and /project/neg_pdf/ folders to TXT format for use with s3_model.py
+#Purpose:     Convert PDFs in the /myproject/neg_pdf/, /myproject/pos_pdf/, and /myproject/pred_pdf/ folders to TXT format
 #Invocation:  python3 s2_convert.py <project name> <language> <class>
 
 import codecs
@@ -14,7 +14,7 @@ import sys
 def valid_arguments():
     valid = False
     lng_valid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
-    clss_valid = set(["neg", "pos"])
+    clss_valid = set(["neg", "pos", "pred"])
     if len(sys.argv) == 4:
         if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and sys.argv[2] in lng_valid and sys.argv[3] in clss_valid:
             valid = True
@@ -247,7 +247,7 @@ def create_output(projname, clss, docname):
 #Name:       convert_files
 #Arguments:  projname (project name)
 #            lng (language)
-#            clss ("pos" or "neg")
+#            clss ("neg", "pos", or "pred")
 #Purpose:    Convert PDFs to TXT format
 
 def convert_files(projname, lng, clss):
