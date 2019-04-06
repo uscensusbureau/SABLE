@@ -8,7 +8,7 @@ import sys
 
 #Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Checks whether the command-line arguments are valid
+#Purpose:    Check whether the command-line arguments are valid
 
 def valid_arguments():
     valid = False
@@ -19,7 +19,7 @@ def valid_arguments():
 
 #Name:       create_folders
 #Arguments:  projname (project name)
-#Purpose:    Creates project folders
+#Purpose:    Create project folders
 
 def create_folders(projname):
     projdir = "/" + projname + "/"
