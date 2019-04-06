@@ -38,6 +38,10 @@ def create_folders(projname):
         os.system("mkdir " + projdir + "pos_prob/")
         os.system("mkdir " + projdir + "pos_txt/")
         os.system("mkdir " + projdir + "pos_xml/")
+        os.system("mkdir " + projdir + "pred_pdf/")
+        os.system("mkdir " + projdir + "pred_prob/")
+        os.system("mkdir " + projdir + "pred_txt/")
+        os.system("mkdir " + projdir + "pred_xml/")
         os.system("mkdir " + projdir + "urls/")
         print("\nProject folder " + projdir + " and subfolders created\n")
     return
