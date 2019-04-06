@@ -32,14 +32,15 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the four Python programs in this repository.  Additional information can be found in the programs themsevles.  A fifth Python program used in SABLE is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE, and it is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-| Program              | Purpose                                      |
-| -------------------- | -------------------------------------------- |
-| ```s0_setup.py```    | Set up project folders                       |
-| ```s1_download.py``` | Download PDFs discovered during web crawling |
-| ```s2_convert.py```  | Convert PDFs to TXT format                   |
-| ```s3_model.py ```   | Fit and evaluate text classification models  |
+| Program               | Purpose                                                        |
+| --------------------- | -------------------------------------------------------------- |
+| ```s0_setup.py```     | Set up project folders                                         |
+| ```s1_download.py```  | Download PDFs discovered during web crawling                   |
+| ```s2_convert.py```   | Convert PDFs to TXT format                                     |
+| ```s3_model.py ```    | Fit and evaluate text classification models                    |
+| ```s4_logistic.py ``` | Fit logisitc regression model and apply it to new observations |
 
 ### Lists of Stop Words
 
@@ -73,6 +74,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 /s1_download.py
 /s2_convert.py
 /s3_model.py
+/s4_logistic.py
 ```
 
 ### Lists of Stop Words
@@ -141,8 +143,14 @@ Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the n
 >> python3 s2_convert.py myproject english neg
 ```
 
-Fit and evaluate text classification models.
+Fit and evaluate various text classification models.
 
 ```
 >> python3 s3_model.py myproject
+```
+
+Fit logistic regression model and use it to predict classes and probabilities for new observations.
+
+```
+>> python3 s4_logistic.py myproject
 ```
