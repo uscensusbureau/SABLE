@@ -10,7 +10,7 @@ import sys
 
 #Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Checks whether the command-line arguments are valid
+#Purpose:    Check whether the command-line arguments are valid
 
 def valid_arguments():
     valid = False
