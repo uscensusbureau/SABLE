@@ -1,5 +1,5 @@
 #Name:        s3_model.py
-#Purpose:     Classify PDFs as positive or negative based on the extracted text in the /project/pos_txt/ and /project/neg_txt/ folders
+#Purpose:     Fit and evaluate classification models based on the extracted text in the /myproject/neg_txt/ and /myproject/pos_txt/ folders
 #Invocation:  python3 s3_model.py <project name>
 
 import codecs
