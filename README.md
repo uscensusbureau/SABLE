@@ -34,13 +34,13 @@ This repository contains Python programs, lists of stop words, and example input
 
 The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE, and it is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-| Program               | Purpose                                                        |
-| --------------------- | -------------------------------------------------------------- |
-| ```s0_setup.py```     | Set up project folders                                         |
-| ```s1_download.py```  | Download PDFs discovered during web crawling                   |
-| ```s2_convert.py```   | Convert PDFs to TXT format                                     |
-| ```s3_model.py ```    | Fit and evaluate text classification models                    |
-| ```s4_logistic.py ``` | Fit logisitc regression model and apply it to new observations |
+| Program               | Purpose                                                          |
+| --------------------- | ---------------------------------------------------------------- |
+| ```s0_setup.py```     | Set up project folders                                           |
+| ```s1_download.py```  | Download PDFs discovered during web crawling                     |
+| ```s2_convert.py```   | Convert PDFs to TXT format                                       |
+| ```s3_model.py ```    | Fit and evaluate text classification models                      |
+| ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new observations |
 
 ### Lists of Stop Words
 
@@ -109,6 +109,10 @@ The following organization of files and folders on a Linux/Unix system is assume
 /project/pos_prob/
 /project/pos_txt/
 /project/pos_xml/
+/project/pred_pdf/
+/project/pred_prob/
+/project/pred_txt/
+/project/pred_xml/
 /project/urls/
 ```
 
@@ -149,7 +153,13 @@ Fit and evaluate various text classification models.
 >> python3 s3_model.py myproject
 ```
 
-Fit logistic regression model and use it to predict classes and probabilities for new observations.
+Obtain new PDFs and place them in the ```/myproject/pred_pdf/``` folder.  Convert these PDFs to TXT format.
+
+```
+>> python3 s2_convert.py myproject english pred
+```
+
+Fit a logistic regression model using the manually classified PDFs and use it to predict classes and probabilities for the new PDFs.
 
 ```
 >> python3 s4_logistic.py myproject
