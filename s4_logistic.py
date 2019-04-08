@@ -54,7 +54,7 @@ def get_feats_counts(text):
     return dict(g1s + g2s)
 
 #Name:       format_prob
-#Arguments:  probability
+#Arguments:  prob (probability)
 #Purpose:    Round probability to four decimal places and convert it into a string
 
 def format_prob(prob):
@@ -126,15 +126,15 @@ def fit_and_predict(projname):
     pred_probs = [classifier_logit.prob_classify(get_feats_inds(pred_text)) for pred_text in pred_texts]
     
     #Create output
-    pred_output = "/" + projname + "/pred_output.txt"
-    var_names = ["doc_name", "pred_class", "prob_pos", "prob_neg"]
-    f = open(pred_output, "w")
+    outputfile = "/" + projname + "/pred_output.txt"
+    var_names = ["document_name", "predicted_class", "probability_positive", "probability_negative"]
+    f = open(outputfile, "w")
     f.write("|".join(var_names) + "\n")
     for i in range(len(pred_texts)):
         line = [pred_docs[i], pred_classes[i], format_prob(pred_probs[i].prob("pos")), format_prob(pred_probs[i].prob("neg"))]
         f.write("|".join(line) + "\n")
     f.close()
-    os.system("chmod 777 " + pred_output)
+    os.system("chmod 777 " + outputfile)
     
     return
 
