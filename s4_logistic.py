@@ -1,5 +1,5 @@
 #Name:        s4_logistic.py
-#Purpose:     Classify PDFs as positive or negative using logistic regression and output predicted classes and probabilities
+#Purpose:     Classify new PDFs as positive or negative using a logistic regression model and output predicted classes and probabilities
 #Invocation:  python3 s4_logistic.py <project name>
 
 import codecs
@@ -53,11 +53,18 @@ def get_feats_counts(text):
     #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
-#Name:       predict
+#Name:       format_prob
+#Arguments:  probability
+#Purpose:    Round probability to four decimal places and convert it into a string
+
+def format_prob(prob):
+    return str(round(prob, 4))
+
+#Name:       fit_and_predict
 #Arguments:  projname (project name)
 #Purpose:    Fit a logistic regression model and output predicted classes and probabilities
 
-def predict(projname):
+def fit_and_predict(projname):
     pos_texts  = []
     pos_docs   = []
     neg_texts  = []
@@ -88,8 +95,8 @@ def predict(projname):
             tmpfile.close()
     
     #Create features based on n-gram indicators
-    pos_feats_train = [(get_feats_inds(text), "pos") for text in pos_texts]
-    neg_feats_train = [(get_feats_inds(text), "neg") for text in neg_texts]
+    pos_feats_train = [(get_feats_inds(pos_text), "pos") for pos_text in pos_texts]
+    neg_feats_train = [(get_feats_inds(neg_text), "neg") for neg_text in neg_texts]
     feats_train = pos_feats_train + neg_feats_train
     
     #Read in text from documents for prediction
@@ -103,28 +110,37 @@ def predict(projname):
             pred_texts.append(tmpfile.readlines()[0])
             tmpfile.close()
     
-    #Create dictionaries to facilitate referencing observations and their corresponding text 
-    pred_index      = [i for i in range(len(pred_texts))]
-    pred_texts_dict = dict([(i, pred_texts[i]) for i in pred_index])
-    pred_docs_dict  = dict([(i, pred_docs[i]) for i in pred_index])
-    
     #Print number of positive and negative observations used for training and number of observations for prediction
     print("")
-    print("Positive Training: " + str(len(pos_train)))
-    print("Negative Training: " + str(len(neg_train)))
-    print("Prediction:        " + str(len(pred_index)) + "\n")
+    print("Positive Training: " + str(len(pos_texts)))
+    print("Negative Training: " + str(len(neg_texts)))
+    print("Prediction:        " + str(len(pred_texts)) + "\n")
     
+    #Fit a logistic regression model and apply it to new observations
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Logistic Regression   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression(penalty="l2", C=1, class_weight="balanced"))
     classifier_logit.train(feats_train)
+    pred_classes = [classifier_logit.classify(get_feats_inds(pred_text)) for pred_text in pred_texts]
+    pred_probs = [classifier_logit.prob_classify(get_feats_inds(pred_text)) for pred_text in pred_texts]
+    
+    #Create output
+    pred_output = "/" + projname + "/pred_output.txt"
+    var_names = ["doc_name", "pred_class", "prob_pos", "prob_neg"]
+    f = open(pred_output, "w")
+    f.write("|".join(var_names) + "\n")
+    for i in range(len(pred_texts)):
+        line = [pred_docs[i], pred_classes[i], format_prob(pred_probs[i].prob("pos")), format_prob(pred_probs[i].prob("neg"))]
+        f.write("|".join(line) + "\n")
+    f.close()
+    os.system("chmod 777 " + pred_output)
     
     return
 
 def main():
     if valid_arguments():
-        predict(sys.argv[1])
+        fit_and_predict(sys.argv[1])
     else:
         print("\nInvalid arguments\n")
     return
