@@ -32,7 +32,7 @@ This repository contains Python programs, lists of stop words, and example input
 
 ### Python Programs
 
-The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE, and it is named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program               | Purpose                                                          |
 | --------------------- | ---------------------------------------------------------------- |
@@ -159,7 +159,7 @@ Obtain new PDFs and place them in the ```/myproject/pred_pdf/``` folder.  Conver
 >> python3 s2_convert.py myproject english pred
 ```
 
-Fit a logistic regression model using the manually classified PDFs and use it to predict classes and probabilities for the new PDFs.
+Fit a logistic regression model using the manually classified positive and negative PDFs.  Use the model to predict classes and probabilities for the new PDFs.
 
 ```
 >> python3 s4_logistic.py myproject
