@@ -34,13 +34,13 @@ This repository contains Python programs, lists of stop words, and example input
 
 The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-| Program               | Purpose                                                          |
-| --------------------- | ---------------------------------------------------------------- |
-| ```s0_setup.py```     | Set up project folders                                           |
-| ```s1_download.py```  | Download PDFs discovered during web crawling                     |
-| ```s2_convert.py```   | Convert PDFs to TXT format                                       |
-| ```s3_model.py ```    | Fit and evaluate text classification models                      |
-| ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new observations |
+| Program               | Purpose                                                  |
+| --------------------- | -------------------------------------------------------- |
+| ```s0_setup.py```     | Set up project folders                                   |
+| ```s1_download.py```  | Download PDFs discovered during web crawling             |
+| ```s2_convert.py```   | Convert PDFs to TXT format                               |
+| ```s3_model.py ```    | Fit and evaluate text classification models              |
+| ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new PDFs |
 
 ### Lists of Stop Words
 
@@ -48,7 +48,7 @@ Lists of common "stop" words useful in text analysis are provided for multiple l
 
 ### Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the ```/neg_txt/``` and ```/pos_txt/``` folders.  These TXT files were created by applying the PDF-to-TXT conversion program, ```s2_convert.py```, to PDFs discovered on various websites.  The associated ```example_model_output.txt``` file in the ```/examples/``` folder was created by applying the model fitting and evaluation program, ```s3_model.py```, to this training set.  Also found in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website.  The following table summarizes all of the example input and output.
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The associated file ```example_model_output.txt``` in the folder ```/examples/``` was created by applying the model fitting and evaluation program ```s3_model.py``` to this training set.  Also found in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website.  The following table summarizes all of the example input and output.
 
 | Example                        | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -134,7 +134,7 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 >> cat /myproject/dump/part-r-00000 > /myproject/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the ```/myproject/download/``` folder.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/``` folders.
+Download PDFs discovered during the web crawl to the folder ```/myproject/download/```r.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/```.
 
 ```
 >> python3 s1_download.py myproject
@@ -153,7 +153,7 @@ Fit and evaluate various text classification models.
 >> python3 s3_model.py myproject
 ```
 
-Obtain new PDFs and place them in the ```/myproject/pred_pdf/``` folder.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/myproject/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
 >> python3 s2_convert.py myproject english pred
