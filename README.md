@@ -134,7 +134,7 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 >> cat /myproject/dump/part-r-00000 > /myproject/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/myproject/download/```r.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/myproject/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/```.
 
 ```
 >> python3 s1_download.py myproject
