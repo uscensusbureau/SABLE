@@ -1,6 +1,6 @@
 #Name:        s0_setup.py
 #Purpose:     Set-up project folders
-#Invocation:  python3 s0_setup.py <project name>
+#Invocation:  python3 s0_setup.py <projectName>
 
 import os
 import re
@@ -18,32 +18,32 @@ def valid_arguments():
     return valid
 
 #Name:       create_folders
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #Purpose:    Create project folders
 
-def create_folders(projname):
-    projdir = "/" + projname + "/"
-    if os.path.isdir(projdir):
-        print("\nProject folder " + projdir + " already exists\n")
+def create_folders(projectName):
+    projectDir = "/" + projectName + "/"
+    if os.path.isdir(projectDir):
+        print("\nProject folder " + projectDir + " already exists\n")
     else:
-        os.system("mkdir " + projdir)
-        os.system("mkdir " + projdir + "crawl/")
-        os.system("mkdir " + projdir + "download/")
-        #The /projname/dump/ folder is created by Apache Nutch when its database contents are output to CSV format
-        os.system("mkdir " + projdir + "neg_pdf/")
-        os.system("mkdir " + projdir + "neg_prob/")
-        os.system("mkdir " + projdir + "neg_txt/")
-        os.system("mkdir " + projdir + "neg_xml/")
-        os.system("mkdir " + projdir + "pos_pdf/")
-        os.system("mkdir " + projdir + "pos_prob/")
-        os.system("mkdir " + projdir + "pos_txt/")
-        os.system("mkdir " + projdir + "pos_xml/")
-        os.system("mkdir " + projdir + "pred_pdf/")
-        os.system("mkdir " + projdir + "pred_prob/")
-        os.system("mkdir " + projdir + "pred_txt/")
-        os.system("mkdir " + projdir + "pred_xml/")
-        os.system("mkdir " + projdir + "urls/")
-        print("\nProject folder " + projdir + " and subfolders created\n")
+        os.system("mkdir " + projectDir)
+        os.system("mkdir " + projectDir + "crawl/")
+        os.system("mkdir " + projectDir + "download/")
+        #The /projectName/dump/ folder is created by Apache Nutch when its database contents are output to CSV format
+        os.system("mkdir " + projectDir + "neg_pdf/")
+        os.system("mkdir " + projectDir + "neg_prob/")
+        os.system("mkdir " + projectDir + "neg_txt/")
+        os.system("mkdir " + projectDir + "neg_xml/")
+        os.system("mkdir " + projectDir + "pos_pdf/")
+        os.system("mkdir " + projectDir + "pos_prob/")
+        os.system("mkdir " + projectDir + "pos_txt/")
+        os.system("mkdir " + projectDir + "pos_xml/")
+        os.system("mkdir " + projectDir + "pred_pdf/")
+        os.system("mkdir " + projectDir + "pred_prob/")
+        os.system("mkdir " + projectDir + "pred_txt/")
+        os.system("mkdir " + projectDir + "pred_xml/")
+        os.system("mkdir " + projectDir + "urls/")
+        print("\nProject folder " + projectDir + " and subfolders created\n")
     return
 
 def main():
