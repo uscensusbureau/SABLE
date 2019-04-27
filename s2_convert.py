@@ -1,6 +1,6 @@
 #Name:        s2_convert.py
-#Purpose:     Convert PDFs in the /myproject/neg_pdf/, /myproject/pos_pdf/, and /myproject/pred_pdf/ folders to TXT format
-#Invocation:  python3 s2_convert.py <project name> <language> <class>
+#Purpose:     Convert PDFs to TXT format
+#Invocation:  python3 s2_convert.py <projectName> <lng> <clss>
 
 import codecs
 import os
@@ -13,10 +13,10 @@ import sys
 
 def valid_arguments():
     valid = False
-    lng_valid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
-    clss_valid = set(["neg", "pos", "pred"])
+    lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
+    clssValid = set(["neg", "pos", "pred"])
     if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and sys.argv[2] in lng_valid and sys.argv[3] in clss_valid:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
             valid = True
     return valid
 
@@ -99,38 +99,38 @@ def clean_char(old):
     return new
 
 #Name:       get_chars
-#Arguments:  xmlfile (location of XML file)
+#Arguments:  xmlFile (location of XML file)
 #Purpose:    Extract the character values, coordinates, hierarchy, and font information from XML file
 
-def get_chars(xmlfile):
+def get_chars(xmlFile):
     chars = []
     page = 0
     textbox = 0
     textline = 0
     
     #Open XML file and use regular expressions to parse contents
-    f = codecs.open(xmlfile, "rU", encoding="utf8")
+    f = codecs.open(xmlFile, "rU", encoding="utf8")
     for l in f:
         line = l.strip()
-        pagematch = match_page(line)
-        textboxmatch = match_textbox(line)
-        textlinematch = match_textline(line)
-        textmatch = match_text(line)
-        if pagematch:
-            page = int(pagematch.group(1))
-        elif textboxmatch:
+        pageMatch = match_page(line)
+        textboxMatch = match_textbox(line)
+        textlineMatch = match_textline(line)
+        textMatch = match_text(line)
+        if pageMatch:
+            page = int(pageMatch.group(1))
+        elif textboxMatch:
             textline = 0
-            textbox = int(textboxmatch.group(1))
-        elif textlinematch:
+            textbox = int(textboxMatch.group(1))
+        elif textlineMatch:
             textline += 1
-        elif textmatch:
-            font = textmatch.group(1)
-            x1 = float(textmatch.group(2))
-            y1 = float(textmatch.group(3))
-            x2 = float(textmatch.group(4))
-            y2 = float(textmatch.group(5))
-            size = float(textmatch.group(6))
-            value = clean_char(textmatch.group(7))
+        elif textMatch:
+            font = textMatch.group(1)
+            x1 = float(textMatch.group(2))
+            y1 = float(textMatch.group(3))
+            x2 = float(textMatch.group(4))
+            y2 = float(textMatch.group(5))
+            size = float(textMatch.group(6))
+            value = clean_char(textMatch.group(7))
             chars.append((page, textbox, textline, x1, y1, x2, y2, size, font, value))
     f.close()
     return chars
@@ -144,135 +144,135 @@ def clean_text(text):
     text = re.sub("\s+", " ", text)
     
     #Remove stop words
-    text_clean = []
+    textClean = []
     text = text.split(" ")
-    global stop_words
+    global stopWords
     for word in text:
         word = word.strip()
-        if word not in stop_words:
-            text_clean.append(word)
-    text_clean = " ".join(text_clean)
-    return text_clean
+        if word not in stopWords:
+            textClean.append(word)
+    textClean = " ".join(textClean)
+    return textClean
 
 #Name:       write_text
 #Arguments:  chars (list of tuples)
-#            txtfile (location of TXT file)
+#            txtFile (location of TXT file)
 #Purpose:    Construct words character by character
 
-def write_text(chars, txtfile):
+def write_text(chars, txtFile):
     text = []
     
     #Sort characters according to page, textbox, textline, y1, and x1
     chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
-    page_cur = chars[0][0]
-    textbox_cur = chars[0][1]
-    textline_cur = chars[0][2]
+    pageCur = chars[0][0]
+    textboxCur = chars[0][1]
+    textlineCur = chars[0][2]
 
     for char in chars:
-        space_flag = 0
-        page_new = char[0]
-        textbox_new = char[1]
-        textline_new = char[2]
-        if page_new != page_cur:
-            page_cur = page_new
-            space_flag = 1
-        if textbox_new != textbox_cur:
-            textbox_cur = textbox_new
-            space_flag = 1
-        if textline_new != textline_cur:
-            textline_cur = textline_new
-            space_flag = 1
-        if space_flag == 1:
+        spaceFlag = 0
+        pageNew = char[0]
+        textboxNew = char[1]
+        textlineNew = char[2]
+        if pageNew != pageCur:
+            pageCur = pageNew
+            spaceFlag = 1
+        if textboxNew != textboxCur:
+            textboxCur = textboxNew
+            spaceFlag = 1
+        if textlineNew != textlineCur:
+            textlineCur = textlineNew
+            spaceFlag = 1
+        if spaceFlag == 1:
             text.append(" ")
         text.append(char[9])
     text = "".join(text)
     
-    f = codecs.open(txtfile, "w")
+    f = codecs.open(txtFile, "w")
     f.write(clean_text(text))
     f.close()
     return
 
 #Name:       create_output
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #            clss ("pos" or "neg")
-#            docname (document name)
+#            docName (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
 
-def create_output(projname, clss, docname):
+def create_output(projectName, clss, docName):
     #Create file locations
-    pdffile  = "/" + projname + "/" + clss + "_pdf/"  + docname + ".pdf"
-    xmlfile  = "/" + projname + "/" + clss + "_xml/"  + docname + ".xml"
-    txtfile  = "/" + projname + "/" + clss + "_txt/"  + docname + ".txt"
-    probfile = "/" + projname + "/" + clss + "_prob/" + docname + ".pdf"
+    pdfFile  = "/" + projectName + "/" + clss + "_pdf/"  + docName + ".pdf"
+    xmlFile  = "/" + projectName + "/" + clss + "_xml/"  + docName + ".xml"
+    txtFile  = "/" + projectName + "/" + clss + "_txt/"  + docName + ".txt"
+    probFile = "/" + projectName + "/" + clss + "_prob/" + docName + ".pdf"
 
-    #prob_flag indicates whether there is a problem extracting text from the PDF
-    #The problem PDFs are moved to the /project/pos_prob/ and /project/neg_prob/ folders where they can be inspected
-    prob_flag = 0
+    #probFlag indicates whether there is a problem extracting text from the PDF
+    #The problem PDFs are moved to the /projectName/pos_prob/ and /projectName/neg_prob/ folders where they can be inspected
+    probFlag = 0
     chars = []
 
     #If the TXT file does not already exist, then try creating it
-    if not os.path.isfile(txtfile):
+    if not os.path.isfile(txtFile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
-            os.system("pdf2txt.py -o " + xmlfile + " -t xml " + pdffile)
+            os.system("pdf2txt.py -o " + xmlFile + " -t xml " + pdfFile)
         except PDFTextExtractionNotAllowed:
             #Exception indicates that text cannot be extracted from the PDF
-            prob_flag = 1
-        if not os.path.isfile(xmlfile):
-            prob_flag = 1
-        elif os.stat(xmlfile).st_size == 0:
-            prob_flag = 1
-        if prob_flag == 0:
-            chars = get_chars(xmlfile)
+            probFlag = 1
+        if not os.path.isfile(xmlFile):
+            probFlag = 1
+        elif os.stat(xmlFile).st_size == 0:
+            probFlag = 1
+        if probFlag == 0:
+            chars = get_chars(xmlFile)
             if len(chars) == 0:
-                prob_flag = 1
-        #Check prob_flag value and act accordingly
-        if prob_flag == 0:
-            write_text(chars, txtfile)
-            if os.path.isfile(xmlfile):
+                probFlag = 1
+        #Check probFlag value and act accordingly
+        if probFlag == 0:
+            write_text(chars, txtFile)
+            if os.path.isfile(xmlFile):
                 #The intermediate XML file is deleted because it tends to be large
-                os.remove(xmlfile)
-            print(docname)
-        elif prob_flag == 1:
-            if os.path.isfile(xmlfile):
+                os.remove(xmlFile)
+            print(docName)
+        elif probFlag == 1:
+            if os.path.isfile(xmlFile):
                 #The intermediate XML file is deleted because it tends to be large
-                os.remove(xmlfile)
-            if os.path.isfile(txtfile):
+                os.remove(xmlFile)
+            if os.path.isfile(txtFile):
                 #Any text that has been extracted from the problem PDF is deleted
-                os.remove(txtfile)
-            os.system("mv " + pdffile + " " + probfile)
-            print("!!! PROBLEM: " + docname)
+                os.remove(txtFile)
+            os.system("mv " + pdfFile + " " + probFile)
+            print("!!! PROBLEM: " + docName)
     return
 
 #Name:       convert_files
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #            lng (language)
 #            clss ("neg", "pos", or "pred")
 #Purpose:    Convert PDFs to TXT format
 
-def convert_files(projname, lng, clss):
+def convert_files(projectName, lng, clss):
     #Read in stop words
-    stop_words_list = []
+    stopWordsList = []
     f = codecs.open("stop_" + lng + ".txt", "rU")
     for word in f:
         if word.strip() != "":
-            stop_words_list.append(word.strip())
+            stopWordsList.append(word.strip())
     f.close()
-    global stop_words
-    stop_words = set(stop_words_list)
+    global stopWords
+    stopWords = set(stopWordsList)
 
     #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/" + projname + "/" + clss + "_pdf/"))
+    pdfs = sorted(os.listdir("/" + projectName + "/" + clss + "_pdf/"))
     for pdf in pdfs:
-        pdfmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
-        if pdfmatch:
-            docname = pdfmatch.group(1)
-            if pdfmatch.group(2) != "pdf":
-                oldfile = "/" + projname + "/" + clss + "_pdf/" + docname + "." + pdfmatch.group(2)
-                newfile = "/" + projname + "/" + clss + "_pdf/" + docname + ".pdf"
-                os.system("mv " + oldfile + " " + newfile)
-            create_output(projname, clss, docname)
+        pdfMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
+        if pdfMatch:
+            docName = pdfMatch.group(1)
+            if pdfMatch.group(2) != "pdf":
+                oldFile = "/" + projectName + "/" + clss + "_pdf/" + docName + "." + pdfMatch.group(2)
+                newFile = "/" + projectName + "/" + clss + "_pdf/" + docName + ".pdf"
+                os.system("mv " + oldFile + " " + newFile)
+            create_output(projectName, clss, docName)
     print("")
     return
 
