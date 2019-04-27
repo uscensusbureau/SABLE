@@ -118,49 +118,49 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ## Example Run
 
-Set up project folders.
+Set up project folders for a project called ```myProject```.
 
 ```
->> python3 s0_setup.py myproject
+>> python3 s0_setup.py myProject
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /myproject/urls/seed.txt
+>> vi /myProject/urls/seed.txt
 #Enter seed URLs
->> crawl -s /myproject/urls/ /myproject/crawl/ 3
->> readdb /myproject/crawl/crawldb/ -dump /myproject/dump/ -format csv
->> cat /myproject/dump/part-r-00000 > /myproject/dump/dump.csv
+>> crawl -s /myProject/urls/ /myProject/crawl/ 3
+>> readdb /myProject/crawl/crawldb/ -dump /myProject/dump/ -format csv
+>> cat /myProject/dump/part-r-00000 > /myProject/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/myproject/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myproject/pos_pdf/``` and ```/myproject/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/myProject/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myProject/pos_pdf/``` and ```/myProject/neg_pdf/```.
 
 ```
->> python3 s1_download.py myproject
+>> python3 s1_download.py myProject
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py myproject english pos
->> python3 s2_convert.py myproject english neg
+>> python3 s2_convert.py myProject english pos
+>> python3 s2_convert.py myProject english neg
 ```
 
 Fit and evaluate various text classification models.
 
 ```
->> python3 s3_model.py myproject
+>> python3 s3_model.py myProject
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/myproject/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/myProject/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
->> python3 s2_convert.py myproject english pred
+>> python3 s2_convert.py myProject english pred
 ```
 
 Fit a logistic regression model using the manually classified positive and negative PDFs.  Use the model to predict classes and probabilities for the new PDFs.
 
 ```
->> python3 s4_logistic.py myproject
+>> python3 s4_logistic.py myProject
 ```
