@@ -1,6 +1,6 @@
 #Name:        s3_model.py
-#Purpose:     Fit and evaluate classification models based on the extracted text in the /myproject/neg_txt/ and /myproject/pos_txt/ folders
-#Invocation:  python3 s3_model.py <project name>
+#Purpose:     Fit and evaluate classification models based on the text extracted from manually classified PDFs
+#Invocation:  python3 s3_model.py <projectName>
 
 import codecs
 from nltk.classify import *
@@ -60,15 +60,15 @@ def get_feats_counts(text):
 
 #Name:       evaluate
 #Arguments:  classifier (fitted classification model)
-#            pos_test (list of indices of positive test observations)
-#            neg_test (list of indices of negative test observations)
-#            pos_texts_dict (dictionary of positive texts)
-#            neg_texts_dict (dictionary of negative texts)
-#            pos_docs_dict (dictionary of positive document names)
-#            neg_docs_dict (dictionary of negative document names)
+#            posTest (list of indices of positive test observations)
+#            negTest (list of indices of negative test observations)
+#            posTextsDict (dictionary of positive texts)
+#            negTextsDict (dictionary of negative texts)
+#            posDocsDict (dictionary of positive document names)
+#            negDocsDict (dictionary of negative document names)
 #Purpose:    Evaluate classifier by applying it to the test set and calculating various performance statistics
 
-def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict):
+def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict):
     #Number of true positives
     tp = 0
     #Number of false negatives
@@ -78,36 +78,36 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     #Number of false positives
     fp = 0
     #List of true classes
-    true_all = []
+    trueAll = []
     #List of predicted classes
-    pred_all = []
+    predAll = []
     
     #Print document names of false negatives
     print("False Negatives")
     print("---------------")
-    for i in pos_test:
-        true_all.append("pos")
-        pred = classifier.classify(get_feats_inds(pos_texts_dict[i]))
-        pred_all.append(pred)
+    for i in posTest:
+        trueAll.append("pos")
+        pred = classifier.classify(get_feats_inds(posTextsDict[i]))
+        predAll.append(pred)
         if pred == "pos":
             tp += 1
         else:
             fn += 1
-            print(pos_docs_dict[i])
+            print(posDocsDict[i])
     print("")
     
     #Print document names of false positives
     print("False Positives")
     print("---------------")
-    for i in neg_test:
-        true_all.append("neg")
-        pred = classifier.classify(get_feats_inds(neg_texts_dict[i]))
-        pred_all.append(pred)
+    for i in negTest:
+        trueAll.append("neg")
+        pred = classifier.classify(get_feats_inds(negTextsDict[i]))
+        predAll.append(pred)
         if pred == "neg":
             tn += 1
         else:
             fp += 1
-            print(neg_docs_dict[i])
+            print(negDocsDict[i])
     print("")
     
     #Accuracy
@@ -170,144 +170,144 @@ def evaluate(classifier, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos
     #Print confusion matrix
     print("Confusion Matrix")
     print("----------------")
-    print(confusion_matrix(true_all, pred_all, ["pos", "neg"]))
+    print(confusion_matrix(trueAll, predAll, ["pos", "neg"]))
     print("")
     return
 
 #Name:       fit_models
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #Purpose:    Fit text classification models
 
-def fit_models(projname):
-    pos_texts = []
-    pos_docs  = []
-    neg_texts = []
-    neg_docs  = []
+def fit_models(projectName):
+    posTexts = []
+    posDocs  = []
+    negTexts = []
+    negDocs  = []
     
     #Read in text from documents classified as positive
-    pos_directory = sorted(os.listdir("/" + projname + "/pos_txt/"))
-    for f in pos_directory:
-        namematch = re.search(r"^(\S+)\.txt$", f)
-        if namematch:
-            pos_docs.append(namematch.group(1))
-            txtfile = "/" + projname + "/pos_txt/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(txtfile, "rU")
-            pos_texts.append(tmpfile.readlines()[0])
-            tmpfile.close()
+    posDirectory = sorted(os.listdir("/" + projectName + "/pos_txt/"))
+    for f in posDirectory:
+        nameMatch = re.search(r"^(\S+)\.txt$", f)
+        if nameMatch:
+            posDocs.append(nameMatch.group(1))
+            txtFile = "/" + projectName + "/pos_txt/" + nameMatch.group(1) + ".txt"
+            tmpFile = codecs.open(txtFile, "rU")
+            posTexts.append(tmpFile.readlines()[0])
+            tmpFile.close()
     
     #Read in text from documents classified as negative
-    neg_directory = sorted(os.listdir("/" + projname + "/neg_txt/"))
-    for f in neg_directory:
-        namematch = re.search(r"^(\S+)\.txt$", f)
-        if namematch:
-            neg_docs.append(namematch.group(1))
-            txtfile = "/" + projname + "/neg_txt/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(txtfile, "rU")
-            neg_texts.append(tmpfile.readlines()[0])
-            tmpfile.close()
+    negDirectory = sorted(os.listdir("/" + projectName + "/neg_txt/"))
+    for f in negDirectory:
+        nameMatch = re.search(r"^(\S+)\.txt$", f)
+        if nameMatch:
+            negDocs.append(nameMatch.group(1))
+            txtFile = "/" + projectName + "/neg_txt/" + nameMatch.group(1) + ".txt"
+            tmpFile = codecs.open(txtFile, "rU")
+            negTexts.append(tmpFile.readlines()[0])
+            tmpFile.close()
     
     #Create dictionaries to facilitate referencing observations and their corresponding text 
-    pos_index      = [i for i in range(len(pos_texts))]
-    pos_texts_dict = dict([(i, pos_texts[i]) for i in pos_index])
-    pos_docs_dict  = dict([(i, pos_docs[i]) for i in pos_index])
-    neg_index      = [i for i in range(len(neg_texts))]
-    neg_texts_dict = dict([(i, neg_texts[i]) for i in neg_index])
-    neg_docs_dict  = dict([(i, neg_docs[i]) for i in neg_index])
+    posIndex      = [i for i in range(len(posTexts))]
+    posTextsDict = dict([(i, posTexts[i]) for i in posIndex])
+    posDocsDict  = dict([(i, posDocs[i]) for i in posIndex])
+    negIndex      = [i for i in range(len(negTexts))]
+    negTextsDict = dict([(i, negTexts[i]) for i in negIndex])
+    negDocsDict  = dict([(i, negDocs[i]) for i in negIndex])
     
     #Set random number seed if desired
     random.seed(1234567890)
-    random.shuffle(pos_index)
-    random.shuffle(neg_index)
+    random.shuffle(posIndex)
+    random.shuffle(negIndex)
     
     #Divide the data into training and test sets
-    train_frac = 2.0/3.0
-    pos_cut = int(round(train_frac * len(pos_index)))
-    neg_cut = int(round(train_frac * len(neg_index)))
-    pos_train = sorted(pos_index[:pos_cut])
-    pos_test  = sorted(pos_index[pos_cut:])
-    neg_train = sorted(neg_index[:neg_cut])
-    neg_test  = sorted(neg_index[neg_cut:])
+    trainFrac = 2.0/3.0
+    posCut = int(round(trainFrac * len(posIndex)))
+    negCut = int(round(trainFrac * len(negIndex)))
+    posTrain = sorted(posIndex[:posCut])
+    posTest  = sorted(posIndex[posCut:])
+    negTrain = sorted(negIndex[:negCut])
+    negTest  = sorted(negIndex[negCut:])
     
     #Create features based on n-gram indicators
-    pos_feats_train = [(get_feats_inds(pos_texts_dict[i]), "pos") for i in pos_train]
-    neg_feats_train = [(get_feats_inds(neg_texts_dict[i]), "neg") for i in neg_train]
-    feats_train = pos_feats_train + neg_feats_train
+    posFeatsTrain = [(get_feats_inds(posTextsDict[i]), "pos") for i in posTrain]
+    negFeatsTrain = [(get_feats_inds(negTextsDict[i]), "neg") for i in negTrain]
+    featsTrain = posFeatsTrain + negFeatsTrain
     
     #Print number of positive and negative observations used for training and testing
     print("")
-    print("Positive Training: " + str(len(pos_train)))
-    print("Positive Testing:  " + str(len(pos_test)))
-    print("Negative Training: " + str(len(neg_train)))
-    print("Negative Testing:  " + str(len(neg_test)) + "\n")
+    print("Positive Training: " + str(len(posTrain)))
+    print("Positive Testing:  " + str(len(posTest)))
+    print("Negative Training: " + str(len(negTrain)))
+    print("Negative Testing:  " + str(len(negTest)) + "\n")
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Naive Bayes Classifier (NLTK Implementation)   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_nb = NaiveBayesClassifier.train(feats_train)
-    classifier_nb.show_most_informative_features(n=50)
+    classifierNB = NaiveBayesClassifier.train(featsTrain)
+    classifierNB.show_most_informative_features(n=50)
     print("")
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Naive Bayes Classifier (Bernoulli Model)   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_nbber = nltk.classify.SklearnClassifier(BernoulliNB(alpha=1.0))
-    classifier_nbber.train(feats_train)
-    evaluate(classifier_nbber, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierNBBer = nltk.classify.SklearnClassifier(BernoulliNB(alpha=1.0))
+    classifierNBBer.train(featsTrain)
+    evaluate(classifierNBBer, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Naive Bayes Classifier (Bernoulli Model)   @@@")
     print("@@@   with Cross-Validated Smoothing Parameter   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    n_folds = 10
-    alpha_list = [0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 5.0]
-    classifier_nbbercv = nltk.classify.SklearnClassifier(GridSearchCV(BernoulliNB(), cv=n_folds, param_grid={"alpha": alpha_list}))
-    classifier_nbbercv.train(feats_train)
-    evaluate(classifier_nbbercv, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    nFolds = 10
+    alphaList = [0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.5, 5.0]
+    classifierNBBerCV = nltk.classify.SklearnClassifier(GridSearchCV(BernoulliNB(), cv=nFolds, param_grid={"alpha": alphaList}))
+    classifierNBBerCV.train(featsTrain)
+    evaluate(classifierNBBerCV, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   K-Nearest Neighbors Classifier   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_knn = nltk.classify.SklearnClassifier(KNeighborsClassifier(n_neighbors=5))
-    classifier_knn.train(feats_train)
-    evaluate(classifier_knn, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierKNN = nltk.classify.SklearnClassifier(KNeighborsClassifier(n_neighbors=5))
+    classifierKNN.train(featsTrain)
+    evaluate(classifierKNN, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   K-Nearest Neighbors Classifier                       @@@")
     print("@@@   with Cross-Validated Number of Neighbors Parameter   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    n_folds = 10
-    n_neighbors_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    classifier_knncv = nltk.classify.SklearnClassifier(GridSearchCV(KNeighborsClassifier(), cv=n_folds, param_grid={"n_neighbors": n_neighbors_list}))
-    classifier_knncv.train(feats_train)
-    evaluate(classifier_knncv, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    nFolds = 10
+    nNeighborsList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    classifierKNNCV = nltk.classify.SklearnClassifier(GridSearchCV(KNeighborsClassifier(), cv=nFolds, param_grid={"n_neighbors": nNeighborsList}))
+    classifierKNNCV.train(featsTrain)
+    evaluate(classifierKNNCV, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Linear Support Vector Classifier   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_svc = nltk.classify.SklearnClassifier(LinearSVC(class_weight="balanced"))
-    classifier_svc.train(feats_train)
-    evaluate(classifier_svc, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierSVC = nltk.classify.SklearnClassifier(LinearSVC(class_weight="balanced"))
+    classifierSVC.train(featsTrain)
+    evaluate(classifierSVC, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Logistic Regression   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression(class_weight="balanced"))
-    classifier_logit.train(feats_train)
-    evaluate(classifier_logit, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierLR = nltk.classify.SklearnClassifier(LogisticRegression(class_weight="balanced"))
+    classifierLR.train(featsTrain)
+    evaluate(classifierLR, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Decision Tree Classifier   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_tree = nltk.classify.SklearnClassifier(DecisionTreeClassifier(class_weight="balanced"))
-    classifier_tree.train(feats_train)
-    evaluate(classifier_tree, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierTree = nltk.classify.SklearnClassifier(DecisionTreeClassifier(class_weight="balanced"))
+    classifierTree.train(featsTrain)
+    evaluate(classifierTree, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Random Forest Classifier   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_forest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50, class_weight="balanced"))
-    classifier_forest.train(feats_train)
-    evaluate(classifier_forest, pos_test, neg_test, pos_texts_dict, neg_texts_dict, pos_docs_dict, neg_docs_dict)
+    classifierForest = nltk.classify.SklearnClassifier(RandomForestClassifier(n_estimators=50, class_weight="balanced"))
+    classifierForest.train(featsTrain)
+    evaluate(classifierForest, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     
     return
 
