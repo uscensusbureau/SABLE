@@ -1,6 +1,6 @@
 #Name:        s1_download.py
 #Purpose:     Download PDFs discovered during web crawling
-#Invocation:  python3 s1_download.py <project name>
+#Invocation:  python3 s1_download.py <projectName>
 
 import codecs
 import csv
@@ -25,31 +25,31 @@ def valid_arguments():
 #Purpose:    Determine whether the URL points to a PDF
 
 def is_pdf(url, metadata):
-    urlmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", url)
-    metadatamatch = re.search(r"Content-Type:application/pdf", metadata)
-    return urlmatch or metadatamatch
+    urlMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", url)
+    metadataMatch = re.search(r"Content-Type:application/pdf", metadata)
+    return urlMatch or metadataMatch
 
 #Name:       download_pdf
 #Arguments:  url
-#            projname (project name)
+#            projectName
 #Purpose:    Download the PDF
 
-def download_pdf(url, projname):
+def download_pdf(url, projectName):
     #Use the Linux/Unix utility wget to download the PDF
-    os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
+    os.system("wget --no-check-certificate -nv -P /" + projectName + "/download/ " + url)
     return
 
 #Name:       download_pdfs
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #Purpose:    Download PDFs
 
-def download_pdfs(projname):
+def download_pdfs(projectName):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
-    f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
+    f = codecs.open("/" + projectName + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
     for row in rdr:
         if is_pdf(row["Url"], row["Metadata"]):
-            download_pdf(row["Url"], projname)
+            download_pdf(row["Url"], projectName)
     f.close()
     return
 
