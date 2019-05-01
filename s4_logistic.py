@@ -1,6 +1,6 @@
 #Name:        s4_logistic.py
 #Purpose:     Classify new PDFs as positive or negative using a logistic regression model and output predicted classes and probabilities
-#Invocation:  python3 s4_logistic.py <project name>
+#Invocation:  python3 s4_logistic.py <projectName>
 
 import codecs
 from nltk.classify import *
@@ -61,80 +61,80 @@ def format_prob(prob):
     return str(round(prob, 4))
 
 #Name:       fit_and_predict
-#Arguments:  projname (project name)
+#Arguments:  projectName
 #Purpose:    Fit a logistic regression model and output predicted classes and probabilities
 
-def fit_and_predict(projname):
-    pos_texts  = []
-    pos_docs   = []
-    neg_texts  = []
-    neg_docs   = []
-    pred_texts = []
-    pred_docs  = []
+def fit_and_predict(projectName):
+    posTexts  = []
+    posDocs   = []
+    negTexts  = []
+    negDocs   = []
+    predTexts = []
+    predDocs  = []
     
     #Read in text from documents classified as positive
-    pos_directory = sorted(os.listdir("/" + projname + "/pos_txt/"))
-    for f in pos_directory:
-        namematch = re.search(r"^(\S+)\.txt$", f)
-        if namematch:
-            pos_docs.append(namematch.group(1))
-            txtfile = "/" + projname + "/pos_txt/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(txtfile, "rU")
-            pos_texts.append(tmpfile.readlines()[0])
-            tmpfile.close()
+    posDirectory = sorted(os.listdir("/" + projectName + "/pos_txt/"))
+    for f in posDirectory:
+        nameMatch = re.search(r"^(\S+)\.txt$", f)
+        if nameMatch:
+            posDocs.append(nameMatch.group(1))
+            txtFile = "/" + projectName + "/pos_txt/" + nameMatch.group(1) + ".txt"
+            tmpFile = codecs.open(txtFile, "rU")
+            posTexts.append(tmpFile.readlines()[0])
+            tmpFile.close()
     
     #Read in text from documents classified as negative
-    neg_directory = sorted(os.listdir("/" + projname + "/neg_txt/"))
-    for f in neg_directory:
-        namematch = re.search(r"^(\S+)\.txt$", f)
-        if namematch:
-            neg_docs.append(namematch.group(1))
-            txtfile = "/" + projname + "/neg_txt/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(txtfile, "rU")
-            neg_texts.append(tmpfile.readlines()[0])
-            tmpfile.close()
+    negDirectory = sorted(os.listdir("/" + projectName + "/neg_txt/"))
+    for f in negDirectory:
+        nameMatch = re.search(r"^(\S+)\.txt$", f)
+        if nameMatch:
+            negDocs.append(nameMatch.group(1))
+            txtFile = "/" + projectName + "/neg_txt/" + nameMatch.group(1) + ".txt"
+            tmpFile = codecs.open(txtFile, "rU")
+            negTexts.append(tmpFile.readlines()[0])
+            tmpFile.close()
     
     #Create features based on n-gram indicators
-    pos_feats_train = [(get_feats_inds(pos_text), "pos") for pos_text in pos_texts]
-    neg_feats_train = [(get_feats_inds(neg_text), "neg") for neg_text in neg_texts]
-    feats_train = pos_feats_train + neg_feats_train
+    posFeatsTrain = [(get_feats_inds(posText), "pos") for posText in posTexts]
+    negFeatsTrain = [(get_feats_inds(negText), "neg") for negText in negTexts]
+    featsTrain = posFeatsTrain + negFeatsTrain
     
     #Read in text from documents for prediction
-    pred_directory = sorted(os.listdir("/" + projname + "/pred_txt/"))
-    for f in pred_directory:
-        namematch = re.search(r"^(\S+)\.txt$", f)
-        if namematch:
-            pred_docs.append(namematch.group(1))
-            txtfile = "/" + projname + "/pred_txt/" + namematch.group(1) + ".txt"
-            tmpfile = codecs.open(txtfile, "rU")
-            pred_texts.append(tmpfile.readlines()[0])
-            tmpfile.close()
+    predDirectory = sorted(os.listdir("/" + projectName + "/pred_txt/"))
+    for f in predDirectory:
+        nameMatch = re.search(r"^(\S+)\.txt$", f)
+        if nameMatch:
+            predDocs.append(nameMatch.group(1))
+            txtFile = "/" + projectName + "/pred_txt/" + nameMatch.group(1) + ".txt"
+            tmpFile = codecs.open(txtFile, "rU")
+            predTexts.append(tmpFile.readlines()[0])
+            tmpFile.close()
     
     #Print number of positive and negative observations used for training and number of observations for prediction
     print("")
-    print("Positive Training: " + str(len(pos_texts)))
-    print("Negative Training: " + str(len(neg_texts)))
-    print("Prediction:        " + str(len(pred_texts)) + "\n")
+    print("Positive Training: " + str(len(posTexts)))
+    print("Negative Training: " + str(len(negTexts)))
+    print("Prediction:        " + str(len(predTexts)) + "\n")
     
     #Fit a logistic regression model and apply it to new observations
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Logistic Regression   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifier_logit = nltk.classify.SklearnClassifier(LogisticRegression(penalty="l2", C=1, class_weight="balanced"))
-    classifier_logit.train(feats_train)
-    pred_classes = [classifier_logit.classify(get_feats_inds(pred_text)) for pred_text in pred_texts]
-    pred_probs = [classifier_logit.prob_classify(get_feats_inds(pred_text)) for pred_text in pred_texts]
+    classifierLR = nltk.classify.SklearnClassifier(LogisticRegression(penalty="l2", C=1, class_weight="balanced"))
+    classifierLR.train(featsTrain)
+    predClasses = [classifierLR.classify(get_feats_inds(predText)) for predText in predTexts]
+    predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
     
     #Create output
-    outputfile = "/" + projname + "/pred_output.txt"
-    var_names = ["document_name", "predicted_class", "probability_positive", "probability_negative"]
-    f = open(outputfile, "w")
-    f.write("|".join(var_names) + "\n")
-    for i in range(len(pred_texts)):
-        line = [pred_docs[i], pred_classes[i], format_prob(pred_probs[i].prob("pos")), format_prob(pred_probs[i].prob("neg"))]
+    outputFile = "/" + projectName + "/pred_output.txt"
+    varNames = ["docName", "predClass", "probPos", "probNeg"]
+    f = open(outputFile, "w")
+    f.write("|".join(varNames) + "\n")
+    for i in range(len(predTexts)):
+        line = [predDocs[i], predClasses[i], format_prob(predProbs[i].prob("pos")), format_prob(predProbs[i].prob("neg"))]
         f.write("|".join(line) + "\n")
     f.close()
-    os.system("chmod 777 " + outputfile)
+    os.system("chmod 777 " + outputFile)
     
     return
 
