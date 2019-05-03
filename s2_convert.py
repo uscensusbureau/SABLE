@@ -206,7 +206,7 @@ def create_output(projectName, clss, docName):
     probFile = "/" + projectName + "/" + clss + "_prob/" + docName + ".pdf"
 
     #probFlag indicates whether there is a problem extracting text from the PDF
-    #The problem PDFs are moved to the /projectName/pos_prob/ and /projectName/neg_prob/ folders where they can be inspected
+    #The problem PDFs are moved to separate folders where they can be inspected
     probFlag = 0
     chars = []
 
