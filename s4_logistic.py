@@ -1,6 +1,6 @@
 #Name:        s4_logistic.py
 #Purpose:     Classify new PDFs as positive or negative using a logistic regression model and output predicted classes and probabilities
-#Invocation:  python3 s4_logistic.py <projectName>
+#Invocation:  python3 s4_logistic.py <projName>
 
 import codecs
 from nltk.classify import *
@@ -61,10 +61,10 @@ def format_prob(prob):
     return str(round(prob, 4))
 
 #Name:       fit_and_predict
-#Arguments:  projectName
+#Arguments:  projName (project name)
 #Purpose:    Fit a logistic regression model and output predicted classes and probabilities
 
-def fit_and_predict(projectName):
+def fit_and_predict(projName):
     posTexts  = []
     posDocs   = []
     negTexts  = []
@@ -73,23 +73,23 @@ def fit_and_predict(projectName):
     predDocs  = []
     
     #Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/" + projectName + "/pos_txt/"))
+    posDir = sorted(os.listdir("/" + projName + "/pos_txt/"))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/" + projectName + "/pos_txt/" + nameMatch.group(1) + ".txt"
+            txtFile = "/" + projName + "/pos_txt/" + nameMatch.group(1) + ".txt"
             tmpFile = codecs.open(txtFile, "rU")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     #Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/" + projectName + "/neg_txt/"))
+    negDir = sorted(os.listdir("/" + projName + "/neg_txt/"))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/" + projectName + "/neg_txt/" + nameMatch.group(1) + ".txt"
+            txtFile = "/" + projName + "/neg_txt/" + nameMatch.group(1) + ".txt"
             tmpFile = codecs.open(txtFile, "rU")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
@@ -100,12 +100,12 @@ def fit_and_predict(projectName):
     featsTrain = posFeatsTrain + negFeatsTrain
     
     #Read in text from documents for prediction
-    predDir = sorted(os.listdir("/" + projectName + "/pred_txt/"))
+    predDir = sorted(os.listdir("/" + projName + "/pred_txt/"))
     for f in predDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             predDocs.append(nameMatch.group(1))
-            txtFile = "/" + projectName + "/pred_txt/" + nameMatch.group(1) + ".txt"
+            txtFile = "/" + projName + "/pred_txt/" + nameMatch.group(1) + ".txt"
             tmpFile = codecs.open(txtFile, "rU")
             predTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
@@ -126,7 +126,7 @@ def fit_and_predict(projectName):
     predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
     
     #Create output
-    outputFile = "/" + projectName + "/pred_output.txt"
+    outputFile = "/" + projName + "/pred_output.txt"
     varNames = ["docName", "predClass", "probPos", "probNeg"]
     f = open(outputFile, "w")
     f.write("|".join(varNames) + "\n")
