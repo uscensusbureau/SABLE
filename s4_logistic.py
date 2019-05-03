@@ -73,8 +73,8 @@ def fit_and_predict(projectName):
     predDocs  = []
     
     #Read in text from documents classified as positive
-    posDirectory = sorted(os.listdir("/" + projectName + "/pos_txt/"))
-    for f in posDirectory:
+    posDir = sorted(os.listdir("/" + projectName + "/pos_txt/"))
+    for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
@@ -84,8 +84,8 @@ def fit_and_predict(projectName):
             tmpFile.close()
     
     #Read in text from documents classified as negative
-    negDirectory = sorted(os.listdir("/" + projectName + "/neg_txt/"))
-    for f in negDirectory:
+    negDir = sorted(os.listdir("/" + projectName + "/neg_txt/"))
+    for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
@@ -100,8 +100,8 @@ def fit_and_predict(projectName):
     featsTrain = posFeatsTrain + negFeatsTrain
     
     #Read in text from documents for prediction
-    predDirectory = sorted(os.listdir("/" + projectName + "/pred_txt/"))
-    for f in predDirectory:
+    predDir = sorted(os.listdir("/" + projectName + "/pred_txt/"))
+    for f in predDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             predDocs.append(nameMatch.group(1))
