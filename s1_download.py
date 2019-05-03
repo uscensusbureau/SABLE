@@ -1,6 +1,6 @@
 #Name:        s1_download.py
 #Purpose:     Download PDFs discovered during web crawling
-#Invocation:  python3 s1_download.py <projectName>
+#Invocation:  python3 s1_download.py <projName>
 
 import codecs
 import csv
@@ -31,25 +31,25 @@ def is_pdf(url, metadata):
 
 #Name:       download_pdf
 #Arguments:  url
-#            projectName
+#            projName (project name)
 #Purpose:    Download the PDF
 
-def download_pdf(url, projectName):
+def download_pdf(url, projName):
     #Use the Linux/Unix utility wget to download the PDF
-    os.system("wget --no-check-certificate -nv -P /" + projectName + "/download/ " + url)
+    os.system("wget --no-check-certificate -nv -P /" + projName + "/download/ " + url)
     return
 
 #Name:       download_pdfs
-#Arguments:  projectName
+#Arguments:  projName (project name)
 #Purpose:    Download PDFs
 
-def download_pdfs(projectName):
+def download_pdfs(projName):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
-    f = codecs.open("/" + projectName + "/dump/dump.csv", "rU")
+    f = codecs.open("/" + projName + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
     for row in rdr:
         if is_pdf(row["Url"], row["Metadata"]):
-            download_pdf(row["Url"], projectName)
+            download_pdf(row["Url"], projName)
     f.close()
     return
 
