@@ -1,6 +1,6 @@
 #Name:        s3_model.py
 #Purpose:     Fit and evaluate classification models based on the text extracted from manually classified PDFs
-#Invocation:  python3 s3_model.py <projectName>
+#Invocation:  python3 s3_model.py <projName>
 
 import codecs
 from nltk.classify import *
@@ -175,33 +175,33 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     return
 
 #Name:       fit_models
-#Arguments:  projectName
+#Arguments:  projName (project name)
 #Purpose:    Fit text classification models
 
-def fit_models(projectName):
+def fit_models(projName):
     posTexts = []
     posDocs  = []
     negTexts = []
     negDocs  = []
     
     #Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/" + projectName + "/pos_txt/"))
+    posDir = sorted(os.listdir("/" + projName + "/pos_txt/"))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/" + projectName + "/pos_txt/" + nameMatch.group(1) + ".txt"
+            txtFile = "/" + projName + "/pos_txt/" + nameMatch.group(1) + ".txt"
             tmpFile = codecs.open(txtFile, "rU")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     #Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/" + projectName + "/neg_txt/"))
+    negDir = sorted(os.listdir("/" + projName + "/neg_txt/"))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/" + projectName + "/neg_txt/" + nameMatch.group(1) + ".txt"
+            txtFile = "/" + projName + "/neg_txt/" + nameMatch.group(1) + ".txt"
             tmpFile = codecs.open(txtFile, "rU")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
