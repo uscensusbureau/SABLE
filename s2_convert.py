@@ -1,6 +1,6 @@
 #Name:        s2_convert.py
 #Purpose:     Convert PDFs to TXT format
-#Invocation:  python3 s2_convert.py <projectName> <lng> <clss>
+#Invocation:  python3 s2_convert.py <projName> <lng> <clss>
 
 import codecs
 import os
@@ -193,17 +193,17 @@ def write_text(chars, txtFile):
     return
 
 #Name:       create_output
-#Arguments:  projectName
+#Arguments:  projName (project name)
 #            clss ("pos" or "neg")
 #            docName (document name)
 #Purpose:    Convert a PDF document of a given class to TXT format
 
-def create_output(projectName, clss, docName):
+def create_output(projName, clss, docName):
     #Create file locations
-    pdfFile  = "/" + projectName + "/" + clss + "_pdf/"  + docName + ".pdf"
-    xmlFile  = "/" + projectName + "/" + clss + "_xml/"  + docName + ".xml"
-    txtFile  = "/" + projectName + "/" + clss + "_txt/"  + docName + ".txt"
-    probFile = "/" + projectName + "/" + clss + "_prob/" + docName + ".pdf"
+    pdfFile  = "/" + projName + "/" + clss + "_pdf/"  + docName + ".pdf"
+    xmlFile  = "/" + projName + "/" + clss + "_xml/"  + docName + ".xml"
+    txtFile  = "/" + projName + "/" + clss + "_txt/"  + docName + ".txt"
+    probFile = "/" + projName + "/" + clss + "_prob/" + docName + ".pdf"
 
     #probFlag indicates whether there is a problem extracting text from the PDF
     #The problem PDFs are moved to separate folders where they can be inspected
@@ -245,12 +245,12 @@ def create_output(projectName, clss, docName):
     return
 
 #Name:       convert_files
-#Arguments:  projectName
+#Arguments:  projName (project name)
 #            lng (language)
 #            clss ("neg", "pos", or "pred")
 #Purpose:    Convert PDFs to TXT format
 
-def convert_files(projectName, lng, clss):
+def convert_files(projName, lng, clss):
     #Read in stop words
     stopWordsList = []
     f = codecs.open("stop_" + lng + ".txt", "rU")
@@ -263,16 +263,16 @@ def convert_files(projectName, lng, clss):
 
     #Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/" + projectName + "/" + clss + "_pdf/"))
+    pdfs = sorted(os.listdir("/" + projName + "/" + clss + "_pdf/"))
     for pdf in pdfs:
         pdfMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfMatch:
             docName = pdfMatch.group(1)
             if pdfMatch.group(2) != "pdf":
-                oldFile = "/" + projectName + "/" + clss + "_pdf/" + docName + "." + pdfMatch.group(2)
-                newFile = "/" + projectName + "/" + clss + "_pdf/" + docName + ".pdf"
+                oldFile = "/" + projName + "/" + clss + "_pdf/" + docName + "." + pdfMatch.group(2)
+                newFile = "/" + projName + "/" + clss + "_pdf/" + docName + ".pdf"
                 os.system("mv " + oldFile + " " + newFile)
-            create_output(projectName, clss, docName)
+            create_output(projName, clss, docName)
     print("")
     return
 
