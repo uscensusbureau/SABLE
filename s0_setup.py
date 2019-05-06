@@ -1,6 +1,6 @@
 #Name:        s0_setup.py
 #Purpose:     Set up project folders
-#Invocation:  python3 s0_setup.py <projectName>
+#Invocation:  python3 s0_setup.py <projName>
 
 import os
 import re
