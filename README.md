@@ -54,7 +54,9 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ------------------------------ | --------------------------------------------------------------------------------- |
 | ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
-| ```example_model_output.txt``` | Model output after applying ```s3_model.py``` to the training set                 |
+| ```/pred_txt/```               | Folder containing TXT files that are be classified by a model                     |
+| ```example_model_output.txt``` | Output after applying ```s3_model.py``` to the training set                       |
+| ```example_pred_output.txt```  | Output after applying ```s4_logistic.py``` to the training set and the TXT files in ```/pred_txt/```  |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
 | ```example_g12-cg-org.txt```   | Output after applying ```s2_convert.py```                                         |
 | ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
@@ -118,7 +120,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ## Example Run
 
-Set up project folders for a project called ```myProject```.
+Set up folders for a project called ```myProject```.
 
 ```
 >> python3 s0_setup.py myProject
