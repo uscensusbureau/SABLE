@@ -54,15 +54,15 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ------------------------------ | --------------------------------------------------------------------------------- |
 | ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
-| ```/pred_txt/```               | Folder containing TXT files that are be classified by a model                     |
-| ```example_model_output.txt``` | Output after applying ```s3_model.py``` to the training set                       |
-| ```example_pred_output.txt```  | Output after applying ```s4_logistic.py``` to the training set and the TXT files in ```/pred_txt/```  |
+| ```/pred_txt/```               | Folder containing TXT files that are to be classified by a model                  |
+| ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
+| ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | Output after applying ```s2_convert.py```                                         |
+| ```example_g12-cg-org.txt```   | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | Output after applying ```s2_convert.py```                                         |
+| ```example_g16-aspp-sl.txt```  | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
-| ```example_g17-qtax4.txt```    | Output after applying ```s2_convert.py```                                         |
+| ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
 
 ## Organization of Files
 
