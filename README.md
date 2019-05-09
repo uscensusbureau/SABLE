@@ -44,25 +44,30 @@ The following table describes the purpose of each of the five Python programs in
 
 ### Lists of Stop Words
 
-Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK Python module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ### Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The associated file ```example_model_output.txt``` in the folder ```/examples/``` was created by applying the model fitting and evaluation program ```s3_model.py``` to this training set.  Also found in ```/examples/``` are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website.  The following table summarizes all of the example input and output.
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that are to be classified by a model.
 
-| Example                        | Description                                                                       |
+| Example Folder   | Description                                                                   |
+| ---------------- | ----------------------------------------------------------------------------- |
+| ```/neg_txt/```  | Collection of TXT files belonging to the "negative" class in the training set |
+| ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
+| ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
+
+The following files are found in the ```/examples/``` folder.  The PDFs and corresponding TXT files are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.
+
+| Example File                   | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
-| ```/neg_txt/```                | Folder containing TXT files belonging to the "negative" class in the training set |
-| ```/pos_txt/```                | Folder containing TXT files belonging to the "positive" class in the training set |
-| ```/pred_txt/```               | Folder containing TXT files that are to be classified by a model                  |
-| ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
-| ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
 | ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
 | ```example_g12-cg-org.txt```   | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
 | ```example_g16-aspp-sl.txt```  | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
 | ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
+| ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
+| ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
 
 ## Organization of Files
 
