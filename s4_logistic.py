@@ -116,25 +116,27 @@ def fit_and_predict(projName):
     print("Negative Training: " + str(len(negTexts)))
     print("Prediction:        " + str(len(predTexts)) + "\n")
     
-    #Fit a logistic regression model and apply it to new observations
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("@@@   Logistic Regression   @@@")
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifierLR = nltk.classify.SklearnClassifier(LogisticRegression(penalty="l2", C=1, class_weight="balanced"))
-    classifierLR.train(featsTrain)
-    predClasses = [classifierLR.classify(get_feats_inds(predText)) for predText in predTexts]
-    predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
+    if len(posFeatsTrain) >= 10 and len(negFeatsTrain) >= 10:
     
-    #Create output
-    outputFile = "/" + projName + "/pred_output.txt"
-    varNames = ["docName", "predClass", "probPos", "probNeg"]
-    f = open(outputFile, "w")
-    f.write("|".join(varNames) + "\n")
-    for i in range(len(predTexts)):
-        line = [predDocs[i], predClasses[i], format_prob(predProbs[i].prob("pos")), format_prob(predProbs[i].prob("neg"))]
-        f.write("|".join(line) + "\n")
-    f.close()
-    os.system("chmod 777 " + outputFile)
+        #Fit a logistic regression model and apply it to new observations
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print("@@@   Logistic Regression   @@@")
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
+        classifierLR = nltk.classify.SklearnClassifier(LogisticRegression(penalty="l2", C=1, class_weight="balanced"))
+        classifierLR.train(featsTrain)
+        predClasses = [classifierLR.classify(get_feats_inds(predText)) for predText in predTexts]
+        predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
+    
+        #Create output
+        outputFile = "/" + projName + "/pred_output.txt"
+        varNames = ["docName", "predClass", "probPos", "probNeg"]
+        f = open(outputFile, "w")
+        f.write("|".join(varNames) + "\n")
+        for i in range(len(predTexts)):
+            line = [predDocs[i], predClasses[i], format_prob(predProbs[i].prob("pos")), format_prob(predProbs[i].prob("neg"))]
+            f.write("|".join(line) + "\n")
+        f.close()
+        os.system("chmod 777 " + outputFile)
     
     return
 
