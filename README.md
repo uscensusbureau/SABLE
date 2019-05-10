@@ -166,7 +166,7 @@ Obtain new PDFs (for example, through continued web crawling) and place them in 
 >> python3 s2_convert.py myProject english pred
 ```
 
-Fit a logistic regression model using the manually classified positive and negative PDFs.  Use the model to predict classes and probabilities for the new PDFs.
+Fit a logistic regression model using the manually classified positive and negative PDFs and use it to predict classes and probabilities for the new PDFs.
 
 ```
 >> python3 s4_logistic.py myProject
