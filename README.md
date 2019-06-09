@@ -56,7 +56,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
 | ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The PDFs and corresponding TXT files are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.
+The following files are found in the ```/examples/``` folder.  The PDFs and corresponding TXT files are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.  Finally, the file ```example_seed.txt``` contains seed URLs for crawling state government websites in search of PDFs containing tax revenue data.
 
 | Example File                   | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -68,6 +68,7 @@ The following files are found in the ```/examples/``` folder.  The PDFs and corr
 | ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
 | ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
+| ```example_seed.txt```         | Example seed URLs for crawling state government websites                          |
 
 ## Organization of Files
 
