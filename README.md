@@ -48,7 +48,7 @@ Lists of common "stop" words useful in text analysis are provided for multiple l
 
 ### Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that are to be classified by a model.
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents that are to be classified by a model.
 
 | Example Folder   | Description                                                                   |
 | ---------------- | ----------------------------------------------------------------------------- |
