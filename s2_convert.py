@@ -16,7 +16,7 @@ def valid_arguments():
     lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
     clssValid = set(["neg", "pos", "pred"])
     if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
             valid = True
     return valid
 
