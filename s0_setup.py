@@ -13,7 +13,7 @@ import sys
 def valid_arguments():
     valid = False
     if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
             valid = True
     return valid
 
