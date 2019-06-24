@@ -1,6 +1,6 @@
 #Name:        s1_download.py
 #Purpose:     Download PDFs discovered during web crawling
-#Invocation:  python3 s1_download.py <project name>
+#Invocation:  python3 s1_download.py <projName>
 
 import codecs
 import csv
@@ -10,12 +10,12 @@ import sys
 
 #Name:       valid_arguments
 #Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Checks whether the command-line arguments are valid
+#Purpose:    Check whether the command-line arguments are valid
 
 def valid_arguments():
     valid = False
     if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) != None:
+        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
             valid = True
     return valid
 
@@ -25,31 +25,31 @@ def valid_arguments():
 #Purpose:    Determine whether the URL points to a PDF
 
 def is_pdf(url, metadata):
-    urlmatch = re.search(r"^(\S+)\.([pP][dD][fF])$", url)
-    metadatamatch = re.search(r"Content-Type:application/pdf", metadata)
-    return urlmatch or metadatamatch
+    urlMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", url)
+    metadataMatch = re.search(r"Content-Type:application/pdf", metadata)
+    return urlMatch or metadataMatch
 
 #Name:       download_pdf
 #Arguments:  url
-#            projname (project name)
+#            projName (project name)
 #Purpose:    Download the PDF
 
-def download_pdf(url, projname):
+def download_pdf(url, projName):
     #Use the Linux/Unix utility wget to download the PDF
-    os.system("wget --no-check-certificate -nv -P /" + projname + "/download/ " + url)
+    os.system("wget --no-check-certificate -nv -P /" + projName + "/download/ " + url)
     return
 
 #Name:       download_pdfs
-#Arguments:  projname (project name)
+#Arguments:  projName (project name)
 #Purpose:    Download PDFs
 
-def download_pdfs(projname):
+def download_pdfs(projName):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
-    f = codecs.open("/" + projname + "/dump/dump.csv", "rU")
+    f = codecs.open("/" + projName + "/dump/dump.csv", "rU")
     rdr = csv.DictReader(f)
     for row in rdr:
         if is_pdf(row["Url"], row["Metadata"]):
-            download_pdf(row["Url"], projname)
+            download_pdf(row["Url"], projName)
     f.close()
     return
 
