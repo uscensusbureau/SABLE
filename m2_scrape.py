@@ -1136,7 +1136,7 @@ def scrape_data(projName, yyyy, mm):
             data = []
             lines_clean = get_text(txtLoc)
             if state == "AL":
-                data = scrape.data_AL(lines_clean, state, yyyy, mm)
+                data = scrape_data_AL(lines_clean, state, yyyy, mm)
             elif state == "AK":
                 data = scrape_data_AK(lines_clean, state, yyyy, mm)
             elif state == "AZ":
@@ -1235,7 +1235,6 @@ def scrape_data(projName, yyyy, mm):
                 data = scrape_data_WI(lines_clean, state, yyyy, mm)
             elif state == "WY":
                 data = scrape_data_WY(lines_clean, state, yyyy, mm)
-
             prod.extend(data)
             create_output(data, datLoc)
             if os.path.isfile(datLoc):
