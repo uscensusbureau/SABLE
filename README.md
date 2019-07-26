@@ -11,30 +11,25 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
+  * wget command-line utility
+  * pdftotext command-line utility
 * [Apache Nutch](http://nutch.apache.org/) (version 1.15)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK (Natural Language Toolkit)](https://www.nltk.org/)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
-Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to extract text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms.  These algorithms consist of:
+Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
-* Naive Bayes
-* K-Nearest Neighbors
-* Linear Support Vector Classifier
-* Logistic Regression
-* Decision Tree
-* Random Forest
+## Python Programs
 
-## Description of Contents
+The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.    There are multiple series of Python programs depending on the task SABLE is to perform.
 
-This repository contains Python programs, lists of stop words, and example input and output.
+### S-Series
 
-### Python Programs
+There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-The following table describes the purpose of each of the five Python programs in this repository.  Additional information can be found in the programs themsevles.  There is a sixth Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
-
-| Program               | Purpose                                                  |
+| S-Series Program      | Purpose                                                  |
 | --------------------- | -------------------------------------------------------- |
 | ```s0_setup.py```     | Set up project folders                                   |
 | ```s1_download.py```  | Download PDFs discovered during web crawling             |
@@ -42,11 +37,19 @@ The following table describes the purpose of each of the five Python programs in
 | ```s3_model.py ```    | Fit and evaluate text classification models              |
 | ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new PDFs |
 
-### Lists of Stop Words
+### M-Series
 
-Lists of common "stop" words useful in text analysis are provided for multiple languages.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+| M-Series Program      | Purpose                                             |
+| --------------------- | --------------------------------------------------- |
+| ```m0_setup.py```     | Set up project folders                              |
+| ```m1_download.py```  | Download documents known to contain useful data     |
+| ```m2_scrape.py```    | Apply templates to scrape data from these documents |
 
-### Examples
+## Lists of Stop Words
+
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+
+## Examples
 
 An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents that are to be classified by a model.
 
@@ -77,6 +80,9 @@ The following organization of files and folders on a Linux/Unix system is assume
 ### Python Programs
 
 ```
+/m0_setup.py
+/m1_download.py
+/m2_scrape.py
 /pdf2txt.py
 /s0_setup.py
 /s1_download.py
@@ -106,69 +112,73 @@ The following organization of files and folders on a Linux/Unix system is assume
 ### Folders
 
 ```
-/project/crawl/
-/project/download/
-/project/dump/
-/project/neg_pdf/
-/project/neg_prob/
-/project/neg_txt/
-/project/neg_xml/
-/project/pos_pdf/
-/project/pos_prob/
-/project/pos_txt/
-/project/pos_xml/
-/project/pred_pdf/
-/project/pred_prob/
-/project/pred_txt/
-/project/pred_xml/
-/project/urls/
+/m_series_project/dat/
+/m_series_project/pdf/
+/m_series_project/prod/
+/m_series_project/txt/
+/s_series_project/crawl/
+/s_series_project/download/
+/s_series_project/dump/
+/s_series_project/neg_pdf/
+/s_series_project/neg_prob/
+/s_series_project/neg_txt/
+/s_series_project/neg_xml/
+/s_series_project/pos_pdf/
+/s_series_project/pos_prob/
+/s_series_project/pos_txt/
+/s_series_project/pos_xml/
+/s_series_project/pred_pdf/
+/s_series_project/pred_prob/
+/s_series_project/pred_txt/
+/s_series_project/pred_xml/
+/s_series_project/urls/
 ```
 
-## Example Run
+## Example S-Series Run
 
-Set up folders for a project called ```myProject```.
+Set up folders for a project called ```my_project```.
 
 ```
->> python3 s0_setup.py myProject
+>> python3 s0_setup.py my_project
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /myProject/urls/seed.txt
+>> vi /my_project/urls/seed.txt
 #Enter seed URLs
->> crawl -s /myProject/urls/ /myProject/crawl/ 3
->> readdb /myProject/crawl/crawldb/ -dump /myProject/dump/ -format csv
->> cat /myProject/dump/part-r-00000 > /myProject/dump/dump.csv
+>> crawl -s /my_project/urls/ /my_project/crawl/ 3
+>> readdb /my_project/crawl/crawldb/ -dump /my_project/dump/ -format csv
+>> cat /my_project/dump/part-r-00000 > /my_project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/myProject/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/myProject/pos_pdf/``` and ```/myProject/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/my_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/my_project/pos_pdf/``` and ```/my_project/neg_pdf/```.
 
 ```
->> python3 s1_download.py myProject
+>> python3 s1_download.py my_project
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py myProject english pos
->> python3 s2_convert.py myProject english neg
+>> python3 s2_convert.py my_project english pos
+>> python3 s2_convert.py my_project english neg
 ```
 
 Fit and evaluate various text classification models.
 
 ```
->> python3 s3_model.py myProject
+>> python3 s3_model.py my_project
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/myProject/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/my_project/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
->> python3 s2_convert.py myProject english pred
+>> python3 s2_convert.py my_project english pred
 ```
 
 Fit a logistic regression model using the manually classified positive and negative PDFs and use it to predict classes and probabilities for the new PDFs.
 
 ```
->> python3 s4_logistic.py myProject
+>> python3 s4_logistic.py my_project
 ```
