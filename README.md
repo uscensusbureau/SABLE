@@ -25,7 +25,7 @@ Apache Nutch is a Java-based web crawler and is used to crawl websites, discover
 
 The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.    There are multiple series of Python programs depending on the task SABLE is to perform.
 
-### S-Series
+### "S" Series
 
 There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
@@ -37,13 +37,13 @@ There is an additional Python program used in SABLE named ```pdf2txt.py```.  It 
 | ```s3_model.py ```    | Fit and evaluate text classification models              |
 | ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new PDFs |
 
-### M-Series
+### "M" Series
 
 | Program               | Purpose                                             |
 | --------------------- | --------------------------------------------------- |
 | ```m0_setup.py```     | Set up project folders                              |
-| ```m1_download.py```  | Download documents known to contain useful data     |
-| ```m2_scrape.py```    | Apply templates to scrape data from these documents |
+| ```m1_download.py```  | Download PDFs known to contain useful data          |
+| ```m2_scrape.py```    | Apply templates to scrape data from downloaded PDFs |
 
 ## Lists of Stop Words
 
@@ -77,18 +77,43 @@ The following files are found in the ```/examples/``` folder.  The PDFs and corr
 
 The following organization of files and folders on a Linux/Unix system is assumed.
 
-### Python programs
+### "S" Series Python Programs and Folders
 
 ```
-/m0_setup.py
-/m1_download.py
-/m2_scrape.py
+/s_series_project/crawl/
+/s_series_project/download/
+/s_series_project/dump/
+/s_series_project/neg_pdf/
+/s_series_project/neg_prob/
+/s_series_project/neg_txt/
+/s_series_project/neg_xml/
+/s_series_project/pos_pdf/
+/s_series_project/pos_prob/
+/s_series_project/pos_txt/
+/s_series_project/pos_xml/
+/s_series_project/pred_pdf/
+/s_series_project/pred_prob/
+/s_series_project/pred_txt/
+/s_series_project/pred_xml/
+/s_series_project/urls/
 /pdf2txt.py
 /s0_setup.py
 /s1_download.py
 /s2_convert.py
 /s3_model.py
 /s4_logistic.py
+```
+
+### "M" Series Python Programs and Folders
+
+```
+/m_series_project/dat/
+/m_series_project/pdf/
+/m_series_project/prod/
+/m_series_project/txt/
+/m0_setup.py
+/m1_download.py
+/m2_scrape.py
 ```
 
 ### Lists of Stop Words
@@ -109,37 +134,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 /stop_turkish.txt
 ```
 
-### M-series Folders
-
-```
-/m_series_project/dat/
-/m_series_project/pdf/
-/m_series_project/prod/
-/m_series_project/txt/
-```
-
-### S-Series Folders
-
-```
-/s_series_project/crawl/
-/s_series_project/download/
-/s_series_project/dump/
-/s_series_project/neg_pdf/
-/s_series_project/neg_prob/
-/s_series_project/neg_txt/
-/s_series_project/neg_xml/
-/s_series_project/pos_pdf/
-/s_series_project/pos_prob/
-/s_series_project/pos_txt/
-/s_series_project/pos_xml/
-/s_series_project/pred_pdf/
-/s_series_project/pred_prob/
-/s_series_project/pred_txt/
-/s_series_project/pred_xml/
-/s_series_project/urls/
-```
-
-## Example S-Series Run
+## Example "S" Series Run
 
 Set up folders for a project called ```my_project```.
 
