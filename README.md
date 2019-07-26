@@ -77,8 +77,9 @@ The following files are found in the ```/examples/``` folder.  The PDFs and corr
 
 The following organization of files and folders on a Linux/Unix system is assumed.
 
+### Python programs
+
 ```
-#Python programs
 /m0_setup.py
 /m1_download.py
 /m2_scrape.py
@@ -88,8 +89,11 @@ The following organization of files and folders on a Linux/Unix system is assume
 /s2_convert.py
 /s3_model.py
 /s4_logistic.py
+```
 
-#Lists of stop words
+### Lists of Stop Words
+
+```
 /stop_danish.txt
 /stop_dutch.txt
 /stop_english.txt
@@ -103,14 +107,20 @@ The following organization of files and folders on a Linux/Unix system is assume
 /stop_spanish.txt
 /stop_swedish.txt
 /stop_turkish.txt
+```
 
-#M-series folders
+### M-series Folders
+
+```
 /m_series_project/dat/
 /m_series_project/pdf/
 /m_series_project/prod/
 /m_series_project/txt/
+```
 
-#S-series folders
+### S-Series Folders
+
+```
 /s_series_project/crawl/
 /s_series_project/download/
 /s_series_project/dump/
