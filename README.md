@@ -29,7 +29,7 @@ The following tables describe the Python programs in this repository.  More info
 
 There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-| S-Series Program      | Purpose                                                  |
+| Program               | Purpose                                                  |
 | --------------------- | -------------------------------------------------------- |
 | ```s0_setup.py```     | Set up project folders                                   |
 | ```s1_download.py```  | Download PDFs discovered during web crawling             |
@@ -39,7 +39,7 @@ There is an additional Python program used in SABLE named ```pdf2txt.py```.  It 
 
 ### M-Series
 
-| M-Series Program      | Purpose                                             |
+| Program               | Purpose                                             |
 | --------------------- | --------------------------------------------------- |
 | ```m0_setup.py```     | Set up project folders                              |
 | ```m1_download.py```  | Download documents known to contain useful data     |
@@ -77,9 +77,8 @@ The following files are found in the ```/examples/``` folder.  The PDFs and corr
 
 The following organization of files and folders on a Linux/Unix system is assumed.
 
-### Python Programs
-
 ```
+#Python programs
 /m0_setup.py
 /m1_download.py
 /m2_scrape.py
@@ -89,11 +88,8 @@ The following organization of files and folders on a Linux/Unix system is assume
 /s2_convert.py
 /s3_model.py
 /s4_logistic.py
-```
 
-### Lists of Stop Words
-
-```
+#Lists of stop words
 /stop_danish.txt
 /stop_dutch.txt
 /stop_english.txt
@@ -107,15 +103,14 @@ The following organization of files and folders on a Linux/Unix system is assume
 /stop_spanish.txt
 /stop_swedish.txt
 /stop_turkish.txt
-```
 
-### Folders
-
-```
+#M-series folders
 /m_series_project/dat/
 /m_series_project/pdf/
 /m_series_project/prod/
 /m_series_project/txt/
+
+#S-series folders
 /s_series_project/crawl/
 /s_series_project/download/
 /s_series_project/dump/
