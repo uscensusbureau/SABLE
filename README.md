@@ -11,8 +11,8 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-  * wget command-line utility
-  * pdftotext command-line utility
+  * [wget](https://www.gnu.org/software/wget/) command-line utility
+  * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) command-line utility
 * [Apache Nutch](http://nutch.apache.org/) (version 1.15)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
@@ -38,6 +38,8 @@ There is an additional Python program used in SABLE named ```pdf2txt.py```.  It 
 | ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new PDFs |
 
 ### "M" Series
+
+This series of Python programs is used for downloading specific PDFs known to contain useful information, scraping values and metadata from the downloaded PDFs, and organizing the scraped data.
 
 | Program               | Purpose                                             |
 | --------------------- | --------------------------------------------------- |
