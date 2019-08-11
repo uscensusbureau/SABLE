@@ -11,41 +11,41 @@ SABLE, which stands for Scraping Assisted by Learning, is a collection of tools 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-  * [wget](https://www.gnu.org/software/wget/) command-line utility
-  * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) command-line utility
+  * [wget](https://www.gnu.org/software/wget/) (command-line utility)
+  * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
 * [Apache Nutch](http://nutch.apache.org/) (version 1.15)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
-  * [NLTK (Natural Language Toolkit)](https://www.nltk.org/)
+  * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
 Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
 ## Python Programs
 
-The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.    There are multiple series of Python programs depending on the task SABLE is to perform.
+The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are multiple series of Python programs depending on the task SABLE is to perform.
 
 ### "S" Series
 
-There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
-| Program               | Purpose                                                  |
-| --------------------- | -------------------------------------------------------- |
-| ```s0_setup.py```     | Set up project folders                                   |
-| ```s1_download.py```  | Download PDFs discovered during web crawling             |
-| ```s2_convert.py```   | Convert PDFs to TXT format                               |
-| ```s3_model.py ```    | Fit and evaluate text classification models              |
-| ```s4_logistic.py ``` | Fit a logisitc regression model and apply it to new PDFs |
+| Program              | Purpose                                                  |
+| -------------------- | -------------------------------------------------------- |
+| ```s0_setup.py```    | Set up project folders                                   |
+| ```s1_download.py``` | Download PDFs discovered during web crawling             |
+| ```s2_convert.py```  | Convert PDFs to TXT format                               |
+| ```s3_model.py```    | Fit and evaluate text classification models              |
+| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs |
 
 ### "M" Series
 
 This series of Python programs is used for downloading specific PDFs known to contain useful information, scraping values and metadata from the downloaded PDFs, and organizing the scraped data.
 
-| Program               | Purpose                                             |
-| --------------------- | --------------------------------------------------- |
-| ```m0_setup.py```     | Set up project folders                              |
-| ```m1_download.py```  | Download PDFs known to contain useful data          |
-| ```m2_scrape.py```    | Apply templates to scrape data from downloaded PDFs |
+| Program              | Purpose                                             |
+| -------------------- | --------------------------------------------------- |
+| ```m0_setup.py```    | Set up project folders                              |
+| ```m1_download.py``` | Download PDFs known to contain useful data          |
+| ```m2_scrape.py```   | Apply templates to scrape data from downloaded PDFs |
 
 ## Lists of Stop Words
 
@@ -61,7 +61,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
 | ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The PDFs and corresponding TXT files are three examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.  Finally, the file ```example_seed.txt``` contains seed URLs for crawling state government websites in search of PDFs containing tax revenue data.
+The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.  Finally, the file ```example_seed.txt``` contains seed URLs for crawling state government websites in search of PDFs containing tax revenue data.
 
 | Example File                   | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -79,7 +79,7 @@ The following files are found in the ```/examples/``` folder.  The PDFs and corr
 
 The following organization of files and folders on a Linux/Unix system is assumed.
 
-### "S" Series Python Programs and Folders
+### "S" Series Folders and Python Programs
 
 ```
 /s_series_project/crawl/
@@ -106,7 +106,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 /s4_logistic.py
 ```
 
-### "M" Series Python Programs and Folders
+### "M" Series Folders and Python Programs
 
 ```
 /m_series_project/dat/
@@ -138,7 +138,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ## Example "S" Series Run
 
-Set up folders for a project called ```my_project```.
+Set up folders for an "S" series project called ```my_project```.
 
 ```
 >> python3 s0_setup.py my_project
