@@ -385,9 +385,17 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             if not pdfExist:
                 os.system("wget --no-check-certificate -nv -P /" + projName + "/pdf/ \"" + targetURL + "\"")
                 if os.path.isfile("/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf"):
-                    os.system("mv \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" " + pdfLoc)
-                    pdfExist = True
-                    print("PDF downloaded.")
+                    os.system("pdftotext -q -layout \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" /" + projName + "/pdf/test.txt")
+                    if not os.path.isfile("/" + projName + "/pdf/test.txt"):
+                        os.system("rm \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\"")
+                    elif os.stat("/" + projName + "/pdf/test.txt").st_size == 0:
+                        os.system("rm \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\"")
+                        os.system("rm /" + projName + "/pdf/test.txt")
+                    else:
+                        os.system("rm /" + projName + "/pdf/test.txt")
+                        os.system("mv \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" " + pdfLoc)
+                        pdfExist = True
+                        print("PDF downloaded.")
         if not pdfExist:
             print("No PDF downloaded.")
     return
