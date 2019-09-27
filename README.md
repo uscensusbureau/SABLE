@@ -39,13 +39,13 @@ This is the original series of SABLE programs used for discovering potential new
 
 ### "M" Series
 
-This series of Python programs is used for downloading specific PDFs known to contain useful information, scraping values and metadata from the downloaded PDFs, and finally organizing the scraped data.
+This series of Python programs is used for downloading specific PDFs known to contain useful data, scraping values and metadata from the downloaded PDFs, and finally organizing the scraped data.
 
 | Program              | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
 | ```m0_setup.py```    | Set up project folders                              |
 | ```m1_download.py``` | Download PDFs known to contain useful data          |
-| ```m2_scrape.py```   | Apply templates to scrape data from downloaded PDFs |
+| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates    |
 
 ## Lists of Stop Words
 
