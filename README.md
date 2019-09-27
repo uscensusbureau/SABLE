@@ -4,7 +4,7 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new sources of data on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
 
 ## Software
 
@@ -27,7 +27,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series
 
-This is the original series of SABLE programs.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs used for discovering potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program              | Purpose                                                  |
 | -------------------- | -------------------------------------------------------- |
@@ -39,7 +39,7 @@ This is the original series of SABLE programs.  There is an additional Python pr
 
 ### "M" Series
 
-This series of Python programs is used for downloading specific PDFs known to contain useful information, scraping values and metadata from the downloaded PDFs, and organizing the scraped data.
+This series of Python programs is used for downloading specific PDFs known to contain useful information, scraping values and metadata from the downloaded PDFs, and finally organizing the scraped data.
 
 | Program              | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
@@ -61,7 +61,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
 | ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).  The file ```example_model_output.txt``` was created by applying the model fitting and evaluation program ```s3_model.py``` to the training set.  The file ```example_pred_output.txt``` was created by applying the logistic regression program ```s4_logistic.py``` to the TXT files in ```/pred_txt/```.  Finally, the file ```example_seed.txt``` contains seed URLs for crawling state government websites in search of PDFs containing tax revenue data.
+The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
 | Example File                   | Description                                                                       |
 | ------------------------------ | --------------------------------------------------------------------------------- |
@@ -82,22 +82,22 @@ The following organization of files and folders on a Linux/Unix system is assume
 ### "S" Series Folders and Python Programs
 
 ```
-/s_series_project/crawl/
-/s_series_project/download/
-/s_series_project/dump/
-/s_series_project/neg_pdf/
-/s_series_project/neg_prob/
-/s_series_project/neg_txt/
-/s_series_project/neg_xml/
-/s_series_project/pos_pdf/
-/s_series_project/pos_prob/
-/s_series_project/pos_txt/
-/s_series_project/pos_xml/
-/s_series_project/pred_pdf/
-/s_series_project/pred_prob/
-/s_series_project/pred_txt/
-/s_series_project/pred_xml/
-/s_series_project/urls/
+/s_project/crawl/
+/s_project/download/
+/s_project/dump/
+/s_project/neg_pdf/
+/s_project/neg_prob/
+/s_project/neg_txt/
+/s_project/neg_xml/
+/s_project/pos_pdf/
+/s_project/pos_prob/
+/s_project/pos_txt/
+/s_project/pos_xml/
+/s_project/pred_pdf/
+/s_project/pred_prob/
+/s_project/pred_txt/
+/s_project/pred_xml/
+/s__project/urls/
 /pdf2txt.py
 /s0_setup.py
 /s1_download.py
@@ -109,10 +109,10 @@ The following organization of files and folders on a Linux/Unix system is assume
 ### "M" Series Folders and Python Programs
 
 ```
-/m_series_project/dat/
-/m_series_project/pdf/
-/m_series_project/prod/
-/m_series_project/txt/
+/m_project/dat/
+/m_project/pdf/
+/m_project/prod/
+/m_project/txt/
 /m0_setup.py
 /m1_download.py
 /m2_scrape.py
