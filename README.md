@@ -23,11 +23,11 @@ Apache Nutch is a Java-based web crawler and is used to crawl websites, discover
 
 ## Python Programs
 
-The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are multiple series of Python programs depending on the task SABLE is to perform.
+The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different tasks.
 
 ### "S" Series
 
-This is the original series of SABLE programs used for discovering potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs for discovering potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program              | Purpose                                                  |
 | -------------------- | -------------------------------------------------------- |
@@ -39,7 +39,7 @@ This is the original series of SABLE programs used for discovering potential new
 
 ### "M" Series
 
-This series of Python programs is used for downloading specific PDFs known to contain useful data, scraping values and metadata from the downloaded PDFs, and finally organizing the scraped data.
+This series of Python programs is used to download specific PDFs known to contain useful data, scrape values and metadata from the downloaded PDFs, and organize the scraped data.
 
 | Program              | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
@@ -53,7 +53,7 @@ This repository also contains lists of common "stop" words for multiple language
 
 ## Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents that are to be classified by a model.
+An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents that are to be classified by a logistic regression model.
 
 | Example Folder   | Description                                                                   |
 | ---------------- | ----------------------------------------------------------------------------- |
@@ -179,7 +179,7 @@ Obtain new PDFs (for example, through continued web crawling) and place them in 
 >> python3 s2_convert.py my_project english pred
 ```
 
-Fit a logistic regression model using the manually classified positive and negative PDFs and use it to predict classes and probabilities for the new PDFs.
+Fit a logistic regression model using the manually classified positive and negative PDFs and then use the fitted model to predict classes and probabilities for new PDFs.
 
 ```
 >> python3 s4_logistic.py my_project
