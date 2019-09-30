@@ -97,7 +97,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 /s_project/pred_prob/
 /s_project/pred_txt/
 /s_project/pred_xml/
-/s__project/urls/
+/s_project/urls/
 /pdf2txt.py
 /s0_setup.py
 /s1_download.py
