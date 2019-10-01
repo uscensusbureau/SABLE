@@ -73,6 +73,7 @@ The following files are found in the ```/examples/``` folder.  The three PDFs an
 | ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
 | ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
 | ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
+| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                |
 | ```example_seed.txt```         | Example seed URLs for crawling state government websites                          |
 
 ## Organization of Files
