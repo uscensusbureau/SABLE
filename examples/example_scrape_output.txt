@@ -1,0 +1,14 @@
+state|year|month|tax_type|tax_value|tax_unit|tax_time
+NJ|2019|05|gross income tax (git)|13,759.2|millions|ytd
+NJ|2019|05|sales tax|8,098.5|millions|ytd
+NJ|2019|05|corporate business tax (cbt)|3,248.3|millions|ytd
+NJ|2019|05|petroleum products|1,243.9|millions|ytd
+NJ|2019|05|motor fuels|408.6|millions|ytd
+NJ|2019|05|insurance premium|468.6|millions|ytd
+NJ|2019|05|transfer inheritance|455.7|millions|ytd
+NJ|2019|05|motor vehicle fees|374.2|millions|ytd
+NJ|2019|05|realty transfer|314.2|millions|ytd
+NJ|2019|05|banks and financial (cbt)|268.4|millions|ytd
+NJ|2019|05|casino|229.1|millions|ytd
+NJ|2019|05|alcohol excise|87.3|millions|ytd
+NJ|2019|05|cigarette|60.9|millions|ytd
