@@ -19,7 +19,7 @@ SABLE is based on the following open-source software:
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
-The Linux command-line utilities wget and pdftotext are used, respectively, to download documents and convert PDFs to TXT format in some situations.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+The Linux command-line utilities wget and pdftotext are used, respectively, to download documents and to convert PDFs to TXT format in some cases.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
 ## Python Programs
 
@@ -27,7 +27,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series
 
-This is the original series of SABLE programs for discovering potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs and is used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program              | Purpose                                                  |
 | -------------------- | -------------------------------------------------------- |
