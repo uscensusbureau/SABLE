@@ -136,7 +136,6 @@ def fit_and_predict(projName):
             line = [predDocs[i], predClasses[i], format_prob(predProbs[i].prob("pos")), format_prob(predProbs[i].prob("neg"))]
             f.write("|".join(line) + "\n")
         f.close()
-        os.system("chmod 777 " + outputFile)
     
     return
 
