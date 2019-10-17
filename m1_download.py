@@ -372,17 +372,16 @@ def get_pdf_name_unix(name):
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = state + "_" + yyyy + "_" + mm
     pdfLoc = "/" + projName + "/pdf/" + PDFName + ".pdf"
-    pdfExist = False
 
     if os.path.isfile(pdfLoc):
-        pdfExist = True
         print("PDF already exists.")
     else:
+        pdfDownload = False
         for i in range(len(targetURLs)):
             targetPDFName = targetPDFNames[i]
             targetPDFNameUnix = get_pdf_name_unix(targetPDFName)
             targetURL = targetURLs[i]
-            if not pdfExist:
+            if not pdfDownload:
                 os.system("wget --no-check-certificate -nv -P /" + projName + "/pdf/ \"" + targetURL + "\"")
                 if os.path.isfile("/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf"):
                     os.system("pdftotext -q -layout \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" /" + projName + "/pdf/test.txt")
@@ -394,9 +393,9 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
                     else:
                         os.system("rm /" + projName + "/pdf/test.txt")
                         os.system("mv \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" " + pdfLoc)
-                        pdfExist = True
+                        pdfDownload = True
                         print("PDF downloaded.")
-        if not pdfExist:
+        if not pdfDownload:
             print("No PDF downloaded.")
     return
 
@@ -476,6 +475,8 @@ def download_pdfs(projName, yyyy, mm):
 
     for state in states:
         print_state(statesDict[state])
+        targetPDFNames = []
+        targetURLs = []
         if state == "AL":
             targetPDFNames, targetURLs = get_targets_AL(yyyy, yy, mm, month, month3, month4)
         elif state == "AK":
