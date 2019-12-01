@@ -6,20 +6,20 @@ import os
 import re
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
-    if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
-            valid = True
-    return valid
+    if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
+        return True
+    return False
 
-#Name:       create_folders
-#Arguments:  projName (project name)
-#Purpose:    Create project folders
+#Name:        create_folders
+#Purpose:     Create project folders
+#Parameters:  projName (project name)
+#Returns:     
 
 def create_folders(projName):
     projDir = "/" + projName + "/"
