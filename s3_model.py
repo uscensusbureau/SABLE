@@ -23,20 +23,20 @@ from sklearn.svm import *
 from sklearn.tree import *
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
-    if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
-            valid = True
-    return valid
+    if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
+        return True
+    return False
 
-#Name:       get_feats_inds
-#Arguments:  text (string of text)
-#Purpose:    Return binary indicators of 1-grams and 2-grams in text
+#Name:        get_feats_inds
+#Purpose:     Create model features, which are binary indicators of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of binary indicators of 1-grams and 2-grams in text
 
 def get_feats_inds(text):
     t = Text(word_tokenize(text))
@@ -46,9 +46,10 @@ def get_feats_inds(text):
     #g3s = [(g, True) for g in ngrams(t, 3)]
     return dict(g1s + g2s)
 
-#Name:       get_feats_counts
-#Arguments:  text (string of text)
-#Purpose:    Return counts of 1-grams and 2-grams in text
+#Name:        get_feats_counts
+#Purpose:     Create model features, which are counts of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
     t = Text(word_tokenize(text))
@@ -58,15 +59,16 @@ def get_feats_counts(text):
     #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
-#Name:       evaluate
-#Arguments:  classifier (fitted classification model)
-#            posTest (list of indices of positive test observations)
-#            negTest (list of indices of negative test observations)
-#            posTextsDict (dictionary of positive texts)
-#            negTextsDict (dictionary of negative texts)
-#            posDocsDict (dictionary of positive document names)
-#            negDocsDict (dictionary of negative document names)
-#Purpose:    Evaluate classifier by applying it to the test set and calculating various performance statistics
+#Name:        evaluate
+#Purpose :    Evaluate classifier by applying it to the test set and calculating various performance statistics
+#Parameters:  classifier (fitted classification model)
+#             posTest (list of indices of positive test observations)
+#             negTest (list of indices of negative test observations)
+#             posTextsDict (dictionary of positive texts)
+#             negTextsDict (dictionary of negative texts)
+#             posDocsDict (dictionary of positive document names)
+#             negDocsDict (dictionary of negative document names)
+#Returns:     
 
 def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict):
     #Number of true positives
@@ -174,9 +176,10 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     print("")
     return
 
-#Name:       fit_models
-#Arguments:  projName (project name)
-#Purpose:    Fit text classification models
+#Name:        fit_models
+#Purpose:     Fit text classification models
+#Parameters:  projName (project name)
+#Returns:     
 
 def fit_models(projName):
     posTexts = []
