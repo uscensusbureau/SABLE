@@ -7,22 +7,22 @@ import os
 import re
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
     monthValid = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-    if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
-            valid = True
-    return valid
+    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
+        return True
+    return False
 
-#Name:       print_section
-#Arguments:  section (section name)
-#Purpose:    Print name of section
+#Name:        print_section
+#Purpose:     Print name of section
+#Parameters:  section (section name)
+#Returns:     
 
 def print_section(section):
     n = len(section)
@@ -33,21 +33,22 @@ def print_section(section):
     print("")
     return
 
-#Name:       convert_pdf_to_txt
-#Arguments:  pdfLoc (path of PDF)
-#            txtLoc (path of TXT file)
-#Purpose:    Convert PDF to TXT format using the pdftotext utility
+#Name:        convert_pdf_to_txt
+#Purpose:     Convert PDF to TXT format using the pdftotext utility
+#Parameters:  pdfLoc (path of PDF)
+#             txtLoc (path of TXT file)
+#Returns:     
 
 def convert_pdf_to_txt(pdfLoc, txtLoc):
     os.system("pdftotext -layout " + pdfLoc + " " + txtLoc)
-    if os.path.isfile(txtLoc):
-        if os.stat(txtLoc).st_size == 0:
-            os.system("rm " + txtLoc)
+    if os.path.isfile(txtLoc) and os.stat(txtLoc).st_size == 0:
+        os.system("rm " + txtLoc)
     return
 
-#Name:       clean_text
-#Arguments:  line (line of text)
-#Purpose:    Remove whitespace and convert some characters to spaces
+#Name:        clean_text
+#Purpose:     Remove whitespace and convert some characters to spaces
+#Parameters:  line (line of text)
+#Returns:     Cleaned line of text
 
 def clean_text(line):
     l = line.lower()
@@ -56,9 +57,10 @@ def clean_text(line):
     l = re.sub(r"[^ a-z0-9,.!?:;$%&<>()[]{}/_=+-]+", " ", l)
     return l
 
-#Name:       get_text
-#Arguments:  txtLoc (path of TXT file)
-#Purpose:    Read in TXT file
+#Name:        get_text
+#Purpose:     Read in TXT file
+#Parameters:  txtLoc (path of TXT file)
+#Returns:     List of cleaned lines of text
 
 def get_text(txtLoc):
     f = codecs.open(txtLoc, "rU", encoding="utf8")
@@ -66,9 +68,10 @@ def get_text(txtLoc):
     f.close()
     return lines_clean
 
-#Name:       clean_value
-#Arguments:  value (tax value)
-#Purpose:    Standardize negative tax value
+#Name:        clean_value
+#Purpose:     Standardize negative tax value
+#Parameters:  value (tax value)
+#Returns:     Cleaned tax value
 
 def clean_value(value):
     value_temp = re.sub(r"\$", "", value)
@@ -81,12 +84,13 @@ def clean_value(value):
         value_new = value_temp
     return value_new
 
-#Name:       scrape_data_XX
-#Arguments:  lines_clean (clean lines of text)
-#            state
-#            yyyy (4-digit year)
-#            mm (2-digit month)
-#Purpose:    Apply a template and scrape data from the PDF for state XX
+#Name:        scrape_data_XX
+#Purpose:     Apply a template and scrape data from the PDF for state XX
+#Parameters:  lines_clean (clean lines of text)
+#             state
+#             yyyy (4-digit year)
+#             mm (2-digit month)
+#Returns:     List of lists (one for each line item) containing scraped data
 
 #Alabama
 def scrape_data_AL(lines_clean, state, yyyy, mm):
@@ -1092,10 +1096,11 @@ def scrape_data_WY(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Name:       create_output
-#Arguments:  data (scraped data)
-#            loc (path of output file)
-#Purpose:    Create output TXT file containing scraped data
+#Name:        create_output
+#Purpose:     Create output TXT file containing scraped data
+#Parameters:  data (scraped data)
+#             loc (path of output file)
+#Returns:     
 
 def create_output(data, loc):
     if len(data) > 0:
@@ -1107,11 +1112,12 @@ def create_output(data, loc):
         f.close()
     return
 
-#Name:       scrape_data
-#Arguments:  projName (project name)
-#            yyyy (4-digit year)
-#            mm (2-digit month)
-#Purpose:    Iterate through states and scrape data from previously downloaded PDFs
+#Name:        scrape_data
+#Purpose:     Iterate through states and scrape data from previously downloaded PDFs
+#Parameters:  projName (project name)
+#             yyyy (4-digit year)
+#             mm (2-digit month)
+#Returns:     
 
 def scrape_data(projName, yyyy, mm):
     #Create year and month values
