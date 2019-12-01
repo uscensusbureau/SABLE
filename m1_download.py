@@ -6,22 +6,22 @@ import os
 import re
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
     monthValid = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-    if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
-            valid = True
-    return valid
+    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
+            return True
+    return False
 
-#Name:       print_state
-#Arguments:  state
-#Purpose:    Print name of state
+#Name:        print_state
+#Purpose:     Print name of state
+#Parameters:  state
+#Returns:     
 
 def print_state(state):
     n = len(state)
@@ -32,14 +32,15 @@ def print_state(state):
     print("")
     return
 
-#Name:       get_targets_XX
-#Arguments:  yyyy (4-digit year)
-#            yy (2-digit year)
-#            mm (2-digit month)
-#            month
-#            month3 (3-letter month)
-#            month4 (4-letter month)
-#Purpose:    Get PDF names and URLs for state XX
+#Name:        get_targets_XX
+#Purpose:     Get PDF names and URLs for state XX
+#Parameters:  yyyy (4-digit year)
+#             yy (2-digit year)
+#             mm (2-digit month)
+#             month
+#             month3 (3-letter month)
+#             month4 (4-letter month)
+#Returns:     List of PDF names and list of URLs
 
 #Alabama
 def get_targets_AL(yyyy, yy, mm, month, month3, month4):
@@ -349,9 +350,10 @@ def get_targets_WY(yyyy, yy, mm, month, month3, month4):
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Name:       get_pdf_name_unix
-#Arguments:  name (name of PDF)
-#Purpose:    Account for special character codes in PDF name after the PDF is downloaded to a Linux/Unix environment
+#Name:        get_pdf_name_unix
+#Purpose:     Account for special character codes in PDF name after the PDF is downloaded to a Linux/Unix environment
+#Parameters:  name (name of PDF)
+#Returns:     Name of PDF with special character codes replaced with special characters
 
 def get_pdf_name_unix(name):
     nameUnix = re.sub(r"%20", " ", name)
@@ -360,14 +362,15 @@ def get_pdf_name_unix(name):
     nameUnix = re.sub(r"%2C", ",", nameUnix)
     return nameUnix
 
-#Name:       download_pdf
-#Arguments:  projName (project name)
-#            state
-#            yyyy (4-digit year)
-#            mm (2-digit month)
-#            targetPDFNames (list of PDF names)
-#            targetURLs (list of URLs)
-#Purpose:    Download the PDF
+#Name:        download_pdf
+#Purpose:     Download the PDF
+#Parameters:  projName (project name)
+#             state
+#             yyyy (4-digit year)
+#             mm (2-digit month)
+#             targetPDFNames (list of PDF names)
+#             targetURLs (list of URLs)
+#Returns:     
 
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = state + "_" + yyyy + "_" + mm
@@ -399,11 +402,12 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             print("No PDF downloaded.")
     return
 
-#Name:       download_pdfs
-#Arguments:  projName (project name)
-#            yyyy (4-digit year)
-#            mm (2-digit month)
-#Purpose:    Download PDFs
+#Name:        download_pdfs
+#Purpose:     Download PDFs
+#Parameters:  projName (project name)
+#             yyyy (4-digit year)
+#             mm (2-digit month)
+#Returns:     
 
 def download_pdfs(projName, yyyy, mm):
     #Create year and month values
