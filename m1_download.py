@@ -15,7 +15,7 @@ def valid_arguments():
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
     monthValid = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
-            return True
+        return True
     return False
 
 #Name:        print_state
