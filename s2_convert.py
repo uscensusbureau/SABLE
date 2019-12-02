@@ -7,50 +7,54 @@ import os
 import re
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
     lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
     clssValid = set(["neg", "pos", "pred"])
-    if len(sys.argv) == 4:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
-            valid = True
-    return valid
+    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
+        return True
+    return False
 
-#Name:       match_page
-#Arguments:  line (line of text from XML file)
-#Purpose:    Match line to an XML page tag
+#Name:        match_page
+#Purpose:     Match line to an XML page tag
+#Parameters:  line (line of text from XML file)
+#Returns:     Regular expression match object
 
 def match_page(line):
     return re.search(r"<page id=\"(\d+)\"", line)
 
-#Name:       match_textbox
-#Arguments:  line (line of text from XML file)
-#Purpose:    Match line to an XML textbox tag
+#Name:        match_textbox
+#Purpose:     Match line to an XML textbox tag
+#Parameters:  line (line of text from XML file)
+#Returns:     Regular expression match object
 
 def match_textbox(line):
     return re.search(r"<textbox id=\"(\d+)\"", line)
 
-#Name:       match_textline
-#Arguments:  line (line of text from XML file)
-#Purpose:    Match line to an XML textline tag
+#Name:        match_textline
+#Purpose:     Match line to an XML textline tag
+#Parameters:  line (line of text from XML file)
+#Returns:     Regular expression match object
 
 def match_textline(line):
     return re.search(r"<textline", line)
 
-#Name:       match_text
-#Arguments:  line (line of text from XML file)
-#Purpose:    Match line to an XML text tag
+#Name:        match_text
+#Purpose:     Match line to an XML text tag
+#Parameters:  line (line of text from XML file)
+#Returns:     Regular expression match object
 
 def match_text(line):
     return re.search(r"<text.*font=\"(.*)\".*bbox=\"([0-9]+\.[0-9]+),([0-9]+\.[0-9]+),([0-9]+\.[0-9]+),([0-9]+\.[0-9]+)\".*size=\"([0-9]+\.[0-9]+)\">(.*)</text>", line)
 
-#Name:       clean_char
-#Arguments:  old (character)
-#Purpose:    Clean character to deal with punctuation, numbers, and foreign accent marks
+#Name:        clean_char
+#Purpose:     Clean character to deal with punctuation, numbers, and foreign accent marks
+#Parameters:  old (character)
+#Returns:     Cleaned character
 
 def clean_char(old):
     #Check the length of the argument
@@ -98,9 +102,10 @@ def clean_char(old):
             new = old
     return new
 
-#Name:       get_chars
-#Arguments:  xmlFile (location of XML file)
-#Purpose:    Extract the character values, coordinates, hierarchy, and font information from XML file
+#Name:        get_chars
+#Purpose:     Extract the character values, coordinates, hierarchy, and font information from XML file
+#Parameters:  xmlFile (location of XML file)
+#Returns:     List of tuples (one for each character) containing character data
 
 def get_chars(xmlFile):
     chars = []
@@ -135,9 +140,10 @@ def get_chars(xmlFile):
     f.close()
     return chars
 
-#Name:       clean_text
-#Arguments:  text (string of text)
-#Purpose:    Clean string of text and check each word against a list of stop words
+#Name:        clean_text
+#Purpose:     Clean string of text and check each word against a list of stop words
+#Parameters:  text (string of text)
+#Returns:     Cleaned text
 
 def clean_text(text):
     text = text.lower()
@@ -154,10 +160,11 @@ def clean_text(text):
     textClean = " ".join(textClean)
     return textClean
 
-#Name:       write_text
-#Arguments:  chars (list of tuples)
-#            txtFile (location of TXT file)
-#Purpose:    Construct words character by character
+#Name:        write_text
+#Purpose:     Construct words character by character
+#Parameters:  chars (list of tuples)
+#             txtFile (location of TXT file)
+#Returns:     
 
 def write_text(chars, txtFile):
     text = []
@@ -192,11 +199,12 @@ def write_text(chars, txtFile):
     f.close()
     return
 
-#Name:       create_output
-#Arguments:  projName (project name)
-#            clss ("pos" or "neg")
-#            docName (document name)
-#Purpose:    Convert a PDF document of a given class to TXT format
+#Name:        create_output
+#Purpose:     Convert a PDF document of a given class to TXT format
+#Parameters:  projName (project name)
+#             clss ("pos" or "neg")
+#             docName (document name)
+#Returns:     
 
 def create_output(projName, clss, docName):
     #Create file locations
@@ -244,11 +252,12 @@ def create_output(projName, clss, docName):
             print("!!! PROBLEM: " + docName)
     return
 
-#Name:       convert_files
-#Arguments:  projName (project name)
-#            lng (language)
-#            clss ("neg", "pos", or "pred")
-#Purpose:    Convert PDFs to TXT format
+#Name:        convert_files
+#Purpose:     Convert PDFs to TXT format
+#Parameters:  projName (project name)
+#             lng (language)
+#             clss ("neg", "pos", or "pred")
+#Returns:     
 
 def convert_files(projName, lng, clss):
     #Read in stop words
