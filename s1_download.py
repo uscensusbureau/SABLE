@@ -8,40 +8,42 @@ import os
 import re
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are vallid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
-    if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
-            valid = True
-    return valid
+    if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
+        return True
+    return False
 
-#Name:       is_pdf
-#Arguments:  url
-#            metadata
-#Purpose:    Determine whether the URL points to a PDF
+#Name:        is_pdf
+#Purpose:     Determine whether the URL points to a PDF
+#Parameters:  url
+#             metadata
+#Returns:     Regular expression match object
 
 def is_pdf(url, metadata):
     urlMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", url)
     metadataMatch = re.search(r"Content-Type:application/pdf", metadata)
     return urlMatch or metadataMatch
 
-#Name:       download_pdf
-#Arguments:  url
-#            projName (project name)
-#Purpose:    Download the PDF
+#Name:        download_pdf
+#Purpose:     Download the PDF
+#Parameters:  url
+#             projName (project name)
+#Returns:     
 
 def download_pdf(url, projName):
     #Use the Linux/Unix utility wget to download the PDF
     os.system("wget --no-check-certificate -nv -P /" + projName + "/download/ " + url)
     return
 
-#Name:       download_pdfs
-#Arguments:  projName (project name)
-#Purpose:    Download PDFs
+#Name:        download_pdfs
+#Purpose:     Download PDFs
+#Parameters:  projName (project name)
+#Returns:     
 
 def download_pdfs(projName):
     #Read in the list of URLs crawled by Apache Nutch and download the PDFs
