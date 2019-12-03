@@ -116,7 +116,7 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     acc = round((tp + tn)/(tp + tn + fn + fp), 3)
     
     #F1 score
-    f1 = round((2*tp)/(2*tp + fn + fp), 3) if (2*tp + fn + fp) > 0 else "NaN
+    f1 = round((2*tp)/(2*tp + fn + fp), 3) if (2*tp + fn + fp) > 0 else "NaN"
     
     #True positive rate (also known as sensitivity and recall)
     tpr = round(tp/(tp + fn), 3) if (tp + fn) > 0 else "NaN"
