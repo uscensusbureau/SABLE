@@ -116,42 +116,24 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     acc = round((tp + tn)/(tp + tn + fn + fp), 3)
     
     #F1 score
-    if (2*tp + fn + fp) > 0:
-        f1 = round((2*tp)/(2*tp + fn + fp), 3)
-    else:
-        f1 = "NaN"
+    f1 = round((2*tp)/(2*tp + fn + fp), 3) if (2*tp + fn + fp) > 0 else "NaN
     
     #True positive rate (also known as sensitivity and recall)
-    if (tp + fn) > 0:
-        tpr = round(tp/(tp + fn), 3)
-    else:
-        tpr = "NaN"
+    tpr = round(tp/(tp + fn), 3) if (tp + fn) > 0 else "NaN"
     
     #True negative rate (also known as specificity)
-    if (tn + fp) > 0:
-        tnr = round(tn/(tn + fp), 3)
-    else:
-        tnr = "NaN"
+    tnr = round(tn/(tn + fp), 3) if (tn + fp) > 0 else "NaN"
     
     #Positive predictive rate (also known as precision)
-    if (tp + fp) > 0:
-        ppr = round(tp/(tp + fp), 3)
-    else:
-        ppr = "NaN"
+    ppr = round(tp/(tp + fp), 3) if (tp + fp) > 0 else "NaN"
     
     #Negative predictive rate
-    if (tn + fn) > 0:
-        npr = round(tn/(tn + fn), 3)
-    else:
-        npr = "NaN"
+    npr = round(tn/(tn + fn), 3) if (tn + fn) > 0 else "NaN"
     
     #Kappa statistic
     p0 = (tp + tn)/(tp + tn + fn + fp)
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
-    if pe < 1:
-        kappa = round((p0 - pe)/(1 - pe), 3)
-    else:
-        kappa = 1
+    kappa = round((p0 - pe)/(1 - pe), 3) if pe < 1 else 1
     
     #Print classifier performance statistics
     print("Summary")
