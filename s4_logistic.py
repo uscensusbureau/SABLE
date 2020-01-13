@@ -18,20 +18,20 @@ from sklearn.metrics import *
 from sklearn.model_selection import *
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
-    if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
-            valid = True
-    return valid
+    if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
+        return True
+    return False
 
-#Name:       get_feats_inds
-#Arguments:  text (string of text)
-#Purpose:    Return binary indicators of 1-grams and 2-grams in text
+#Name:        get_feats_inds
+#Purpose:     Create model features, which are binary indicators of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of binary indicators of 1-grams and 2-grams in text
 
 def get_feats_inds(text):
     t = Text(word_tokenize(text))
@@ -41,9 +41,10 @@ def get_feats_inds(text):
     #g3s = [(g, True) for g in ngrams(t, 3)]
     return dict(g1s + g2s)
 
-#Name:       get_feats_counts
-#Arguments:  text (string of text)
-#Purpose:    Return counts of 1-grams and 2-grams in text
+#Name:        get_feats_counts
+#Purpose:     Create model features, which are counts of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
     t = Text(word_tokenize(text))
@@ -53,16 +54,18 @@ def get_feats_counts(text):
     #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
-#Name:       format_prob
-#Arguments:  prob (probability)
-#Purpose:    Round probability to four decimal places and convert it into a string
+#Name:        format_prob
+#Purpose:     Round probability to four decimal places and convert it into a string
+#Parameters:  prob (probability)
+#Returns:     String representing probability rounded to four decimal places
 
 def format_prob(prob):
     return str(round(prob, 4))
 
-#Name:       fit_and_predict
-#Arguments:  projName (project name)
-#Purpose:    Fit a logistic regression model and output predicted classes and probabilities
+#Name:        fit_and_predict
+#Purpose:     Fit a logistic regression model and output predicted classes and probabilities
+#Parameters:  projName (project name)
+#Returns:     
 
 def fit_and_predict(projName):
     posTexts  = []

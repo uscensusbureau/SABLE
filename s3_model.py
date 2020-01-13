@@ -23,20 +23,20 @@ from sklearn.svm import *
 from sklearn.tree import *
 import sys
 
-#Name:       valid_arguments
-#Arguments:  sys.argv (globally defined list of command-line arguments)
-#Purpose:    Check whether the command-line arguments are valid
+#Name:        valid_arguments
+#Purpose:     Check whether the command-line arguments are valid
+#Parameters:  sys.argv (globally defined list of command-line arguments)
+#Returns:     True (arguments are valid) or False (arguments are invalid)
 
 def valid_arguments():
-    valid = False
-    if len(sys.argv) == 2:
-        if re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
-            valid = True
-    return valid
+    if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
+        return True
+    return False
 
-#Name:       get_feats_inds
-#Arguments:  text (string of text)
-#Purpose:    Return binary indicators of 1-grams and 2-grams in text
+#Name:        get_feats_inds
+#Purpose:     Create model features, which are binary indicators of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of binary indicators of 1-grams and 2-grams in text
 
 def get_feats_inds(text):
     t = Text(word_tokenize(text))
@@ -46,9 +46,10 @@ def get_feats_inds(text):
     #g3s = [(g, True) for g in ngrams(t, 3)]
     return dict(g1s + g2s)
 
-#Name:       get_feats_counts
-#Arguments:  text (string of text)
-#Purpose:    Return counts of 1-grams and 2-grams in text
+#Name:        get_feats_counts
+#Purpose:     Create model features, which are counts of 1-grams and 2-grams
+#Parameters:  text (string of text)
+#Returns:     Dictionary of counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
     t = Text(word_tokenize(text))
@@ -58,15 +59,16 @@ def get_feats_counts(text):
     #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
-#Name:       evaluate
-#Arguments:  classifier (fitted classification model)
-#            posTest (list of indices of positive test observations)
-#            negTest (list of indices of negative test observations)
-#            posTextsDict (dictionary of positive texts)
-#            negTextsDict (dictionary of negative texts)
-#            posDocsDict (dictionary of positive document names)
-#            negDocsDict (dictionary of negative document names)
-#Purpose:    Evaluate classifier by applying it to the test set and calculating various performance statistics
+#Name:        evaluate
+#Purpose :    Evaluate classifier by applying it to the test set and calculating various performance statistics
+#Parameters:  classifier (fitted classification model)
+#             posTest (list of indices of positive test observations)
+#             negTest (list of indices of negative test observations)
+#             posTextsDict (dictionary of positive texts)
+#             negTextsDict (dictionary of negative texts)
+#             posDocsDict (dictionary of positive document names)
+#             negDocsDict (dictionary of negative document names)
+#Returns:     
 
 def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict):
     #Number of true positives
@@ -114,42 +116,24 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     acc = round((tp + tn)/(tp + tn + fn + fp), 3)
     
     #F1 score
-    if (2*tp + fn + fp) > 0:
-        f1 = round((2*tp)/(2*tp + fn + fp), 3)
-    else:
-        f1 = "NaN"
+    f1 = round((2*tp)/(2*tp + fn + fp), 3) if (2*tp + fn + fp) > 0 else "NaN"
     
     #True positive rate (also known as sensitivity and recall)
-    if (tp + fn) > 0:
-        tpr = round(tp/(tp + fn), 3)
-    else:
-        tpr = "NaN"
+    tpr = round(tp/(tp + fn), 3) if (tp + fn) > 0 else "NaN"
     
     #True negative rate (also known as specificity)
-    if (tn + fp) > 0:
-        tnr = round(tn/(tn + fp), 3)
-    else:
-        tnr = "NaN"
+    tnr = round(tn/(tn + fp), 3) if (tn + fp) > 0 else "NaN"
     
     #Positive predictive rate (also known as precision)
-    if (tp + fp) > 0:
-        ppr = round(tp/(tp + fp), 3)
-    else:
-        ppr = "NaN"
+    ppr = round(tp/(tp + fp), 3) if (tp + fp) > 0 else "NaN"
     
     #Negative predictive rate
-    if (tn + fn) > 0:
-        npr = round(tn/(tn + fn), 3)
-    else:
-        npr = "NaN"
+    npr = round(tn/(tn + fn), 3) if (tn + fn) > 0 else "NaN"
     
     #Kappa statistic
     p0 = (tp + tn)/(tp + tn + fn + fp)
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
-    if pe < 1:
-        kappa = round((p0 - pe)/(1 - pe), 3)
-    else:
-        kappa = 1
+    kappa = round((p0 - pe)/(1 - pe), 3) if pe < 1 else 1
     
     #Print classifier performance statistics
     print("Summary")
@@ -174,9 +158,10 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     print("")
     return
 
-#Name:       fit_models
-#Arguments:  projName (project name)
-#Purpose:    Fit text classification models
+#Name:        fit_models
+#Purpose:     Fit text classification models
+#Parameters:  projName (project name)
+#Returns:     
 
 def fit_models(projName):
     posTexts = []
