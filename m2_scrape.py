@@ -1324,6 +1324,7 @@ def scrape_data(projName, yyyy, mm):
             create_output(data, datLoc)
             if os.path.isfile(datLoc):
                 print("Output TXT file created.")
+                print("Number of line items scraped: " + str(len(data)))
             else:
                 print("No output TXT file created.")
     
