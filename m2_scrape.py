@@ -53,6 +53,7 @@ def convert_pdf_to_txt(pdfLoc, txtLoc):
 def clean_text(line):
     l = line.lower()
     l = re.sub(r"[\f\n\r\t\v]+", "", l)
+    l = re.sub(r"\xa0", " ", l)
     l = re.sub(u"\u2014", "-", l)
     l = re.sub(r"[^ a-z0-9,.!?:;$%&<>()[]{}/_=+-]+", " ", l)
     return l
