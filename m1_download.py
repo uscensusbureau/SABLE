@@ -18,16 +18,16 @@ def valid_arguments():
         return True
     return False
 
-#Name:        print_state
-#Purpose:     Print name of state
-#Parameters:  state
+#Name:        print_section
+#Purpose:     Print name of section
+#Parameters:  section (section name)
 #Returns:     
 
-def print_state(state):
-    n = len(state)
+def print_section(section):
+    n = len(section)
     print("")
     print("=" * (n + 12))
-    print("===   " + state + "   ===")
+    print("===   " + section + "   ===")
     print("=" * (n + 12))
     print("")
     return
@@ -370,7 +370,7 @@ def get_pdf_name_unix(name):
 #             mm (2-digit month)
 #             targetPDFNames (list of PDF names)
 #             targetURLs (list of URLs)
-#Returns:     
+#Returns:     status (string indicating PDF download status)
 
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = state + "_" + yyyy + "_" + mm
@@ -398,9 +398,11 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
                         os.system("mv \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" " + pdfLoc)
                         pdfDownload = True
                         print("PDF downloaded.")
+                        return "dlyes"
         if not pdfDownload:
             print("No PDF downloaded.")
-    return
+            return "dlno"
+    return "exist"
 
 #Name:        download_pdfs
 #Purpose:     Download PDFs
@@ -465,7 +467,6 @@ def download_pdfs(projName, yyyy, mm):
         month4 = "Dec"
 
     #List of states to loop through
-    states = ["NJ"]
     statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
         "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
         "HI":"Hawaii", "ID":"Idaho", "IL":"Illinois", "IN":"Indiana", "IA":"Iowa",
@@ -476,9 +477,11 @@ def download_pdfs(projName, yyyy, mm):
         "OK":"Oklahoma", "OR":"Oregon", "PA":"Pennsylvania", "RI":"Rhode Island", "SC":"South Carolina",
         "SD":"South Dakota", "TN":"Tennessee", "TX":"Texas", "UT":"Utah", "VT":"Vermont",
         "VA":"Virginia", "WA":"Washington", "WV":"West Virginia", "WI":"Wisconsin", "WY":"Wyoming"}
-
+    states = ["NJ"]
+    statuses = []
+    
     for state in states:
-        print_state(statesDict[state])
+        print_section(statesDict[state])
         targetPDFNames = []
         targetURLs = []
         if state == "AL":
@@ -581,8 +584,12 @@ def download_pdfs(projName, yyyy, mm):
             targetPDFNames, targetURLs = get_targets_WI(yyyy, yy, mm, month, month3, month4)
         elif state == "WY":
             targetPDFNames, targetURLs = get_targets_WY(yyyy, yy, mm, month, month3, month4)
-        download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs)
+        statuses.append(download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs))
 
+    print_section("Summary")
+    print("Number of PDFs that already exist:    " + str(len([status for status in statuses if status == "exist"])))
+    print("Number of successful PDF downloads:   " + str(len([status for status in statuses if status == "dlyes"])))
+    print("Number of unsuccessful PDF downloads: " + str(len([status for status in statuses if status == "dlno"])))
     print("")
     return
 
