@@ -76,6 +76,7 @@ def get_text(txtLoc):
 
 def clean_value(value):
     value_temp = re.sub(r"\$", "", value)
+    value_temp = re.sub(r"\*", "-", value_temp)
     n = len(value_temp)
     if value_temp[0] == "(" and value_temp[n-1] == ")":
         value_new = "-" + value_temp[1:n-1]
@@ -643,12 +644,12 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
 
     col = 3
     unit = "millions"
-    time = "ytd"
+    time = "ytd thru month"
 
     for line in lines_clean:
         if len(line) != 0:
 
-            m_col = re.search(r"fy (\d{4})\s+fy (\d{4})", line)
+            m_col = re.search(r"fy\s*(\d{4})\s+fy\s*(\d{4})", line)
             if m_col:
                 if int(m_col.group(1)) > int(m_col.group(2)):
                     col = 2
@@ -666,55 +667,55 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
                 elif m_unit.group(1) == "billions":
                     unit = "billions"
 
-            m = re.search(r"(gross income tax|gross income tax \(git\)|income tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(gross\s+income\s+tax|gross\s+income\s+tax\s+\(git\)|income tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("gross income tax (git)")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(sales tax|sale tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(sales\s+tax|sale\s+tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("sales tax")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(corp\. bus\. tax|corp\. bus\. tax \(cbt\)|corporation tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(corp\.\s+bus\.\s+tax|corp\.\s+bus\.\s+tax\s+\(cbt\)|corporation\s+tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("corporate business tax (cbt)")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(petroleum products)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(petroleum\s+products)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("petroleum products")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(insurance premium)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(insurance\s+premium)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("insurance premium")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(motor fuels)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(motor\s+fuels)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("motor fuels")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(motor vehicle fees)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(motor\s+vehicle\s+fees)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("motor vehicle fees")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(transfer inheritance)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(transfer\s+inheritance)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("transfer inheritance")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(realty transfer)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(realty\s+transfer)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("realty transfer")
                 tax_values.append(clean_value(m.group(col)))
@@ -726,13 +727,13 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(banks & financial|banks & financial \(cbt\))\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(banks\s+&\s+financial|banks\s+&\s+financial\s+\(cbt\))\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("banks and financial (cbt)")
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
-            m = re.search(r"(alcohol excise)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
+            m = re.search(r"(alcohol\s+excise)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
             if m:
                 tax_types.append("alcohol excise")
                 tax_values.append(clean_value(m.group(col)))
