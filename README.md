@@ -39,7 +39,7 @@ This is the original series of SABLE programs and is used to discover potential 
 
 ### "M" Series
 
-This series of Python programs is used to download specific PDFs known to contain useful data, scrape values and metadata from the downloaded PDFs, and organize the scraped data.
+This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
 | Program              | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
@@ -49,7 +49,7 @@ This series of Python programs is used to download specific PDFs known to contai
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating a stop list of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Examples
 
