@@ -23,7 +23,7 @@ The Linux command-line utilities wget and pdftotext are used, respectively, to d
 
 ## Python Programs
 
-The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different tasks.
+The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different web crawling, web scraping, and machine learning tasks.
 
 ### "S" Series
 
@@ -137,7 +137,11 @@ The following organization of files and folders on a Linux/Unix system is assume
 /stop_turkish.txt
 ```
 
-## Example "S" Series Run
+## Example Runs
+
+The following are example runs of the "S" and "M" series of programs.
+
+### Example "S" Series Run
 
 Set up folders for an "S" series project called ```my_project```.
 
@@ -184,4 +188,24 @@ Fit a logistic regression model using the manually classified positive and negat
 
 ```
 >> python3 s4_logistic.py my_project
+```
+
+### Example "M" Series Run
+
+Set up folders for an "M" series project called ```my_project```.
+
+```
+>> python3 m0_setup.py my_project
+```
+
+Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
+
+```
+>> python3 m1_download.py my_project 2020 01
+```
+
+Scrape tax revenue data from the downloaded PDFs and organize results in a TXT file.
+
+```
+>> python3 m2_scrape.py my_project 2020 01
 ```
