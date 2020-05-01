@@ -2,6 +2,8 @@
 
 This readme is a work in progress.
 
+![Logo](logo.png)
+
 ## Introduction
 
 SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
@@ -19,11 +21,11 @@ SABLE is based on the following open-source software:
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
 
-The Linux command-line utilities wget and pdftotext are used, respectively, to download documents and to convert PDFs to TXT format in some cases.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
 ## Python Programs
 
-The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different tasks.
+The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different web crawling, web scraping, and machine learning tasks.
 
 ### "S" Series
 
@@ -39,7 +41,7 @@ This is the original series of SABLE programs and is used to discover potential 
 
 ### "M" Series
 
-This series of Python programs is used to download specific PDFs known to contain useful data, scrape values and metadata from the downloaded PDFs, and organize the scraped data.
+This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
 | Program              | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
@@ -49,7 +51,7 @@ This series of Python programs is used to download specific PDFs known to contai
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating a stop list of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Examples
 
@@ -137,7 +139,11 @@ The following organization of files and folders on a Linux/Unix system is assume
 /stop_turkish.txt
 ```
 
-## Example "S" Series Run
+## Example Runs
+
+The following are example runs of the "S" and "M" series of programs.
+
+### Example "S" Series Run
 
 Set up folders for an "S" series project called ```my_project```.
 
@@ -184,4 +190,24 @@ Fit a logistic regression model using the manually classified positive and negat
 
 ```
 >> python3 s4_logistic.py my_project
+```
+
+### Example "M" Series Run
+
+Set up folders for an "M" series project called ```my_project```.
+
+```
+>> python3 m0_setup.py my_project
+```
+
+Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
+
+```
+>> python3 m1_download.py my_project 2020 01
+```
+
+Scrape tax revenue data from the downloaded PDFs and organize the results in a TXT file.
+
+```
+>> python3 m2_scrape.py my_project 2020 01
 ```
