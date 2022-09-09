@@ -385,7 +385,7 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             targetPDFNameUnix = get_pdf_name_unix(targetPDFName)
             targetURL = targetURLs[i]
             if not pdfDownload:
-                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/\" -P /" + projName + "/pdf/ \"" + targetURL + "\"")
+                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /" + projName + "/pdf/ \"" + targetURL + "\"")
                 if os.path.isfile("/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf"):
                     os.system("pdftotext -q -layout \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" /" + projName + "/pdf/test.txt")
                     if not os.path.isfile("/" + projName + "/pdf/test.txt"):
