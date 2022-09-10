@@ -15,7 +15,7 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.15)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.18)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -154,9 +154,11 @@ Set up folders for an "S" series project called ```my_project```.
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /my_project/urls/seed.txt
 #Enter seed URLs
+>> vi /my_project/urls/seed.txt
+#Crawl to a specified depth
 >> crawl -s /my_project/urls/ /my_project/crawl/ 3
+#Output contents of Apache Nutch database to CSV format
 >> readdb /my_project/crawl/crawldb/ -dump /my_project/dump/ -format csv
 >> cat /my_project/dump/part-r-00000 > /my_project/dump/dump.csv
 ```
