@@ -616,24 +616,6 @@ def scrape_data_NH(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#New Mexico
-def scrape_data_NM(lines_clean, state, yyyy, mm):
-    data = []
-    tax_types  = []
-    tax_values = []
-    tax_units  = []
-    tax_times  = []
-
-    n_types  = len(tax_types)
-    n_values = len(tax_values)
-    n_units  = len(tax_units)
-    n_times  = len(tax_times)
-
-    if n_types > 0 and n_types == n_values and n_values == n_units and n_units == n_times:
-        for i in range(len(tax_types)):
-            data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
-    return data
-
 #New Jersey
 def scrape_data_NJ(lines_clean, state, yyyy, mm):
     data = []
@@ -745,6 +727,24 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
                 tax_values.append(clean_value(m.group(col)))
                 tax_units.append(unit)
                 tax_times.append(time)
+
+    n_types  = len(tax_types)
+    n_values = len(tax_values)
+    n_units  = len(tax_units)
+    n_times  = len(tax_times)
+
+    if n_types > 0 and n_types == n_values and n_values == n_units and n_units == n_times:
+        for i in range(len(tax_types)):
+            data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
+    return data
+
+#New Mexico
+def scrape_data_NM(lines_clean, state, yyyy, mm):
+    data = []
+    tax_types  = []
+    tax_values = []
+    tax_units  = []
+    tax_times  = []
 
     n_types  = len(tax_types)
     n_values = len(tax_values)
