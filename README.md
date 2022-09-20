@@ -213,3 +213,11 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 ```
 >> python3 m2_scrape.py my_project 2020 01
 ```
+
+## Contributors
+
+The following people contributed to SABLE's codebase:
+
+* Brian Dumbacher
+* Hector Ferronato
+* Eric Valentine
