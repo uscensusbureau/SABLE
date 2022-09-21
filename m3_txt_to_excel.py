@@ -27,11 +27,13 @@ def valid_arguments():
 #Returns:     
 
 def convert_txt_to_excel(projName, yyyy, mm):
-    prodLoc = "/" + projName + "/prod/" + yyyy + "_" + mm + ".txt"
+    prodLoc  = "/" + projName + "/prod/" + yyyy + "_" + mm + ".txt"
+    csvLoc   = "/" + projName + "/prod/" + yyyy + "_" + mm + ".csv"
     excelLoc = "/" + projName + "/excel/" + yyyy + "_" + mm + ".xlsx"
     if os.path.isfile(prodLoc):
-        prod = pd.read_csv(prodLoc, sep='|')
-        prod.to_csv(excelLoc.replace(".xlsx", ".csv"), index=False)
+        prod = pd.read_csv(prodLoc, sep="|")
+        prod.to_csv(csvLoc, index=False)
+        os.system("mv " + csvLoc + " " + excelLoc)
     else:
         print("\n!!! PROBLEM: " + prodLoc + " does not exist\n")
     return
