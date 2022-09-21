@@ -4,6 +4,7 @@
 
 import os
 import pandas as pd
+import re
 import sys
 
 #Name:        valid_arguments
@@ -28,11 +29,11 @@ def valid_arguments():
 def convert_txt_to_excel(projName, yyyy, mm):
     prodLoc = "/" + projName + "/prod/" + yyyy + "_" + mm + ".txt"
     excelLoc = "/" + projName + "/excel/" + yyyy + "_" + mm + ".xlsx"
-    if os.path.isfile(txtFile):
+    if os.path.isfile(prodLoc):
         prod = pd.read_csv(prodLoc, sep='|')
-        prod.to_csv(excelLoc.replace(".xlsx",".csv"), index=False)
+        prod.to_csv(excelLoc.replace(".xlsx", ".csv"), index=False)
     else:
-        print("!!! PROBLEM: " + prodLoc + " does not exist")
+        print("\n!!! PROBLEM: " + prodLoc + " does not exist\n")
     return
 
 def main():
