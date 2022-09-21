@@ -2,6 +2,7 @@
 #Purpose:     Convert scraped data product in TXT format to Microsoft EXCEL
 #Invocation:  python3 m3_txt_to_excel.py <projName> <yyyy> <mm>
 
+import os
 import pandas as pd
 import sys
 
@@ -27,8 +28,11 @@ def valid_arguments():
 def convert_txt_to_excel(projName, yyyy, mm):
     prodLoc = "/" + projName + "/prod/" + yyyy + "_" + mm + ".txt"
     excelLoc = "/" + projName + "/excel/" + yyyy + "_" + mm + ".xlsx"
-    prod = pd.read_csv(prodLoc, sep='|')
-    prod.to_csv(excelLoc.replace(".xlsx",".csv"), index=False)
+    if os.path.isfile(txtFile):
+        prod = pd.read_csv(prodLoc, sep='|')
+        prod.to_csv(excelLoc.replace(".xlsx",".csv"), index=False)
+    else:
+        print("!!! PROBLEM: " + prodLoc + " does not exist")
     return
 
 def main():
