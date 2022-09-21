@@ -44,11 +44,12 @@ This is the original series of SABLE programs used to discover potential new dat
 
 This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
-| Program              | Purpose                                             |
-| -------------------- | --------------------------------------------------- |
-| ```m0_setup.py```    | Set up project folders                              |
-| ```m1_download.py``` | Download PDFs known to contain useful data          |
-| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates    |
+| Program                  | Purpose                                          |
+| ------------------------ | ------------------------------------------------ |
+| ```m0_setup.py```        | Set up project folders                           |
+| ```m1_download.py```     | Download PDFs known to contain useful data       |
+| ```m2_scrape.py```       | Scrape data from downloaded PDFs using templates |
+| ```m3_txt_to_excel.py``` | Convert data product to Microsoft EXCEL format   |
 
 ## Lists of Stop Words
 
@@ -114,6 +115,7 @@ The following organization of files and folders on a Linux/Unix system is assume
 
 ```
 /m_project/dat/
+/m_project/excel/
 /m_project/pdf/
 /m_project/prod/
 /m_project/txt/
@@ -213,6 +215,12 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 ```
 >> python3 m2_scrape.py my_project 2020 01
+```
+
+Convert scraped data product to Microsoft EXCEL format.
+
+```
+>> python3 m3_txt_to_excel.py my_project 2020 01
 ```
 
 ## Contributors
