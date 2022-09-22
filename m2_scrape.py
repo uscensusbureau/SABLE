@@ -116,11 +116,8 @@ def scrape_data_AL(lines_clean, state, yyyy, mm):
                 month_zone = True
 
             m_col = re.search(r"\s+(\d{4})\s+(\d{4})", line) 
-            if m_col:
-                if int(m_col.group(2)) > int(m_col.group(1)):
-                    col = 2
-                else:
-                    col = 1
+            if m_col and int(m_col.group(2)) > int(m_col.group(1)):
+                col = 2
 
             if month_zone:
 
@@ -961,11 +958,8 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
         if len(line) != 0:
 
             m_col = re.search(r"fy\s*(\d{4})\s+fy\s*(\d{4})", line)
-            if m_col:
-                if int(m_col.group(1)) > int(m_col.group(2)):
-                    col = 2
-                else:
-                    col = 3
+            if m_col and int(m_col.group(1)) > int(m_col.group(2)):
+                col = 2
 
             m_unit = re.search(r"\(\$\s*(dollars|thousands|millions|billions)\)", line)
             if m_unit:
