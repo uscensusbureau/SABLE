@@ -44,8 +44,28 @@ def print_section(section):
 
 #Alabama
 def get_targets_AL(yyyy, yy, mm, month, month3, month4):
+    fyyy = yyyy
+    if mm in ["10", "11", "12"]:
+        fyyy = str(int(yyyy) + 1)
+    fy = fyyy[2:]
+    nm = mm
+    nyyy = yyyy
+    if nm == "12":
+        nm = "01"
+        nyyy = str(int(yyyy) + 1)
+    else:
+        nm = str(int(mm) + 1)
+        if len(nm) == 1:
+            nm = "0" + nm
+ 
     targetPDFNames = []
     targetURLs = []
+    targetPDFName_a = "abs" + month3.lower() + fy + "web"
+    targetPDFName_b = "abs" + month4.lower() + fy + "web"
+    targetPDFNames.append(targetPDFName_a)
+    targetPDFNames.append(targetPDFName_b)
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_a + ".pdf")
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_b + ".pdf")
     return targetPDFNames, targetURLs
 
 #Alaska
