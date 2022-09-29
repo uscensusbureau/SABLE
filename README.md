@@ -6,7 +6,7 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites.
 
 ## Software
 
@@ -218,7 +218,7 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 ## Contributors
 
-The following people contributed to SABLE's codebase:
+The following people have contributed to SABLE's codebase:
 
 * Brian Dumbacher
 * Hector Ferronato
