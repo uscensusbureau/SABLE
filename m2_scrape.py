@@ -102,7 +102,6 @@ def scrape_data_AL(lines_clean, state, yyyy, mm):
     tax_units  = []
     tax_times  = []
 
-    value_temp = "none"
     month_zone = False
     col = 1 
     unit = "dollars"
