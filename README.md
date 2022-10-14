@@ -223,3 +223,9 @@ The following people have contributed to SABLE's codebase:
 * Brian Dumbacher
 * Hector Ferronato
 * Eric Valentine
+
+## References
+
+* Dumbacher, B. and Hanna, D. (2017). Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
+* Dumbacher, B. and Diamond, L.K. (2018). SABLE: Tools for Web Crawling, Web Scraping, and Text Classification. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
+* Ferronato, H. and Dumbacher, B. (forthcoming 2022). Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
