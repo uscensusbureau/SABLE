@@ -2,9 +2,11 @@
 #Purpose:     Download specific tax revenue documents
 #Invocation:  python3 m1_download.py <projName> <yyyy> <mm>
 
+from bs4 import BeautifulSoup
 import os
 import re
 import sys
+from urllib.request import Request, urlopen
 
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
@@ -102,6 +104,17 @@ def get_targets_CO(yyyy, yy, mm, month, month3, month4):
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
+    url = "http://portal.ct.gov/DRS/DRS-Reports/Comparative-Statement-Reports/{}---{}-Monthly-Comparative-Statements".format(yyyy, int(yyyy) - 1) 
+    req = Request(url, headers={"User-Agent": "SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/"})
+    page = urlopen(req).read()
+    html = page.decode("utf-8")
+    soup = BeautifulSoup(html)
+    links = soup.find("div", {"class" : "content"})
+    links = links.find_all("a")[1]
+    link = "https://portal.ct.gov" + links.get("href")
+    name = link[link.rfind("/")+1:-4]
+    targetURLs.append(link)
+    targetPDFNames.append(name) 
     return targetPDFNames, targetURLs
 
 #Delaware
