@@ -678,11 +678,10 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
                     tax_times.append(time)
                 m_nonadm = re.search(r"nonadmitted\s*/\s*unauthorized\s*/\s*", line)
                 if m_nonadm:
-                    m_nn=True
+                    m_nn = True
                 m = re.search(r"\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
                 if m_nn and m:
-                    m_nn=False
-                    print(line,m.groups())
+                    m_nn = False
                     tax_types.append("nonadmitted unauthorized captive insurers")
                     tax_values.append(clean_value(m.group(col)))
                     tax_units.append(unit)
