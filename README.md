@@ -6,7 +6,7 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to perform text classification.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other models.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites but has been applied to other settings such as finding population and housing statistics on the websites of foreign national statistical agencies.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites.
 
 ## Software
 
@@ -15,13 +15,15 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.15)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.18)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
+  * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+  * [pandas](https://pandas.pydata.org/)
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
 ## Python Programs
 
@@ -29,7 +31,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series
 
-This is the original series of SABLE programs and is used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
 | Program              | Purpose                                                  |
 | -------------------- | -------------------------------------------------------- |
@@ -43,19 +45,19 @@ This is the original series of SABLE programs and is used to discover potential 
 
 This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
-| Program              | Purpose                                             |
-| -------------------- | --------------------------------------------------- |
-| ```m0_setup.py```    | Set up project folders                              |
-| ```m1_download.py``` | Download PDFs known to contain useful data          |
-| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates    |
+| Program              | Purpose                                          |
+| -------------------- | ------------------------------------------------ |
+| ```m0_setup.py```    | Set up project folders                           |
+| ```m1_download.py``` | Download PDFs known to contain useful data       |
+| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates |
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating a stop list of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Examples
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is contained in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents that are to be classified by a logistic regression model.
+An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
 | Example Folder   | Description                                                                   |
 | ---------------- | ----------------------------------------------------------------------------- |
@@ -145,69 +147,85 @@ The following are example runs of the "S" and "M" series of programs.
 
 ### Example "S" Series Run
 
-Set up folders for an "S" series project called ```my_project```.
+Set up folders for an "S" series project called ```s_project```.
 
 ```
->> python3 s0_setup.py my_project
+>> python3 s0_setup.py s_project
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
->> vi /my_project/urls/seed.txt
 #Enter seed URLs
->> crawl -s /my_project/urls/ /my_project/crawl/ 3
->> readdb /my_project/crawl/crawldb/ -dump /my_project/dump/ -format csv
->> cat /my_project/dump/part-r-00000 > /my_project/dump/dump.csv
+>> vi /s_project/urls/seed.txt
+#Crawl to a specified depth
+>> crawl -s /s_project/urls/ /s_project/crawl/ 3
+#Output contents of Apache Nutch database to CSV format
+>> readdb /s_project/crawl/crawldb/ -dump /s_project/dump/ -format csv
+>> cat /s_project/dump/part-r-00000 > /s_project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/my_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/my_project/pos_pdf/``` and ```/my_project/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/s_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/s_project/pos_pdf/``` and ```/s_project/neg_pdf/```.
 
 ```
->> python3 s1_download.py my_project
+>> python3 s1_download.py s_project
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py my_project english pos
->> python3 s2_convert.py my_project english neg
+>> python3 s2_convert.py s_project english pos
+>> python3 s2_convert.py s_project english neg
 ```
 
 Fit and evaluate various text classification models.
 
 ```
->> python3 s3_model.py my_project
+>> python3 s3_model.py s_project
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/my_project/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/s_project/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
->> python3 s2_convert.py my_project english pred
+>> python3 s2_convert.py s_project english pred
 ```
 
 Fit a logistic regression model using the manually classified positive and negative PDFs and then use the fitted model to predict classes and probabilities for new PDFs.
 
 ```
->> python3 s4_logistic.py my_project
+>> python3 s4_logistic.py s_project
 ```
 
 ### Example "M" Series Run
 
-Set up folders for an "M" series project called ```my_project```.
+Set up folders for an "M" series project called ```m_project```.
 
 ```
->> python3 m0_setup.py my_project
+>> python3 m0_setup.py m_project
 ```
 
 Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
 
 ```
->> python3 m1_download.py my_project 2020 01
+>> python3 m1_download.py m_project 2020 01
 ```
 
 Scrape tax revenue data from the downloaded PDFs and organize the results in a TXT file.
 
 ```
->> python3 m2_scrape.py my_project 2020 01
+>> python3 m2_scrape.py m_project 2020 01
 ```
+
+## Contributors
+
+The following people have contributed to SABLE's codebase:
+
+* Brian Dumbacher
+* Hector Ferronato
+* Eric Valentine
+
+## References
+
+* Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
+* Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
+* Ferronato, H. and Dumbacher, B. (forthcoming 2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.

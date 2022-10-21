@@ -2,9 +2,11 @@
 #Purpose:     Download specific tax revenue documents
 #Invocation:  python3 m1_download.py <projName> <yyyy> <mm>
 
+from bs4 import BeautifulSoup
 import os
 import re
 import sys
+from urllib.request import Request, urlopen
 
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
@@ -44,8 +46,28 @@ def print_section(section):
 
 #Alabama
 def get_targets_AL(yyyy, yy, mm, month, month3, month4):
+    fyyy = yyyy
+    if mm in ["10", "11", "12"]:
+        fyyy = str(int(yyyy) + 1)
+    fy = fyyy[2:]
+    nm = mm
+    nyyy = yyyy
+    if nm == "12":
+        nm = "01"
+        nyyy = str(int(yyyy) + 1)
+    else:
+        nm = str(int(mm) + 1)
+        if len(nm) == 1:
+            nm = "0" + nm
+ 
     targetPDFNames = []
     targetURLs = []
+    targetPDFName_a = "abs" + month3.lower() + fy + "web"
+    targetPDFName_b = "abs" + month4.lower() + fy + "web"
+    targetPDFNames.append(targetPDFName_a)
+    targetPDFNames.append(targetPDFName_b)
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_a + ".pdf")
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_b + ".pdf")
     return targetPDFNames, targetURLs
 
 #Alaska
@@ -82,6 +104,17 @@ def get_targets_CO(yyyy, yy, mm, month, month3, month4):
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
+    url = "http://portal.ct.gov/DRS/DRS-Reports/Comparative-Statement-Reports/{}---{}-Monthly-Comparative-Statements".format(yyyy, int(yyyy) - 1) 
+    req = Request(url, headers={"User-Agent": "SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/"})
+    page = urlopen(req).read()
+    html = page.decode("utf-8")
+    soup = BeautifulSoup(html)
+    links = soup.find("div", {"class" : "content"})
+    links = links.find_all("a")[1]
+    link = "https://portal.ct.gov" + links.get("href")
+    name = link[link.rfind("/")+1:-4]
+    targetURLs.append(link)
+    targetPDFNames.append(name) 
     return targetPDFNames, targetURLs
 
 #Delaware
@@ -385,7 +418,7 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             targetPDFNameUnix = get_pdf_name_unix(targetPDFName)
             targetURL = targetURLs[i]
             if not pdfDownload:
-                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/\" -P /" + projName + "/pdf/ \"" + targetURL + "\"")
+                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /" + projName + "/pdf/ \"" + targetURL + "\"")
                 if os.path.isfile("/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf"):
                     os.system("pdftotext -q -layout \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" /" + projName + "/pdf/test.txt")
                     if not os.path.isfile("/" + projName + "/pdf/test.txt"):

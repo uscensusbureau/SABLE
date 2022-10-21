@@ -37,7 +37,7 @@ def is_pdf(url, metadata):
 
 def download_pdf(url, projName):
     #Use the Linux/Unix utility wget to download the PDF
-    os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/\" -P /" + projName + "/download/ " + url)
+    os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /" + projName + "/download/ " + url)
     return
 
 #Name:        download_pdfs
