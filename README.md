@@ -53,7 +53,7 @@ This series of Python programs is used to (1) download specific PDFs known to co
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating a stop list of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Examples
 
@@ -147,73 +147,73 @@ The following are example runs of the "S" and "M" series of programs.
 
 ### Example "S" Series Run
 
-Set up folders for an "S" series project called ```my_project```.
+Set up folders for an "S" series project called ```S_project```.
 
 ```
->> python3 s0_setup.py my_project
+>> python3 s0_setup.py S_project
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
 #Enter seed URLs
->> vi /my_project/urls/seed.txt
+>> vi /S_project/urls/seed.txt
 #Crawl to a specified depth
->> crawl -s /my_project/urls/ /my_project/crawl/ 3
+>> crawl -s /S_project/urls/ /S_project/crawl/ 3
 #Output contents of Apache Nutch database to CSV format
->> readdb /my_project/crawl/crawldb/ -dump /my_project/dump/ -format csv
->> cat /my_project/dump/part-r-00000 > /my_project/dump/dump.csv
+>> readdb /S_project/crawl/crawldb/ -dump /S_project/dump/ -format csv
+>> cat /S_project/dump/part-r-00000 > /S_project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/my_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/my_project/pos_pdf/``` and ```/my_project/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/S_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/S_project/pos_pdf/``` and ```/S_project/neg_pdf/```.
 
 ```
->> python3 s1_download.py my_project
+>> python3 s1_download.py S_project
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py my_project english pos
->> python3 s2_convert.py my_project english neg
+>> python3 s2_convert.py S_project english pos
+>> python3 s2_convert.py S_project english neg
 ```
 
 Fit and evaluate various text classification models.
 
 ```
->> python3 s3_model.py my_project
+>> python3 s3_model.py S_project
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/my_project/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/S_project/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
->> python3 s2_convert.py my_project english pred
+>> python3 s2_convert.py S_project english pred
 ```
 
 Fit a logistic regression model using the manually classified positive and negative PDFs and then use the fitted model to predict classes and probabilities for new PDFs.
 
 ```
->> python3 s4_logistic.py my_project
+>> python3 s4_logistic.py S_project
 ```
 
 ### Example "M" Series Run
 
-Set up folders for an "M" series project called ```my_project```.
+Set up folders for an "M" series project called ```M_project```.
 
 ```
->> python3 m0_setup.py my_project
+>> python3 m0_setup.py M_project
 ```
 
 Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
 
 ```
->> python3 m1_download.py my_project 2020 01
+>> python3 m1_download.py M_project 2020 01
 ```
 
 Scrape tax revenue data from the downloaded PDFs and organize the results in a TXT file.
 
 ```
->> python3 m2_scrape.py my_project 2020 01
+>> python3 m2_scrape.py M_project 2020 01
 ```
 
 ## Contributors
