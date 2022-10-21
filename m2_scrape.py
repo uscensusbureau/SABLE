@@ -567,16 +567,10 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
             m_col1 = re.search(r"(type\s+of\s+revenue|type\s+of\s+refund)\s+(\d{4})\s+(\d{4})", line)
             m_col2 = re.search(r"tax\s+type\s+through\s+\S+\s+(\d{4})\s+through\s+\S+\s+(\d{4})", line)
  
-            if m_col1:
-                if int(m_col1.group(3)) > int(m_col1.group(2)):
-                    col = 2
-                else:
-                    col = 1
-            if m_col2:
-                if int(m_col2.group(2)) > int(m_col2.group(1)):
-                    col = 2
-                else:
-                    col = 1
+            if m_col1 and int(m_col1.group(3)) > int(m_col1.group(2)):
+                col = 2
+            if m_col2 and int(m_col2.group(2)) > int(m_col2.group(1)):
+                col = 2
 
             if rev_zone:
 
