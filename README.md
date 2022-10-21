@@ -147,73 +147,73 @@ The following are example runs of the "S" and "M" series of programs.
 
 ### Example "S" Series Run
 
-Set up folders for an "S" series project called ```S_project```.
+Set up folders for an "S" series project called ```s_project```.
 
 ```
->> python3 s0_setup.py S_project
+>> python3 s0_setup.py s_project
 ```
 
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
 #Enter seed URLs
->> vi /S_project/urls/seed.txt
+>> vi /s_project/urls/seed.txt
 #Crawl to a specified depth
->> crawl -s /S_project/urls/ /S_project/crawl/ 3
+>> crawl -s /s_project/urls/ /s_project/crawl/ 3
 #Output contents of Apache Nutch database to CSV format
->> readdb /S_project/crawl/crawldb/ -dump /S_project/dump/ -format csv
->> cat /S_project/dump/part-r-00000 > /S_project/dump/dump.csv
+>> readdb /s_project/crawl/crawldb/ -dump /s_project/dump/ -format csv
+>> cat /s_project/dump/part-r-00000 > /s_project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/S_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/S_project/pos_pdf/``` and ```/S_project/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```/s_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/s_project/pos_pdf/``` and ```/s_project/neg_pdf/```.
 
 ```
->> python3 s1_download.py S_project
+>> python3 s1_download.py s_project
 ```
 
 Convert the PDFs in the positive class to TXT format.  Convert the PDFs in the negative class to TXT format.
 
 ```
->> python3 s2_convert.py S_project english pos
->> python3 s2_convert.py S_project english neg
+>> python3 s2_convert.py s_project english pos
+>> python3 s2_convert.py s_project english neg
 ```
 
 Fit and evaluate various text classification models.
 
 ```
->> python3 s3_model.py S_project
+>> python3 s3_model.py s_project
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/S_project/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/s_project/pred_pdf/```.  Convert these PDFs to TXT format.
 
 ```
->> python3 s2_convert.py S_project english pred
+>> python3 s2_convert.py s_project english pred
 ```
 
 Fit a logistic regression model using the manually classified positive and negative PDFs and then use the fitted model to predict classes and probabilities for new PDFs.
 
 ```
->> python3 s4_logistic.py S_project
+>> python3 s4_logistic.py s_project
 ```
 
 ### Example "M" Series Run
 
-Set up folders for an "M" series project called ```M_project```.
+Set up folders for an "M" series project called ```m_project```.
 
 ```
->> python3 m0_setup.py M_project
+>> python3 m0_setup.py m_project
 ```
 
 Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
 
 ```
->> python3 m1_download.py M_project 2020 01
+>> python3 m1_download.py m_project 2020 01
 ```
 
 Scrape tax revenue data from the downloaded PDFs and organize the results in a TXT file.
 
 ```
->> python3 m2_scrape.py M_project 2020 01
+>> python3 m2_scrape.py m_project 2020 01
 ```
 
 ## Contributors
