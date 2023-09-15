@@ -15,7 +15,7 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.18)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.19)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -45,11 +45,11 @@ This is the original series of SABLE programs used to discover potential new dat
 
 This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
-| Program              | Purpose                                          |
-| -------------------- | ------------------------------------------------ |
-| ```m0_setup.py```    | Set up project folders                           |
-| ```m1_download.py``` | Download PDFs known to contain useful data       |
-| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates |
+| Program              | Purpose                                                            |
+| -------------------- | ------------------------------------------------------------------ |
+| ```m0_setup.py```    | Set up project folders                                             |
+| ```m1_download.py``` | Download PDFs known to contain useful data                         |
+| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates and text analysis |
 
 ## Lists of Stop Words
 
@@ -67,18 +67,18 @@ An example training set for predicting whether a PDF contains data on tax revenu
 
 The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
-| Example File                   | Description                                                                       |
-| ------------------------------ | --------------------------------------------------------------------------------- |
-| ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
-| ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
-| ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
-| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                |
-| ```example_seed.txt```         | Example seed URLs for crawling state government websites                          |
+| Example File                    | Description                                                                                |
+| ------------------------------- | ------------------------------------------------------------------------------------------ |
+| ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
+| ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                               |
+| ```example_g16-aspp-sl.txt```   | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_g17-qtax4.pdf```     | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report                  |
+| ```example_g17-qtax4.txt```     | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_model_output.txt```  | Output from ```s3_model.py``` applied to training set                                      |
+| ```example_pred_output.txt```   | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/``` |
+| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                          |
+| ```example_seed.txt```          | Example seed URLs for crawling state government websites                                   |
 
 ## Organization of Files
 
@@ -222,10 +222,11 @@ The following people have contributed to SABLE's codebase:
 
 * Brian Dumbacher
 * Hector Ferronato
+* Alan Weisel
 * Eric Valentine
 
 ## References
 
 * Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
-* Ferronato, H. and Dumbacher, B. (forthcoming 2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
+* Ferronato, H. and Dumbacher, B. (2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
