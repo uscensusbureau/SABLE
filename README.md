@@ -6,7 +6,7 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
@@ -65,7 +65,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
 | ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).
+The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
 | Example File                    | Description                                                                                |
 | ------------------------------- | ------------------------------------------------------------------------------------------ |
