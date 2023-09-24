@@ -59,7 +59,7 @@ This repository also contains lists of common "stop" words for multiple language
 
 An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
-| Example Folder   | Description                                                                   |
+| Folder           | Description                                                                   |
 | ---------------- | ----------------------------------------------------------------------------- |
 | ```/neg_txt/```  | Collection of TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
@@ -67,7 +67,7 @@ An example training set for predicting whether a PDF contains data on tax revenu
 
 The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
-| Example File                    | Description                                                                                |
+| File                            | Description                                                                                |
 | ------------------------------- | ------------------------------------------------------------------------------------------ |
 | ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
 | ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
@@ -226,6 +226,8 @@ The following people have contributed to SABLE's codebase:
 * Eric Valentine
 
 ## References
+
+The ```/references/``` folder contains the following conference papers and presentations:
 
 * Ferronato, H. and Dumbacher, B. (2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
