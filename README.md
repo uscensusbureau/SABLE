@@ -6,7 +6,7 @@ This readme is a work in progress.
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data on tax revenue collections from state and local government websites.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
@@ -15,7 +15,7 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.18)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.19)
 * [Python](http://www.python.org/) (version 3.6)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -45,11 +45,11 @@ This is the original series of SABLE programs used to discover potential new dat
 
 This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
-| Program              | Purpose                                          |
-| -------------------- | ------------------------------------------------ |
-| ```m0_setup.py```    | Set up project folders                           |
-| ```m1_download.py``` | Download PDFs known to contain useful data       |
-| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates |
+| Program              | Purpose                                                            |
+| -------------------- | ------------------------------------------------------------------ |
+| ```m0_setup.py```    | Set up project folders                                             |
+| ```m1_download.py``` | Download PDFs known to contain useful data                         |
+| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates and text analysis |
 
 ## Lists of Stop Words
 
@@ -59,26 +59,26 @@ This repository also contains lists of common "stop" words for multiple language
 
 An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
-| Example Folder   | Description                                                                   |
+| Folder           | Description                                                                   |
 | ---------------- | ----------------------------------------------------------------------------- |
 | ```/neg_txt/```  | Collection of TXT files belonging to the "negative" class in the training set |
 | ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
 | ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the U.S. Census Bureau website: [https://www.census.gov](https://www.census.gov).
+The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
-| Example File                   | Description                                                                       |
-| ------------------------------ | --------------------------------------------------------------------------------- |
-| ```example_g12-cg-org.pdf```   | 2012 Census of Governments report                                                 |
-| ```example_g12-cg-org.txt```   | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_g16-aspp-sl.pdf```  | 2016 Annual Survey of Public Pensions report                                      |
-| ```example_g16-aspp-sl.txt```  | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_g17-qtax4.pdf```    | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report         |
-| ```example_g17-qtax4.txt```    | Output from ```s2_convert.py``` applied to above PDF                              |
-| ```example_model_output.txt``` | Output from ```s3_model.py``` applied to training set                             |
-| ```example_pred_output.txt```  | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/```  |
-| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                |
-| ```example_seed.txt```         | Example seed URLs for crawling state government websites                          |
+| File                            | Description                                                                                |
+| ------------------------------- | ------------------------------------------------------------------------------------------ |
+| ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
+| ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                               |
+| ```example_g16-aspp-sl.txt```   | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_g17-qtax4.pdf```     | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report                  |
+| ```example_g17-qtax4.txt```     | Output from ```s2_convert.py``` applied to above PDF                                       |
+| ```example_model_output.txt```  | Output from ```s3_model.py``` applied to training set                                      |
+| ```example_pred_output.txt```   | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/``` |
+| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                          |
+| ```example_seed.txt```          | Example seed URLs for crawling state government websites                                   |
 
 ## Organization of Files
 
@@ -222,10 +222,14 @@ The following people have contributed to SABLE's codebase:
 
 * Brian Dumbacher
 * Hector Ferronato
+* Alan Weisel
 * Eric Valentine
 
 ## References
 
-* Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
+The ```/references/``` folder contains the following conference papers and presentations:
+
+* Ferronato, H. and Dumbacher, B. (2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
-* Ferronato, H. and Dumbacher, B. (forthcoming 2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
+* Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
+* Dumbacher, B. and Capps, C. (2016). <b>Big Data Methods for Scraping Government Tax Revenue from the Web</b>. <i>2016 Proceedings of the American Statistical Association, Section on Statistical Learning and Data Science</i>. Alexandria, VA: American Statistical Association, 2940-2954.
