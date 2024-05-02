@@ -30,15 +30,16 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series for Discovering New Data Sources
 
-This is the original series of SABLE programs used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs used to discover potential new data sources.  The Python program ```pdf2txt.py``` comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.  Please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
 
-| Program              | Purpose                                                  |
-| -------------------- | -------------------------------------------------------- |
-| ```s0_setup.py```    | Set up project folders                                   |
-| ```s1_download.py``` | Download PDFs discovered during web crawling             |
-| ```s2_convert.py```  | Convert PDFs to TXT format                               |
-| ```s3_model.py```    | Fit and evaluate text classification models              |
-| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs |
+| Program              | Purpose                                                    |
+| -------------------- | ---------------------------------------------------------- |
+| ```s0_setup.py```    | Set up project folders                                     |
+| ```s1_download.py``` | Download PDFs discovered during web crawling               |
+| ```s2_convert.py```  | Convert PDFs to TXT format                                 |
+| ```s3_model.py```    | Fit and evaluate text classification models                |
+| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs   |
+| ```pdf2txt.py```     | Extract text from PDFs (created by developers of PDFMiner) |
 
 ### "M" Series for Scraping Tax Revenue Data
 
