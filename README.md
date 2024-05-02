@@ -219,7 +219,7 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 The following people have contributed to SABLE's codebase:
 
-* Brian Dumbacher
+* Brian Dumbacher ([@brian-dumbacher](https://www.github.com/brian-dumbacher))
 * Hector Ferronato
 * Alan Weisel
 * Eric Valentine
