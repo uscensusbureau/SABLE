@@ -4,7 +4,7 @@
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).  Other applications include finding international population and housing statistics on government websites and scraping data from publicly available franchise disclosure documents.
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).  Other SABLE applications include finding international population and housing statistics on government websites and scraping data from publicly available franchise disclosure documents.
 
 ## Software
 
@@ -28,7 +28,7 @@ The Linux command-line utilities wget and pdftotext are used to download documen
 
 The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different web crawling, web scraping, and machine learning tasks.
 
-### "S" Series
+### "S" Series for Discovering New Data Sources
 
 This is the original series of SABLE programs used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
 
@@ -40,21 +40,21 @@ This is the original series of SABLE programs used to discover potential new dat
 | ```s3_model.py```    | Fit and evaluate text classification models              |
 | ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs |
 
-### "M" Series
+### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
 | ```m0_setup.py```    | Set up project folders                                             |
-| ```m1_download.py``` | Download PDFs known to contain useful data                         |
+| ```m1_download.py``` | Download PDFs known to contain useful tax revenue data             |
 | ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates and text analysis |
 
 ## Lists of Stop Words
 
 This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
-## Examples
+## Example Files and Output
 
 An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
