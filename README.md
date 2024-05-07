@@ -30,7 +30,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series for Discovering New Data Sources
 
-This is the original series of SABLE programs used to discover potential new data sources.  The Python program ```pdf2txt.py``` comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.  Please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
+This is the original series of SABLE programs used to discover potential new data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner3K module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
 
 | Program              | Purpose                                                    |
 | -------------------- | ---------------------------------------------------------- |
