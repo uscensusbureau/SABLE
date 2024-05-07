@@ -28,7 +28,7 @@ def print_section(section):
     n = len(section)
     print("")
     print("=" * (n + 12))
-    print("===   " + section + "   ===")
+    print("===   {}   ===".format(section))
     print("=" * (n + 12))
     print("")
     return
@@ -40,9 +40,9 @@ def print_section(section):
 #Returns:     
 
 def convert_pdf_to_txt(pdfLoc, txtLoc):
-    os.system("pdftotext -layout " + pdfLoc + " " + txtLoc)
+    os.system("pdftotext -layout {} {}".format(pdfLoc, txtLoc))
     if os.path.isfile(txtLoc) and os.stat(txtLoc).st_size == 0:
-        os.system("rm " + txtLoc)
+        os.system("rm {}".format(txtLoc))
     return
 
 #Name:        clean_text
@@ -64,7 +64,7 @@ def clean_text(line):
 #Returns:     List of cleaned lines of text
 
 def get_text(txtLoc):
-    f = codecs.open(txtLoc, "rU", encoding="utf8")
+    f = codecs.open(txtLoc, "r", encoding="utf8")
     lines_clean = [clean_text(line) for line in f.readlines()]
     f.close()
     return lines_clean
@@ -79,7 +79,7 @@ def clean_value(value):
     value_temp = re.sub(r"\*", "-", value_temp)
     n = len(value_temp)
     if value_temp[0] == "(" and value_temp[n-1] == ")":
-        value_new = "-" + value_temp[1:n-1]
+        value_new = "-{}".format(value_temp[1:n-1])
     elif value_temp == "-" or value_temp == "--" or value_temp == "---":
         value_new = "0"
     else:
@@ -2017,10 +2017,10 @@ def scrape_data(projName, yyyy, mm):
 
     #List to store all of the scraped data
     prod = []
-    prodLoc = "/" + projName + "/prod/" + yyyy + "_" + mm + ".txt"
+    prodLoc = "/{}/prod/{}_{}.txt".format(projName, yyyy, mm)
 
     #List of states to loop through
-    states = ["NJ"]
+    states = ["AL", "CT", "NJ"]
     statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
         "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
         "HI":"Hawaii", "ID":"Idaho", "IL":"Illinois", "IN":"Indiana", "IA":"Iowa",
@@ -2034,10 +2034,10 @@ def scrape_data(projName, yyyy, mm):
 
     for state in states:
         print_section(statesDict[state])
-        docName = state + "_" + yyyy + "_" + mm
-        pdfLoc = "/" + projName + "/pdf/" + docName + ".pdf"
-        txtLoc = "/" + projName + "/txt/" + docName + ".txt"
-        datLoc = "/" + projName + "/dat/" + docName + ".txt"
+        docName = "{}_{}_{}".format(state, yyyy, mm)
+        pdfLoc = "/{}/pdf/{}.pdf".format(projName, docName)
+        txtLoc = "/{}/txt/{}.txt".format(projName, docName)
+        datLoc = "/{}/dat/{}.txt".format(projName, docName)
 
         if os.path.isfile(pdfLoc):
             print("PDF exists.")
@@ -2057,7 +2057,7 @@ def scrape_data(projName, yyyy, mm):
         
         if os.path.isfile(datLoc):
             print("Output TXT file already exists.  Removing ...")
-            os.system("rm " + datLoc)
+            os.system("rm {}".format(datLoc))
         if os.path.isfile(txtLoc):
             data = []
             lines_clean = get_text(txtLoc)
@@ -2165,14 +2165,14 @@ def scrape_data(projName, yyyy, mm):
             create_output(data, datLoc)
             if os.path.isfile(datLoc):
                 print("Output TXT file created.")
-                print("Number of line items scraped: " + str(len(data)))
+                print("Number of line items scraped: {}".format(len(data)))
             else:
                 print("No output TXT file created.")
     
     print_section("Product")
     if os.path.isfile(prodLoc):
         print("Product already exists.  Removing ...")
-        os.system("rm " + prodLoc)
+        os.system("rm {}".format(prodLoc))
     create_output(prod, prodLoc)
     if os.path.isfile(prodLoc):
         print("Product created.")
