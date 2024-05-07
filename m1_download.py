@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
 #Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (arguments are valid) or False (arguments are invalid)
+#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
