@@ -29,7 +29,7 @@ def print_section(section):
     n = len(section)
     print("")
     print("=" * (n + 12))
-    print("===   " + section + "   ===")
+    print("===   {}   ===".format(section))
     print("=" * (n + 12))
     print("")
     return
@@ -58,16 +58,16 @@ def get_targets_AL(yyyy, yy, mm, month, month3, month4):
     else:
         nm = str(int(mm) + 1)
         if len(nm) == 1:
-            nm = "0" + nm
+            nm = "0{}".format(nm)
  
     targetPDFNames = []
     targetURLs = []
-    targetPDFName_a = "abs" + month3.lower() + fy + "web"
-    targetPDFName_b = "abs" + month4.lower() + fy + "web"
+    targetPDFName_a = "abs{}{}web".format(month3.lower(), fy)
+    targetPDFName_b = "abs{}{}web".format(month4.lower(), fy)
     targetPDFNames.append(targetPDFName_a)
     targetPDFNames.append(targetPDFName_b)
-    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_a + ".pdf")
-    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/" + nyyy + "/" + nm + "/" + targetPDFName_b + ".pdf")
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_a))
+    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_b))
     return targetPDFNames, targetURLs
 
 #Alaska
@@ -258,9 +258,9 @@ def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
 
     targetPDFNames = []
     targetURLs = []
-    targetPDFName_a = "FY" + fy + "_" + month
+    targetPDFName_a = "FY{}_{}".format(fy, month)
     targetPDFNames.append(targetPDFName_a)
-    targetURLs.append("https://www.njleg.state.nj.us/legislativepub/budget/" + targetPDFName_a + ".pdf")
+    targetURLs.append("https://www.njleg.state.nj.us/legislativepub/budget/{}.pdf".format(targetPDFName_a))
     return targetPDFNames, targetURLs
 
 #New Mexico
@@ -406,8 +406,8 @@ def get_pdf_name_unix(name):
 #Returns:     status (string indicating PDF download status)
 
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
-    PDFName = state + "_" + yyyy + "_" + mm
-    pdfLoc = "/" + projName + "/pdf/" + PDFName + ".pdf"
+    PDFName = "{}_{}_{}".format(state, yyyy, mm)
+    pdfLoc = "/{}/pdf/{}.pdf".format(projName, PDFName)
 
     if os.path.isfile(pdfLoc):
         print("PDF already exists.")
@@ -418,17 +418,17 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             targetPDFNameUnix = get_pdf_name_unix(targetPDFName)
             targetURL = targetURLs[i]
             if not pdfDownload:
-                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /" + projName + "/pdf/ \"" + targetURL + "\"")
-                if os.path.isfile("/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf"):
-                    os.system("pdftotext -q -layout \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" /" + projName + "/pdf/test.txt")
-                    if not os.path.isfile("/" + projName + "/pdf/test.txt"):
-                        os.system("rm \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\"")
-                    elif os.stat("/" + projName + "/pdf/test.txt").st_size == 0:
-                        os.system("rm \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\"")
-                        os.system("rm /" + projName + "/pdf/test.txt")
+                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /{}/pdf/ \"{}\"".format(projName, targetURL))
+                if os.path.isfile("/{}/pdf/{}.pdf".format(projName, targetPDFNameUnix)):
+                    os.system("pdftotext -q -layout \"/{}/pdf/{}.pdf\" /{}/pdf/test.txt".format(projName, targetPDFNameUnix, projName))
+                    if not os.path.isfile("/{}/pdf/test.txt".format(projName)):
+                        os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
+                    elif os.stat("/{}/pdf/test.txt".format(projName)).st_size == 0:
+                        os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
+                        os.system("rm /{}/pdf/test.txt".format(projName))
                     else:
-                        os.system("rm /" + projName + "/pdf/test.txt")
-                        os.system("mv \"/" + projName + "/pdf/" + targetPDFNameUnix + ".pdf\" " + pdfLoc)
+                        os.system("rm /{}/pdf/test.txt".format(projName))
+                        os.system("mv \"/{}/pdf/{}.pdf\" {}".format(projName, targetPDFNameUnix, pdfLoc))
                         pdfDownload = True
                         print("PDF downloaded.")
                         return "dlyes"
@@ -499,7 +499,7 @@ def download_pdfs(projName, yyyy, mm):
         month3 = "Dec"
         month4 = "Dec"
 
-    #List of states to loop through
+    #Dictionary of state abbreviations mapped to names
     statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
         "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
         "HI":"Hawaii", "ID":"Idaho", "IL":"Illinois", "IN":"Indiana", "IA":"Iowa",
@@ -510,7 +510,8 @@ def download_pdfs(projName, yyyy, mm):
         "OK":"Oklahoma", "OR":"Oregon", "PA":"Pennsylvania", "RI":"Rhode Island", "SC":"South Carolina",
         "SD":"South Dakota", "TN":"Tennessee", "TX":"Texas", "UT":"Utah", "VT":"Vermont",
         "VA":"Virginia", "WA":"Washington", "WV":"West Virginia", "WI":"Wisconsin", "WY":"Wyoming"}
-    states = ["NJ"]
+    #List of states to loop through
+    states = ["AL", "CT", "NJ"]
     statuses = []
     
     for state in states:
@@ -620,9 +621,9 @@ def download_pdfs(projName, yyyy, mm):
         statuses.append(download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs))
 
     print_section("Summary")
-    print("Number of PDFs that already exist:    " + str(len([status for status in statuses if status == "exist"])))
-    print("Number of successful PDF downloads:   " + str(len([status for status in statuses if status == "dlyes"])))
-    print("Number of unsuccessful PDF downloads: " + str(len([status for status in statuses if status == "dlno"])))
+    print("Number of PDFs that already exist:    {}".format(len([status for status in statuses if status == "exist"])))
+    print("Number of successful PDF downloads:   {}".format(len([status for status in statuses if status == "dlyes"])))
+    print("Number of unsuccessful PDF downloads: {}".format(len([status for status in statuses if status == "dlno"])))
     print("")
     return
 
