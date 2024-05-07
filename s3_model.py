@@ -192,10 +192,10 @@ def fit_models(projName):
             tmpFile.close()
     
     #Create dictionaries to facilitate referencing observations and their corresponding text 
-    posIndex      = [i for i in range(len(posTexts))]
+    posIndex     = [i for i in range(len(posTexts))]
     posTextsDict = dict([(i, posTexts[i]) for i in posIndex])
     posDocsDict  = dict([(i, posDocs[i]) for i in posIndex])
-    negIndex      = [i for i in range(len(negTexts))]
+    negIndex     = [i for i in range(len(negTexts))]
     negTextsDict = dict([(i, negTexts[i]) for i in negIndex])
     negDocsDict  = dict([(i, negDocs[i]) for i in negIndex])
     
