@@ -26,7 +26,7 @@ import sys
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
 #Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (arguments are valid) or False (arguments are invalid)
+#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
@@ -138,17 +138,17 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     #Print classifier performance statistics
     print("Summary")
     print("-------")
-    print("tp    = " + str(tp))
-    print("fn    = " + str(fn))
-    print("tn    = " + str(tn))
-    print("fp    = " + str(fp))
-    print("acc   = " + str(acc))
-    print("f1    = " + str(f1))
-    print("tpr   = " + str(tpr))
-    print("tnr   = " + str(tnr))
-    print("ppr   = " + str(ppr))
-    print("npr   = " + str(npr))
-    print("kappa = " + str(kappa))
+    print("tp    = {}".format(tp))
+    print("fn    = {}".format(fn))
+    print("tn    = {}".format(tn))
+    print("fp    = {}".format(fp))
+    print("acc   = {}".format(acc))
+    print("f1    = {}".format(f1))
+    print("tpr   = {}".format(tpr))
+    print("tnr   = {}".format(tnr))
+    print("ppr   = {}".format(ppr))
+    print("npr   = {}".format(npr))
+    print("kappa = {}".format(kappa))
     print("")
     
     #Print confusion matrix
@@ -170,24 +170,24 @@ def fit_models(projName):
     negDocs  = []
     
     #Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/" + projName + "/pos_txt/"))
+    posDir = sorted(os.listdir("/{}/pos_txt/".format(projName)))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/" + projName + "/pos_txt/" + nameMatch.group(1) + ".txt"
-            tmpFile = codecs.open(txtFile, "rU")
+            txtFile = "/{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
+            tmpFile = codecs.open(txtFile, "r")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     #Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/" + projName + "/neg_txt/"))
+    negDir = sorted(os.listdir("/{}/neg_txt/".format(projName)))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/" + projName + "/neg_txt/" + nameMatch.group(1) + ".txt"
-            tmpFile = codecs.open(txtFile, "rU")
+            txtFile = "/{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
+            tmpFile = codecs.open(txtFile, "r")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
@@ -220,10 +220,11 @@ def fit_models(projName):
     
     #Print number of positive and negative observations used for training and testing
     print("")
-    print("Positive Training: " + str(len(posTrain)))
-    print("Positive Testing:  " + str(len(posTest)))
-    print("Negative Training: " + str(len(negTrain)))
-    print("Negative Testing:  " + str(len(negTest)) + "\n")
+    print("Positive Training: {}".format(len(posTrain)))
+    print("Positive Testing:  {}".format(len(posTest)))
+    print("Negative Training: {}".format(len(negTrain)))
+    print("Negative Testing:  {}\n".format(len(negTest)))
+    print("")
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Naive Bayes Classifier (NLTK Implementation)   @@@")
