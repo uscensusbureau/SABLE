@@ -21,7 +21,7 @@ import sys
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
 #Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (arguments are valid) or False (arguments are invalid)
+#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
@@ -76,24 +76,24 @@ def fit_and_predict(projName):
     predDocs  = []
     
     #Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/" + projName + "/pos_txt/"))
+    posDir = sorted(os.listdir("/{}/pos_txt/".format(projName)))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/" + projName + "/pos_txt/" + nameMatch.group(1) + ".txt"
-            tmpFile = codecs.open(txtFile, "rU")
+            txtFile = "/{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
+            tmpFile = codecs.open(txtFile, "r")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     #Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/" + projName + "/neg_txt/"))
+    negDir = sorted(os.listdir("/{}/neg_txt/".format(projName)))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/" + projName + "/neg_txt/" + nameMatch.group(1) + ".txt"
-            tmpFile = codecs.open(txtFile, "rU")
+            txtFile = "/{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
+            tmpFile = codecs.open(txtFile, "r")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
@@ -103,21 +103,21 @@ def fit_and_predict(projName):
     featsTrain = posFeatsTrain + negFeatsTrain
     
     #Read in text from documents for prediction
-    predDir = sorted(os.listdir("/" + projName + "/pred_txt/"))
+    predDir = sorted(os.listdir("/{}/pred_txt/".format(projName)))
     for f in predDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             predDocs.append(nameMatch.group(1))
-            txtFile = "/" + projName + "/pred_txt/" + nameMatch.group(1) + ".txt"
-            tmpFile = codecs.open(txtFile, "rU")
+            txtFile = "/{}/pred_txt/{}.txt".format(projName, nameMatch.group(1))
+            tmpFile = codecs.open(txtFile, "r")
             predTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     #Print number of positive and negative observations used for training and number of observations for prediction
     print("")
-    print("Positive Training: " + str(len(posTexts)))
-    print("Negative Training: " + str(len(negTexts)))
-    print("Prediction:        " + str(len(predTexts)) + "\n")
+    print("Positive Training: {}".format(len(posTexts)))
+    print("Negative Training: {}".format(len(negTexts)))
+    print("Prediction:        {}\n".format(len(predTexts)))
     
     if len(posFeatsTrain) >= 10 and len(negFeatsTrain) >= 10:
     
@@ -131,7 +131,7 @@ def fit_and_predict(projName):
         predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
     
         #Create output
-        outputFile = "/" + projName + "/pred_output.txt"
+        outputFile = "/{}/pred_output.txt".format(projName)
         varNames = ["docName", "predClass", "probPos", "probNeg"]
         f = open(outputFile, "w")
         f.write("|".join(varNames) + "\n")
