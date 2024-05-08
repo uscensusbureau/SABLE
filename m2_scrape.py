@@ -79,7 +79,7 @@ def clean_value(value):
     value_temp = re.sub(r"\*", "-", value_temp)
     n = len(value_temp)
     if value_temp[0] == "(" and value_temp[n-1] == ")":
-        value_new = "-{}".format(value_temp[1:n-1])
+        value_new = "-" + value_temp[1:n-1]
     elif value_temp == "-" or value_temp == "--" or value_temp == "---":
         value_new = "0"
     else:
