@@ -21,6 +21,7 @@ SABLE is based on the following open-source software:
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
+  * [Tesseract](https://tesseract-ocr.github.io/)
 
 The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
@@ -30,7 +31,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series for Discovering New Data Sources
 
-This is the original series of SABLE programs used to discover potential new data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner3K module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
+This is the original series of SABLE programs used to discover potential new online data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner3K module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
 
 | Program              | Purpose                                                    |
 | -------------------- | ---------------------------------------------------------- |
@@ -43,7 +44,7 @@ This is the original series of SABLE programs used to discover potential new dat
 
 ### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
@@ -53,7 +54,7 @@ This series of Python programs is used to (1) download specific PDFs known to co
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Example Files and Output
 
