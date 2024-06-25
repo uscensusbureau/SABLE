@@ -21,9 +21,9 @@ SABLE is based on the following open-source software:
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
-  * [Tesseract](https://tesseract-ocr.github.io/)
+* [Tesseract](https://tesseract-ocr.github.io/)
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.  Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
 
 ## Python Programs
 
