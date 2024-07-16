@@ -10,7 +10,7 @@ import sys
 #Name:        valid_arguments
 #Purpose:     Check whether the command-line arguments are valid
 #Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (arguments are valid) or False (arguments are invalid)
+#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
@@ -114,7 +114,7 @@ def get_chars(xmlFile):
     textline = 0
     
     #Open XML file and use regular expressions to parse contents
-    f = codecs.open(xmlFile, "rU", encoding="utf8")
+    f = codecs.open(xmlFile, "r", encoding="utf8")
     for l in f:
         line = l.strip()
         pageMatch = match_page(line)
@@ -208,10 +208,10 @@ def write_text(chars, txtFile):
 
 def create_output(projName, clss, docName):
     #Create file locations
-    pdfFile  = "/" + projName + "/" + clss + "_pdf/"  + docName + ".pdf"
-    xmlFile  = "/" + projName + "/" + clss + "_xml/"  + docName + ".xml"
-    txtFile  = "/" + projName + "/" + clss + "_txt/"  + docName + ".txt"
-    probFile = "/" + projName + "/" + clss + "_prob/" + docName + ".pdf"
+    pdfFile  = "/{}/{}_pdf/{}.pdf".format(projName, clss, docName)
+    xmlFile  = "/{}/{}_xml/{}.xml".format(projName, clss, docName)
+    txtFile  = "/{}/{}_txt/{}.txt".format(projName, clss, docName)
+    probFile = "/{}/{}_prob/{}.pdf".format(projName, clss, docName)
 
     #probFlag indicates whether there is a problem extracting text from the PDF
     #The problem PDFs are moved to separate folders where they can be inspected
@@ -222,7 +222,7 @@ def create_output(projName, clss, docName):
     if not os.path.isfile(txtFile):
         try:
             #The pdf2txt.py program comes with the PDFMiner module
-            os.system("pdf2txt.py -o " + xmlFile + " -t xml " + pdfFile)
+            os.system("pdf2txt.py -o {} -t xml {}".format(xmlFile, pdfFile))
         except PDFTextExtractionNotAllowed:
             #Exception indicates that text cannot be extracted from the PDF
             probFlag = 1
@@ -248,8 +248,8 @@ def create_output(projName, clss, docName):
             if os.path.isfile(txtFile):
                 #Any text that has been extracted from the problem PDF is deleted
                 os.remove(txtFile)
-            os.system("mv " + pdfFile + " " + probFile)
-            print("!!! PROBLEM: " + docName)
+            os.system("mv {} {}".format(pdfFile, probFile))
+            print("!!! PROBLEM: {}".format(docName))
     return
 
 #Name:        convert_files
@@ -262,7 +262,7 @@ def create_output(projName, clss, docName):
 def convert_files(projName, lng, clss):
     #Read in stop words
     stopWordsList = []
-    f = codecs.open("stop_" + lng + ".txt", "rU")
+    f = codecs.open("stop_{}.txt".format(lng), "r")
     for word in f:
         if word.strip() != "":
             stopWordsList.append(word.strip())
@@ -271,16 +271,16 @@ def convert_files(projName, lng, clss):
     stopWords = set(stopWordsList)
 
     #Iterate through PDFs of a given class, extract text, and create output files
-    print("\n*****  " + clss + "  *****\n")
-    pdfs = sorted(os.listdir("/" + projName + "/" + clss + "_pdf/"))
+    print("\n*****  {}  *****\n".format(clss))
+    pdfs = sorted(os.listdir("/{}/{}_pdf/".format(projName, clss)))
     for pdf in pdfs:
         pdfMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfMatch:
             docName = pdfMatch.group(1)
             if pdfMatch.group(2) != "pdf":
-                oldFile = "/" + projName + "/" + clss + "_pdf/" + docName + "." + pdfMatch.group(2)
-                newFile = "/" + projName + "/" + clss + "_pdf/" + docName + ".pdf"
-                os.system("mv " + oldFile + " " + newFile)
+                oldFile = "/{}/{}_pdf/{}.{}".format(projName, clss, docName, pdfMatch.group(2))
+                newFile = "/{}/{}_pdf/{}.pdf".format(projName, clss, docName)
+                os.system("mv {} {}".format(oldFile, newFile))
             create_output(projName, clss, docName)
     print("")
     return

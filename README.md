@@ -1,12 +1,10 @@
 # SABLE
 
-This readme is a work in progress.
-
 ![Logo](logo.png)
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
+SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
@@ -16,46 +14,49 @@ SABLE is based on the following open-source software:
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
 * [Apache Nutch](http://nutch.apache.org/) (version 1.19)
-* [Python](http://www.python.org/) (version 3.6)
+* [Python](http://www.python.org/) (version 3.10)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
   * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
+  * [tabula](https://pypi.org/project/tabula-py/)
+* [Tesseract](https://tesseract-ocr.github.io/)
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.  Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
 
 ## Python Programs
 
 The following tables describe the Python programs in this repository.  More information can be found in the programs themsevles.  There are different series of programs for performing different web crawling, web scraping, and machine learning tasks.
 
-### "S" Series
+### "S" Series for Discovering New Data Sources
 
-This is the original series of SABLE programs used to discover potential new data sources.  There is an additional Python program used in SABLE named ```pdf2txt.py```.  It comes with the PDFMiner3K module and is invoked by ```s2_convert.py```.
+This is the original series of SABLE programs used to discover potential new online data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner3K module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
 
-| Program              | Purpose                                                  |
-| -------------------- | -------------------------------------------------------- |
-| ```s0_setup.py```    | Set up project folders                                   |
-| ```s1_download.py``` | Download PDFs discovered during web crawling             |
-| ```s2_convert.py```  | Convert PDFs to TXT format                               |
-| ```s3_model.py```    | Fit and evaluate text classification models              |
-| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs |
+| Program              | Purpose                                                    |
+| -------------------- | ---------------------------------------------------------- |
+| ```s0_setup.py```    | Set up project folders                                     |
+| ```s1_download.py``` | Download PDFs discovered during web crawling               |
+| ```s2_convert.py```  | Convert PDFs to TXT format                                 |
+| ```s3_model.py```    | Fit and evaluate text classification models                |
+| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs   |
+| ```pdf2txt.py```     | Extract text from PDFs (created by developers of PDFMiner) |
 
-### "M" Series
+### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful data, (2) scrape values and metadata from the downloaded PDFs, and (3) organize the scraped data.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
 | ```m0_setup.py```    | Set up project folders                                             |
-| ```m1_download.py``` | Download PDFs known to contain useful data                         |
+| ```m1_download.py``` | Download PDFs known to contain useful tax revenue data             |
 | ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates and text analysis |
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
-## Examples
+## Example Files and Output
 
 An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
@@ -220,7 +221,7 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 The following people have contributed to SABLE's codebase:
 
-* Brian Dumbacher
+* Brian Dumbacher ([@brian-dumbacher](https://www.github.com/brian-dumbacher))
 * Hector Ferronato
 * Alan Weisel
 * Eric Valentine
