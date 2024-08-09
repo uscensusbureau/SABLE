@@ -2,6 +2,17 @@
 
 ![Logo](logo.png)
 
+<p>
+<img src="https://img.shields.io/badge/repo_status-active-brightgreen?style=for-the-badge" alt="Repo Status: Active">
+<img src="https://img.shields.io/badge/license-cc0_1.0_universal-brightgreen?style=for-the-badge" alt="License: CC0 1.0 Universal">
+<img src="https://img.shields.io/badge/linux-ee0000?style=for-the-badge&logo=redhat&logoColor=white" alt="Linux">
+<img src="https://img.shields.io/badge/apache_nutch-d22128?style=for-the-badge" alt="Apache Nutch">
+<img src="https://img.shields.io/badge/python-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
+<img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
+<img src="https://img.shields.io/badge/selenium-43b02a?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
+</p>
+
 ## Introduction
 
 SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
@@ -13,7 +24,7 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.19)
+* [Apache Nutch](http://nutch.apache.org/) (version 1.20)
 * [Python](http://www.python.org/) (version 3.10)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -21,6 +32,7 @@ SABLE is based on the following open-source software:
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
+  * [Selenium](https://pypi.org/project/selenium/)
 * [Tesseract](https://tesseract-ocr.github.io/)
 
 The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.  Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
