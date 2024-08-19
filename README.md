@@ -20,7 +20,7 @@
 
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
+Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
@@ -29,7 +29,13 @@ SABLE is based on the following open-source software:
 * [Linux](https://www.linux.org/)
   * [wget](https://www.gnu.org/software/wget/) (command-line utility)
   * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
+
+The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.
+
 * [Apache Nutch](http://nutch.apache.org/) (version 1.20)
+
+Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.
+
 * [Python](http://www.python.org/) (version 3.10)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -38,9 +44,12 @@ SABLE is based on the following open-source software:
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
   * [Selenium](https://pypi.org/project/selenium/)
+
+With the help of various packages, Python is used to download documents in special cases, scrape data and text from PDFs, and fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+
 * [Tesseract](https://tesseract-ocr.github.io/)
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.  Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
+Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
 
 ## Python Programs
 
@@ -61,7 +70,7 @@ This is the original series of SABLE programs used to discover potential new onl
 
 ### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.  This codebase was developed to scrape tax collections for QTAX.  The programs ```m1_download.py``` and ```m2_scrape.py``` contain example code for a few state government websites.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
