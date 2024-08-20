@@ -185,11 +185,13 @@ Set up folders for an "S" series project called ```s_project```.
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
-#Enter seed URLs
+# Enter seed URLs
 >> vi /s_project/urls/seed.txt
-#Crawl to a specified depth
+
+# Crawl to a specified depth
 >> crawl -s /s_project/urls/ /s_project/crawl/ 3
-#Output contents of Apache Nutch database to CSV format
+
+# Output contents of Apache Nutch database to CSV format
 >> readdb /s_project/crawl/crawldb/ -dump /s_project/dump/ -format csv
 >> cat /s_project/dump/part-r-00000 > /s_project/dump/dump.csv
 ```
