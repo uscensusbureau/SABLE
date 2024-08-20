@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
 <img src="https://img.shields.io/badge/nltk-000000?style=for-the-badge" alt="NLTK">
 <img src="https://img.shields.io/badge/pdfminer3k-006dad?style=for-the-badge" alt="PDFMiner3K">
-<img src="https://img.shields.io/badge/beautiful_soup-006dad?style=for-the-badge" alt="Beautiful Soup">
+<img src="https://img.shields.io/badge/beautiful_soup-000000?style=for-the-badge" alt="Beautiful Soup">
 <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
 <img src="https://img.shields.io/badge/tabula-00a185?style=for-the-badge" alt="Tabula">
 <img src="https://img.shields.io/badge/selenium-43b02a?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
@@ -70,7 +70,7 @@ This is the original series of SABLE programs used to discover potential new onl
 
 ### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.  This codebase was developed to scrape tax collections for QTAX.  The programs ```m1_download.py``` and ```m2_scrape.py``` contain example code for a few state government websites.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.  This codebase was developed to scrape tax data in support of QTAX.  The programs ```m1_download.py``` and ```m2_scrape.py``` contain example code for a few state government websites.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
@@ -80,7 +80,7 @@ This series of Python programs is used to (1) download specific PDFs known to co
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK package and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Example Files and Output
 
