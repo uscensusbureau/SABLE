@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
 <img src="https://img.shields.io/badge/nltk-000000?style=for-the-badge" alt="NLTK">
 <img src="https://img.shields.io/badge/pdfminer3k-006dad?style=for-the-badge" alt="PDFMiner3K">
-<img src="https://img.shields.io/badge/beautiful_soup-000000?style=for-the-badge" alt="Beautiful Soup">
+<img src="https://img.shields.io/badge/beautiful_soup-555555?style=for-the-badge" alt="Beautiful Soup">
 <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
 <img src="https://img.shields.io/badge/tabula-00a185?style=for-the-badge" alt="Tabula">
 <img src="https://img.shields.io/badge/selenium-43b02a?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
@@ -20,17 +20,18 @@
 
 ## Introduction
 
-Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
+Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in Portable Document Format (PDF), apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-  * [wget](https://www.gnu.org/software/wget/) (command-line utility)
-  * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
+  * [wget](https://www.gnu.org/software/wget/)
+  * [pdftotext](https://en.wikipedia.org/wiki/Poppler_(software))
+  * [pdftoppm](https://en.wikipedia.org/wiki/Poppler_(software))
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.
+The Linux command-line utilities wget, pdftotext, and pdftoppm are used to download documents, convert PDFs to TXT format, and convert PDFs to image files, respectively.
 
 * [Apache Nutch](http://nutch.apache.org/) (version 1.20)
 
