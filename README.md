@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
 <img src="https://img.shields.io/badge/nltk-000000?style=for-the-badge" alt="NLTK">
 <img src="https://img.shields.io/badge/pdfminer3k-006dad?style=for-the-badge" alt="PDFMiner3K">
-<img src="https://img.shields.io/badge/beautiful_soup-555555?style=for-the-badge" alt="Beautiful Soup">
+<img src="https://img.shields.io/badge/beautiful_soup-cccccc?style=for-the-badge" alt="Beautiful Soup">
 <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
 <img src="https://img.shields.io/badge/tabula-00a185?style=for-the-badge" alt="Tabula">
 <img src="https://img.shields.io/badge/selenium-43b02a?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
