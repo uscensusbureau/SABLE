@@ -97,7 +97,7 @@ The following files are found in the ```/examples/``` folder.  The three PDFs an
 
 | File                            | Description                                                                                |
 | ------------------------------- | ------------------------------------------------------------------------------------------ |
-| ```example_crawl_output.txt```  | Output from Apache Nutch applied to https://www.revenue.alabama.gov with depth 2           |
+| ```example_crawl_output.txt```  | Output from Apache Nutch applied to https://www.revenue.alabama.gov                        |
 | ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
 | ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
 | ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                               |
