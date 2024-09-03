@@ -47,11 +47,11 @@ Apache Nutch is a Java-based web crawler and is used to crawl websites, discover
   * [tabula](https://pypi.org/project/tabula-py/)
   * [Selenium](https://pypi.org/project/selenium/)
 
-With the help of various packages, Python is used to download documents for special cases, scrape data and text from PDFs, and fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+Python and various packages are used to download documents for special cases, scrape data and text from PDFs, and fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
 
 * [ChromeDriver](https://developer.chrome.com/docs/chromedriver) and [Chromium](https://www.chromium.org/)
 
-The Python package Selenium uses the web browsing technology ChromeDriver and Chromium to automate browsing tasks.
+The Python package Selenium uses the web browsing software ChromeDriver and Chromium to automate browsing tasks.
 
 * [Tesseract](https://tesseract-ocr.github.io/)
 
