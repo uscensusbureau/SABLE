@@ -2,18 +2,42 @@
 
 ![Logo](logo.png)
 
+<p>
+<img src="https://img.shields.io/badge/repo_status-active-brightgreen?style=for-the-badge" alt="Repo Status: Active">
+<img src="https://img.shields.io/badge/license-cc0_1.0_universal-brightgreen?style=for-the-badge" alt="License: CC0 1.0 Universal">
+<img src="https://img.shields.io/badge/linux-ee0000?style=for-the-badge&logo=redhat&logoColor=white" alt="Linux">
+<img src="https://img.shields.io/badge/apache_nutch-d22128?style=for-the-badge" alt="Apache Nutch">
+<img src="https://img.shields.io/badge/python-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
+<img src="https://img.shields.io/badge/nltk-000000?style=for-the-badge" alt="NLTK">
+<img src="https://img.shields.io/badge/pdfminer3k-006dad?style=for-the-badge" alt="PDFMiner3K">
+<img src="https://img.shields.io/badge/beautiful_soup-cccccc?style=for-the-badge" alt="Beautiful Soup">
+<img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
+<img src="https://img.shields.io/badge/tabula-00a185?style=for-the-badge" alt="Tabula">
+<img src="https://img.shields.io/badge/selenium-43b02a?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
+<img src="https://img.shields.io/badge/chromium-4285f4?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Chromium">
+<img src="https://img.shields.io/badge/tesseract-15757b?style=for-the-badge" alt="Tesseract">
+</p>
+
 ## Introduction
 
-SABLE, which stands for Scraping Assisted by Learning, is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in PDF format, apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
+Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in Portable Document Format (PDF), apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
 SABLE is based on the following open-source software:
 
 * [Linux](https://www.linux.org/)
-  * [wget](https://www.gnu.org/software/wget/) (command-line utility)
-  * [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) (command-line utility)
-* [Apache Nutch](http://nutch.apache.org/) (version 1.19)
+  * [wget](https://www.gnu.org/software/wget/)
+  * [pdftotext](https://en.wikipedia.org/wiki/Poppler_(software))
+  * [pdftoppm](https://en.wikipedia.org/wiki/Poppler_(software))
+
+The Linux command-line utilities wget, pdftotext, and pdftoppm are used to download documents, convert PDFs to TXT format, and convert PDFs to image files, respectively.
+
+* [Apache Nutch](http://nutch.apache.org/) (version 1.20)
+
+Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.
+
 * [Python](http://www.python.org/) (version 3.10)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
@@ -21,9 +45,17 @@ SABLE is based on the following open-source software:
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
+  * [Selenium](https://pypi.org/project/selenium/)
+
+Python and various packages are used to download documents for special cases, scrape data and text from PDFs, and fit and evaluate text classification models.  These models are based on supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.
+
+* [ChromeDriver](https://developer.chrome.com/docs/chromedriver) and [Chromium](https://www.chromium.org/)
+
+The Python package Selenium uses the web browsing software ChromeDriver and Chromium to automate browsing tasks.
+
 * [Tesseract](https://tesseract-ocr.github.io/)
 
-The Linux command-line utilities wget and pdftotext are used to download documents and to convert PDFs to TXT format, respectively.  Apache Nutch is a Java-based web crawler and is used to crawl websites, discover PDFs, and compile a training set of documents for model building.  Python is used to scrape data and text from PDFs and to fit and evaluate text classification models.  These models are based on various supervised machine learning algorithms such as naive Bayes, logistic regression, and random forests.  Tesseract is an optical character recognition (OCR) engine used to extract text from image-based PDFs.
+Tesseract is an optical character recognition (OCR) engine that extracts text from image-based PDFs.
 
 ## Python Programs
 
@@ -44,7 +76,7 @@ This is the original series of SABLE programs used to discover potential new onl
 
 ### "M" Series for Scraping Tax Revenue Data
 
-This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.
+This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.  This codebase was developed to scrape tax data in support of QTAX.  The programs ```m1_download.py``` and ```m2_scrape.py``` contain example code for a few state government websites.
 
 | Program              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
@@ -54,7 +86,7 @@ This series of Python programs is used to (1) download specific PDFs known to co
 
 ## Lists of Stop Words
 
-This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK module and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
+This repository also contains lists of common "stop" words for multiple languages such as French, German, and Spanish.  Stop words are useful in many natural language processing tasks.  These lists come from the NLTK package and serve as a good starting point for creating stop lists of your own.  Foreign accent marks have been removed from characters, and some lists have been modified slightly in other ways.
 
 ## Example Files and Output
 
@@ -70,6 +102,7 @@ The following files are found in the ```/examples/``` folder.  The three PDFs an
 
 | File                            | Description                                                                                |
 | ------------------------------- | ------------------------------------------------------------------------------------------ |
+| ```example_crawl_output.txt```  | Output from Apache Nutch applied to https://www.revenue.alabama.gov                        |
 | ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
 | ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
 | ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                               |
@@ -157,11 +190,13 @@ Set up folders for an "S" series project called ```s_project```.
 Create ```seed.txt```, which contains the seed URLs, or starting points, of the web crawl.  Run Apache Nutch and crawl to a specified depth (depth equals three in this example).  Output contents of the Apache Nutch database to CSV format.
 
 ```
-#Enter seed URLs
+# Enter seed URLs
 >> vi /s_project/urls/seed.txt
-#Crawl to a specified depth
+
+# Crawl to a specified depth
 >> crawl -s /s_project/urls/ /s_project/crawl/ 3
-#Output contents of Apache Nutch database to CSV format
+
+# Output contents of Apache Nutch database to CSV format
 >> readdb /s_project/crawl/crawldb/ -dump /s_project/dump/ -format csv
 >> cat /s_project/dump/part-r-00000 > /s_project/dump/dump.csv
 ```
@@ -222,8 +257,8 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 The following people have contributed to SABLE's codebase:
 
 * Brian Dumbacher ([@brian-dumbacher](https://www.github.com/brian-dumbacher))
-* Hector Ferronato
 * Alan Weisel
+* Hector Ferronato
 * Eric Valentine
 
 ## References

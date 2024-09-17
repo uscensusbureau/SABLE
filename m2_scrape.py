@@ -1017,11 +1017,11 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
     tax_types_sub, tax_values_sub, tax_times_sub, tax_units_sub = [], [], [], []
     tax_types2 = tax_types
     for tt in tax_types2:
-        tt_r = tt + " refund"  
+        tt_r = "{} refund".format(tt)
         idxB = tax_types.index(tt)
-        unit_sub=tax_units[idxB]
-        time_sub=tax_times[idxB]
-        value_sub=tax_values[idxB]
+        unit_sub = tax_units[idxB]
+        time_sub = tax_times[idxB]
+        value_sub = tax_values[idxB]
         if tt_r in tax_types:
             idxA = tax_types.index(tt_r)
             value_sub = abs(float(value_sub.replace(",", ""))) - abs(float(tax_values[idxA].replace(",", "")))
