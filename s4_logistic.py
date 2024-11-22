@@ -129,7 +129,15 @@ def fit_and_predict(projName):
         classifierLR.train(featsTrain)
         predClasses = [classifierLR.classify(get_feats_inds(predText)) for predText in predTexts]
         predProbs = [classifierLR.prob_classify(get_feats_inds(predText)) for predText in predTexts]
-    
+        
+        #Print predicted positives
+        print("Predicted Positives")
+        print("-------------------")
+        for i in range(len(predTexts)):
+            if predClasses[i] == "pos":
+                print(predDocs[i])
+        print("")
+        
         #Create output
         outputFile = "/{}/pred_output.txt".format(projName)
         varNames = ["docName", "predClass", "probPos", "probNeg"]
