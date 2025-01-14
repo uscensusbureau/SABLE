@@ -154,7 +154,7 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     #Print confusion matrix
     print("Confusion Matrix")
     print("----------------")
-    print(confusion_matrix(trueAll, predAll, ["pos", "neg"]))
+    print(confusion_matrix(trueAll, predAll, labels=["pos", "neg"]))
     print("")
     return
 
@@ -270,7 +270,7 @@ def fit_models(projName):
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print("@@@   Linear Support Vector Classifier   @@@")
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
-    classifierSVC = nltk.classify.SklearnClassifier(LinearSVC(class_weight="balanced"))
+    classifierSVC = nltk.classify.SklearnClassifier(LinearSVC(class_weight="balanced", dual="auto"))
     classifierSVC.train(featsTrain)
     evaluate(classifierSVC, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict)
     

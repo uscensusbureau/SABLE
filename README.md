@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/python-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python">
 <img src="https://img.shields.io/badge/scikit--learn-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white&logoSize=auto" alt="scikit-learn">
 <img src="https://img.shields.io/badge/nltk-000000?style=for-the-badge" alt="NLTK">
-<img src="https://img.shields.io/badge/pdfminer3k-006dad?style=for-the-badge" alt="PDFMiner3K">
+<img src="https://img.shields.io/badge/pdfminer-006dad?style=for-the-badge" alt="PDFMiner">
 <img src="https://img.shields.io/badge/beautiful_soup-cccccc?style=for-the-badge" alt="Beautiful Soup">
 <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
 <img src="https://img.shields.io/badge/tabula-00a185?style=for-the-badge" alt="Tabula">
@@ -41,7 +41,7 @@ Apache Nutch is a Java-based web crawler and is used to crawl websites, discover
 * [Python](http://www.python.org/) (version 3.10)
   * [scikit-learn](http://www.scikit-learn.org/stable/)
   * [NLTK](https://www.nltk.org/) (Natural Language Toolkit)
-  * [PDFMiner3K](https://github.com/jaepil/pdfminer3k/)
+  * [PDFMiner](https://github.com/euske/pdfminer/)
   * [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
   * [pandas](https://pandas.pydata.org/)
   * [tabula](https://pypi.org/project/tabula-py/)
@@ -63,7 +63,7 @@ The following tables describe the Python programs in this repository.  More info
 
 ### "S" Series for Discovering New Data Sources
 
-This is the original series of SABLE programs used to discover potential new online data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner3K module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py](https://github.com/jaepil/pdfminer3k/blob/master/tools/pdf2txt.py).
+This is the original series of SABLE programs used to discover potential new online data sources.  The Python program ```pdf2txt.py```, which is invoked by ```s2_convert.py```, comes with the PDFMiner module.  It is included here for completeness.  For the first-hand source of this program, please see [https://github.com/euske/pdfminer/blob/master/tools/pdf2txt.py](https://github.com/euske/pdfminer/blob/master/tools/pdf2txt.py).
 
 | Program              | Purpose                                                    |
 | -------------------- | ---------------------------------------------------------- |
