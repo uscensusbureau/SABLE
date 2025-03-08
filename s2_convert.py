@@ -1,16 +1,16 @@
-#Name:        s2_convert.py
-#Purpose:     Convert PDFs to TXT format
-#Invocation:  python3 s2_convert.py <projName> <lng> <clss>
+# Name:        s2_convert.py
+# Purpose:     Convert PDFs to TXT format
+# Invocation:  python3 s2_convert.py <projName> <lng> <clss>
 
 import codecs
 import os
 import re
 import sys
 
-#Name:        valid_arguments
-#Purpose:     Check whether the command-line arguments are valid
-#Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
+# Name:        valid_arguments
+# Purpose:     Check whether the command-line arguments are valid
+# Parameters:  sys.argv (globally defined list of command-line arguments)
+# Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
@@ -19,65 +19,65 @@ def valid_arguments():
         return True
     return False
 
-#Name:        match_page
-#Purpose:     Match line to an XML page tag
-#Parameters:  line (line of text from XML file)
-#Returns:     Regular expression match object
+# Name:        match_page
+# Purpose:     Match line to an XML page tag
+# Parameters:  line (line of text from XML file)
+# Returns:     Regular expression match object
 
 def match_page(line):
     return re.search(r"<page id=\"(\d+)\"", line)
 
-#Name:        match_textbox
-#Purpose:     Match line to an XML textbox tag
-#Parameters:  line (line of text from XML file)
-#Returns:     Regular expression match object
+# Name:        match_textbox
+# Purpose:     Match line to an XML textbox tag
+# Parameters:  line (line of text from XML file)
+# Returns:     Regular expression match object
 
 def match_textbox(line):
     return re.search(r"<textbox id=\"(\d+)\"", line)
 
-#Name:        match_textline
-#Purpose:     Match line to an XML textline tag
-#Parameters:  line (line of text from XML file)
-#Returns:     Regular expression match object
+# Name:        match_textline
+# Purpose:     Match line to an XML textline tag
+# Parameters:  line (line of text from XML file)
+# Returns:     Regular expression match object
 
 def match_textline(line):
     return re.search(r"<textline", line)
 
-#Name:        match_text
-#Purpose:     Match line to an XML text tag
-#Parameters:  line (line of text from XML file)
-#Returns:     Regular expression match object
+# Name:        match_text
+# Purpose:     Match line to an XML text tag
+# Parameters:  line (line of text from XML file)
+# Returns:     Regular expression match object
 
 def match_text(line):
     return re.search(r"<text.*font=\"(.*)\".*bbox=\"([0-9]+\.[0-9]+),([0-9]+\.[0-9]+),([0-9]+\.[0-9]+),([0-9]+\.[0-9]+)\".*size=\"([0-9]+\.[0-9]+)\">(.*)</text>", line)
 
-#Name:        clean_char
-#Purpose:     Clean character to deal with punctuation, numbers, and foreign accent marks
-#Parameters:  old (character)
-#Returns:     Cleaned character
+# Name:        clean_char
+# Purpose:     Clean character to deal with punctuation, numbers, and foreign accent marks
+# Parameters:  old (character)
+# Returns:     Cleaned character
 
 def clean_char(old):
-    #Check the length of the argument
+    # Check the length of the argument
     if len(old) == 0:
         new = ""
     elif len(old) >= 2:
         new = " "
     else:
-        #The function "ord" returns the integer representing the Unicode code point of a character
+        # The function "ord" returns the integer representing the Unicode code point of a character
         ucp = ord(old)
-        #Control codes
+        # Control codes
         if (0 <= ucp <= 31):
             new = " "
-        #Punctuation
+        # Punctuation
         elif (32 <= ucp <= 38) or (40 <= ucp <= 47) or (58 <= ucp <= 64) or (91 <= ucp <= 96) or (123 <= ucp <= 126) or ucp == 8221:
             new = " "
-        #Apostrophe
+        # Apostrophe
         elif ucp == 39 or ucp == 8217:
             new = ""
-        #Numbers
+        # Numbers
         elif (48 <= ucp <= 57):
             new = " "
-        #Letters
+        # Letters
         elif (192 <= ucp <= 198) or (224 <= ucp <= 230):
             new = "a"
         elif ucp == 199 or ucp == 231:
@@ -102,10 +102,10 @@ def clean_char(old):
             new = old
     return new
 
-#Name:        get_chars
-#Purpose:     Extract the character values, coordinates, hierarchy, and font information from XML file
-#Parameters:  xmlFile (location of XML file)
-#Returns:     List of tuples (one for each character) containing character data
+# Name:        get_chars
+# Purpose:     Extract the character values, coordinates, hierarchy, and font information from XML file
+# Parameters:  xmlFile (location of XML file)
+# Returns:     List of tuples (one for each character) containing character data
 
 def get_chars(xmlFile):
     chars = []
@@ -113,7 +113,7 @@ def get_chars(xmlFile):
     textbox = 0
     textline = 0
     
-    #Open XML file and use regular expressions to parse contents
+    # Open XML file and use regular expressions to parse contents
     f = codecs.open(xmlFile, "r", encoding="utf8")
     for l in f:
         line = l.strip()
@@ -140,16 +140,16 @@ def get_chars(xmlFile):
     f.close()
     return chars
 
-#Name:        clean_text
-#Purpose:     Clean string of text and check each word against a list of stop words
-#Parameters:  text (string of text)
-#Returns:     Cleaned text
+# Name:        clean_text
+# Purpose:     Clean string of text and check each word against a list of stop words
+# Parameters:  text (string of text)
+# Returns:     Cleaned text
 
 def clean_text(text):
     text = text.lower()
     text = re.sub("\s+", " ", text)
     
-    #Remove stop words
+    # Remove stop words
     textClean = []
     text = text.split(" ")
     global stopWords
@@ -160,16 +160,16 @@ def clean_text(text):
     textClean = " ".join(textClean)
     return textClean
 
-#Name:        write_text
-#Purpose:     Construct words character by character
-#Parameters:  chars (list of tuples)
-#             txtFile (location of TXT file)
-#Returns:     
+# Name:        write_text
+# Purpose:     Construct words character by character
+# Parameters:  chars (list of tuples)
+#              txtFile (location of TXT file)
+# Returns:     
 
 def write_text(chars, txtFile):
     text = []
     
-    #Sort characters according to page, textbox, textline, y1, and x1
+    # Sort characters according to page, textbox, textline, y1, and x1
     chars = sorted(chars, key = lambda z: (z[0], z[1], z[2], -z[4], z[3]))
     pageCur = chars[0][0]
     textboxCur = chars[0][1]
@@ -199,32 +199,32 @@ def write_text(chars, txtFile):
     f.close()
     return
 
-#Name:        create_output
-#Purpose:     Convert a PDF document of a given class to TXT format
-#Parameters:  projName (project name)
-#             clss ("pos" or "neg")
-#             docName (document name)
-#Returns:     
+# Name:        create_output
+# Purpose:     Convert a PDF document of a given class to TXT format
+# Parameters:  projName (project name)
+#              clss ("pos" or "neg")
+#              docName (document name)
+# Returns:     
 
 def create_output(projName, clss, docName):
-    #Create file locations
+    # Create file locations
     pdfFile  = "/{}/{}_pdf/{}.pdf".format(projName, clss, docName)
     xmlFile  = "/{}/{}_xml/{}.xml".format(projName, clss, docName)
     txtFile  = "/{}/{}_txt/{}.txt".format(projName, clss, docName)
     probFile = "/{}/{}_prob/{}.pdf".format(projName, clss, docName)
 
-    #probFlag indicates whether there is a problem extracting text from the PDF
-    #The problem PDFs are moved to separate folders where they can be inspected
+    # probFlag indicates whether there is a problem extracting text from the PDF
+    # The problem PDFs are moved to separate folders where they can be inspected
     probFlag = 0
     chars = []
 
-    #If the TXT file does not already exist, then try creating it
+    # If the TXT file does not already exist, then try creating it
     if not os.path.isfile(txtFile):
         try:
-            #The pdf2txt.py program comes with the PDFMiner module
+            # The pdf2txt.py program comes with the PDFMiner module
             os.system("pdf2txt.py -o {} -t xml {}".format(xmlFile, pdfFile))
         except PDFTextExtractionNotAllowed:
-            #Exception indicates that text cannot be extracted from the PDF
+            # Exception indicates that text cannot be extracted from the PDF
             probFlag = 1
         if not os.path.isfile(xmlFile):
             probFlag = 1
@@ -234,33 +234,33 @@ def create_output(projName, clss, docName):
             chars = get_chars(xmlFile)
             if len(chars) == 0:
                 probFlag = 1
-        #Check probFlag value and act accordingly
+        # Check probFlag value and act accordingly
         if probFlag == 0:
             write_text(chars, txtFile)
             if os.path.isfile(xmlFile):
-                #The intermediate XML file is deleted because it tends to be large
+                # The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlFile)
             print(docName)
         elif probFlag == 1:
             if os.path.isfile(xmlFile):
-                #The intermediate XML file is deleted because it tends to be large
+                # The intermediate XML file is deleted because it tends to be large
                 os.remove(xmlFile)
             if os.path.isfile(txtFile):
-                #Any text that has been extracted from the problem PDF is deleted
+                # Any text that has been extracted from the problem PDF is deleted
                 os.remove(txtFile)
             os.system("mv {} {}".format(pdfFile, probFile))
             print("!!! PROBLEM: {}".format(docName))
     return
 
-#Name:        convert_files
-#Purpose:     Convert PDFs to TXT format
-#Parameters:  projName (project name)
-#             lng (language)
-#             clss ("neg", "pos", or "pred")
-#Returns:     
+# Name:        convert_files
+# Purpose:     Convert PDFs to TXT format
+# Parameters:  projName (project name)
+#              lng (language)
+#              clss ("neg", "pos", or "pred")
+# Returns:     
 
 def convert_files(projName, lng, clss):
-    #Read in stop words
+    # Read in stop words
     stopWordsList = []
     f = codecs.open("stop_{}.txt".format(lng), "r")
     for word in f:
@@ -270,7 +270,7 @@ def convert_files(projName, lng, clss):
     global stopWords
     stopWords = set(stopWordsList)
 
-    #Iterate through PDFs of a given class, extract text, and create output files
+    # Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  {}  *****\n".format(clss))
     pdfs = sorted(os.listdir("/{}/{}_pdf/".format(projName, clss)))
     for pdf in pdfs:
