@@ -47,6 +47,7 @@ def create_folders(projName):
     return
 
 def main():
+    # Check valid arguments
     if valid_arguments():
         create_folders(sys.argv[1])
     else:
