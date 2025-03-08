@@ -1,6 +1,6 @@
-#Name:        s3_model.py
-#Purpose:     Fit and evaluate classification models based on the text extracted from manually classified PDFs
-#Invocation:  python3 s3_model.py <projName>
+# Name:        s3_model.py
+# Purpose:     Fit and evaluate classification models based on the text extracted from manually classified PDFs
+# Invocation:  python3 s3_model.py <projName>
 
 import codecs
 from nltk.classify import *
@@ -23,68 +23,68 @@ from sklearn.svm import *
 from sklearn.tree import *
 import sys
 
-#Name:        valid_arguments
-#Purpose:     Check whether the command-line arguments are valid
-#Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
+# Name:        valid_arguments
+# Purpose:     Check whether the command-line arguments are valid
+# Parameters:  sys.argv (globally defined list of command-line arguments)
+# Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
         return True
     return False
 
-#Name:        get_feats_inds
-#Purpose:     Create model features, which are binary indicators of 1-grams and 2-grams
-#Parameters:  text (string of text)
-#Returns:     Dictionary of binary indicators of 1-grams and 2-grams in text
+# Name:        get_feats_inds
+# Purpose:     Create model features, which are binary indicators of 1-grams and 2-grams
+# Parameters:  text (string of text)
+# Returns:     Dictionary of binary indicators of 1-grams and 2-grams in text
 
 def get_feats_inds(text):
     t = Text(word_tokenize(text))
     g1s = [(g, True) for g in ngrams(t, 1)]
     g2s = [(g, True) for g in ngrams(t, 2)]
-    #3-grams, 4-grams, and so on can also be used
-    #g3s = [(g, True) for g in ngrams(t, 3)]
+    # 3-grams, 4-grams, and so on can also be used
+    # g3s = [(g, True) for g in ngrams(t, 3)]
     return dict(g1s + g2s)
 
-#Name:        get_feats_counts
-#Purpose:     Create model features, which are counts of 1-grams and 2-grams
-#Parameters:  text (string of text)
-#Returns:     Dictionary of counts of 1-grams and 2-grams in text
+# Name:        get_feats_counts
+# Purpose:     Create model features, which are counts of 1-grams and 2-grams
+# Parameters:  text (string of text)
+# Returns:     Dictionary of counts of 1-grams and 2-grams in text
 
 def get_feats_counts(text):
     t = Text(word_tokenize(text))
     g1s = [(g, count) for g, count in FreqDist(ngrams(t, 1)).items()]
     g2s = [(g, count) for g, count in FreqDist(ngrams(t, 2)).items()]
-    #3-grams, 4-grams, and so on can also be used
-    #g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
+    # 3-grams, 4-grams, and so on can also be used
+    # g3s = [(g, count) for g, count in FreqDist(ngrams(t, 3)).items()]
     return dict(g1s + g2s)
 
-#Name:        evaluate
-#Purpose :    Evaluate classifier by applying it to the test set and calculating various performance statistics
-#Parameters:  classifier (fitted classification model)
-#             posTest (list of indices of positive test observations)
-#             negTest (list of indices of negative test observations)
-#             posTextsDict (dictionary of positive texts)
-#             negTextsDict (dictionary of negative texts)
-#             posDocsDict (dictionary of positive document names)
-#             negDocsDict (dictionary of negative document names)
-#Returns:     
+# Name:        evaluate
+# Purpose :    Evaluate classifier by applying it to the test set and calculating various performance statistics
+# Parameters:  classifier (fitted classification model)
+#              posTest (list of indices of positive test observations)
+#              negTest (list of indices of negative test observations)
+#              posTextsDict (dictionary of positive texts)
+#              negTextsDict (dictionary of negative texts)
+#              posDocsDict (dictionary of positive document names)
+#              negDocsDict (dictionary of negative document names)
+# Returns:     
 
 def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDict, negDocsDict):
-    #Number of true positives
+    # Number of true positives
     tp = 0
-    #Number of false negatives
+    # Number of false negatives
     fn = 0
-    #Number of true negatives
+    # Number of true negatives
     tn = 0
-    #Number of false positives
+    # Number of false positives
     fp = 0
-    #List of true classes
+    # List of true classes
     trueAll = []
-    #List of predicted classes
+    # List of predicted classes
     predAll = []
     
-    #Print document names of false negatives
+    # Print document names of false negatives
     print("False Negatives")
     print("---------------")
     for i in posTest:
@@ -98,7 +98,7 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
             print(posDocsDict[i])
     print("")
     
-    #Print document names of false positives
+    # Print document names of false positives
     print("False Positives")
     print("---------------")
     for i in negTest:
@@ -112,30 +112,30 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
             print(negDocsDict[i])
     print("")
     
-    #Accuracy
+    # Accuracy
     acc = round((tp + tn)/(tp + tn + fn + fp), 3)
     
-    #F1 score
+    # F1 score
     f1 = round((2*tp)/(2*tp + fn + fp), 3) if (2*tp + fn + fp) > 0 else "NaN"
     
-    #True positive rate (also known as sensitivity and recall)
+    # True positive rate (also known as sensitivity and recall)
     tpr = round(tp/(tp + fn), 3) if (tp + fn) > 0 else "NaN"
     
-    #True negative rate (also known as specificity)
+    # True negative rate (also known as specificity)
     tnr = round(tn/(tn + fp), 3) if (tn + fp) > 0 else "NaN"
     
-    #Positive predictive rate (also known as precision)
+    # Positive predictive rate (also known as precision)
     ppr = round(tp/(tp + fp), 3) if (tp + fp) > 0 else "NaN"
     
-    #Negative predictive rate
+    # Negative predictive rate
     npr = round(tn/(tn + fn), 3) if (tn + fn) > 0 else "NaN"
     
-    #Kappa statistic
+    # Kappa statistic
     p0 = (tp + tn)/(tp + tn + fn + fp)
     pe = ((tp + fn)*(tp + fp) + (tn + fp)*(tn + fn))/pow(tp + tn + fn + fp, 2)
     kappa = round((p0 - pe)/(1 - pe), 3) if pe < 1 else 1
     
-    #Print classifier performance statistics
+    # Print classifier performance statistics
     print("Summary")
     print("-------")
     print("tp    = {}".format(tp))
@@ -151,17 +151,17 @@ def evaluate(classifier, posTest, negTest, posTextsDict, negTextsDict, posDocsDi
     print("kappa = {}".format(kappa))
     print("")
     
-    #Print confusion matrix
+    # Print confusion matrix
     print("Confusion Matrix")
     print("----------------")
     print(confusion_matrix(trueAll, predAll, labels=["pos", "neg"]))
     print("")
     return
 
-#Name:        fit_models
-#Purpose:     Fit text classification models
-#Parameters:  projName (project name)
-#Returns:     
+# Name:        fit_models
+# Purpose:     Fit text classification models
+# Parameters:  projName (project name)
+# Returns:     
 
 def fit_models(projName):
     posTexts = []
@@ -169,7 +169,7 @@ def fit_models(projName):
     negTexts = []
     negDocs  = []
     
-    #Read in text from documents classified as positive
+    # Read in text from documents classified as positive
     posDir = sorted(os.listdir("/{}/pos_txt/".format(projName)))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
@@ -180,7 +180,7 @@ def fit_models(projName):
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
-    #Read in text from documents classified as negative
+    # Read in text from documents classified as negative
     negDir = sorted(os.listdir("/{}/neg_txt/".format(projName)))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
@@ -191,7 +191,7 @@ def fit_models(projName):
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
-    #Create dictionaries to facilitate referencing observations and their corresponding text 
+    # Create dictionaries to facilitate referencing observations and their corresponding text 
     posIndex     = [i for i in range(len(posTexts))]
     posTextsDict = dict([(i, posTexts[i]) for i in posIndex])
     posDocsDict  = dict([(i, posDocs[i]) for i in posIndex])
@@ -199,12 +199,12 @@ def fit_models(projName):
     negTextsDict = dict([(i, negTexts[i]) for i in negIndex])
     negDocsDict  = dict([(i, negDocs[i]) for i in negIndex])
     
-    #Set random number seed if desired
+    # Set random number seed if desired
     random.seed(1234567890)
     random.shuffle(posIndex)
     random.shuffle(negIndex)
     
-    #Divide the data into training and test sets
+    # Divide the data into training and test sets
     trainFrac = 2.0/3.0
     posCut = int(round(trainFrac * len(posIndex)))
     negCut = int(round(trainFrac * len(negIndex)))
@@ -213,12 +213,12 @@ def fit_models(projName):
     negTrain = sorted(negIndex[:negCut])
     negTest  = sorted(negIndex[negCut:])
     
-    #Create features based on n-gram indicators
+    # Create features based on n-gram indicators
     posFeatsTrain = [(get_feats_inds(posTextsDict[i]), "pos") for i in posTrain]
     negFeatsTrain = [(get_feats_inds(negTextsDict[i]), "neg") for i in negTrain]
     featsTrain = posFeatsTrain + negFeatsTrain
     
-    #Print number of positive and negative observations used for training and testing
+    # Print number of positive and negative observations used for training and testing
     print("")
     print("Positive Training: {}".format(len(posTrain)))
     print("Positive Testing:  {}".format(len(posTest)))
