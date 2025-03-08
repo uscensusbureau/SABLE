@@ -298,6 +298,7 @@ def fit_models(projName):
     return
 
 def main():
+    # Check valid arguments
     if valid_arguments():
         fit_models(sys.argv[1])
     else:
