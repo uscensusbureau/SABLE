@@ -1,17 +1,17 @@
-#Name:        m1_download.py
-#Purpose:     Download specific tax revenue documents
-#Invocation:  python3 m1_download.py <projName> <yyyy> <mm>
+# Name:        m1_download.py
+# Purpose:     Download specific tax revenue documents
+# Invocation:  python3 m1_download.py <projName> <yyyy> <mm>
 
-from bs4 import BeautifulSoup
 import os
 import re
 import sys
+from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
-#Name:        valid_arguments
-#Purpose:     Check whether the command-line arguments are valid
-#Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
+# Name:        valid_arguments
+# Purpose:     Check whether the command-line arguments are valid
+# Parameters:  sys.argv (globally defined list of command-line arguments)
+# Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
@@ -20,10 +20,10 @@ def valid_arguments():
         return True
     return False
 
-#Name:        print_section
-#Purpose:     Print name of section
-#Parameters:  section (section name)
-#Returns:     
+# Name:        print_section
+# Purpose:     Print name of section
+# Parameters:  section (section name)
+# Returns:     
 
 def print_section(section):
     n = len(section)
@@ -34,17 +34,17 @@ def print_section(section):
     print("")
     return
 
-#Name:        get_targets_XX
-#Purpose:     Get PDF names and URLs for state XX
-#Parameters:  yyyy (4-digit year)
-#             yy (2-digit year)
-#             mm (2-digit month)
-#             month
-#             month3 (3-letter month)
-#             month4 (4-letter month)
-#Returns:     List of PDF names and list of URLs
+# Name:        get_targets_XX
+# Purpose:     Get PDF names and URLs for state XX
+# Parameters:  yyyy (4-digit year)
+#              yy (2-digit year)
+#              mm (2-digit month)
+#              month
+#              month3 (3-letter month)
+#              month4 (4-letter month)
+# Returns:     List of PDF names and list of URLs
 
-#Alabama
+# Alabama
 def get_targets_AL(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
     if mm in ["10", "11", "12"]:
@@ -70,37 +70,37 @@ def get_targets_AL(yyyy, yy, mm, month, month3, month4):
     targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_b))
     return targetPDFNames, targetURLs
 
-#Alaska
+# Alaska
 def get_targets_AK(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Arizona
+# Arizona
 def get_targets_AZ(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Arkansas
+# Arkansas
 def get_targets_AR(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#California
+# California
 def get_targets_CA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Colorado
+# Colorado
 def get_targets_CO(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Connecticut
+# Connecticut
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -117,139 +117,139 @@ def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames.append(name) 
     return targetPDFNames, targetURLs
 
-#Delaware
+# Delaware
 def get_targets_DE(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Florida
+# Florida
 def get_targets_FL(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Georgia
+# Georgia
 def get_targets_GA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Hawaii
+# Hawaii
 def get_targets_HI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Idaho
+# Idaho
 def get_targets_ID(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Illinois
+# Illinois
 def get_targets_IL(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Indiana
+# Indiana
 def get_targets_IN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Iowa
+# Iowa
 def get_targets_IA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Kansas
+# Kansas
 def get_targets_KS(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Kentucky
+# Kentucky
 def get_targets_KY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Louisiana
+# Louisiana
 def get_targets_LA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Maine
+# Maine
 def get_targets_ME(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Maryland
+# Maryland
 def get_targets_MD(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Massachusetts
+# Massachusetts
 def get_targets_MA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Michigan
+# Michigan
 def get_targets_MI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Minnesota
+# Minnesota
 def get_targets_MN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Mississippi
+# Mississippi
 def get_targets_MS(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Missouri
+# Missouri
 def get_targets_MO(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Montana
+# Montana
 def get_targets_MT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Nebraska
+# Nebraska
 def get_targets_NE(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Nevada
+# Nevada
 def get_targets_NV(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#New Hampshire
+# New Hampshire
 def get_targets_NH(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#New Jersey
+# New Jersey
 def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
     if mm in ["08", "09", "10", "11", "12"]:
@@ -263,147 +263,147 @@ def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     targetURLs.append("https://www.njleg.state.nj.us/legislativepub/budget/{}.pdf".format(targetPDFName_a))
     return targetPDFNames, targetURLs
 
-#New Mexico
+# New Mexico
 def get_targets_NM(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#New York
+# New York
 def get_targets_NY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#North Carolina
+# North Carolina
 def get_targets_NC(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#North Dakota
+# North Dakota
 def get_targets_ND(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Ohio
+# Ohio
 def get_targets_OH(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Oklahoma
+# Oklahoma
 def get_targets_OK(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Oregon
+# Oregon
 def get_targets_OR(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Pennsylvania
+# Pennsylvania
 def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Rhode Island
+# Rhode Island
 def get_targets_RI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#South Carolina
+# South Carolina
 def get_targets_SC(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#South Dakota
+# South Dakota
 def get_targets_SD(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Tennessee
+# Tennessee
 def get_targets_TN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Texas
+# Texas
 def get_targets_TX(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Utah
+# Utah
 def get_targets_UT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Vermont
+# Vermont
 def get_targets_VT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Virginia
+# Virginia
 def get_targets_VA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Washington
+# Washington
 def get_targets_WA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#West Virginia
+# West Virginia
 def get_targets_WV(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Wisconsin
+# Wisconsin
 def get_targets_WI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Wyoming
+# Wyoming
 def get_targets_WY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-#Name:        get_pdf_name_unix
-#Purpose:     Account for special character codes in PDF name after the PDF is downloaded to a Linux/Unix environment
-#Parameters:  name (name of PDF)
-#Returns:     Name of PDF with special character codes replaced with special characters
+# Name:        get_filename_unix
+# Purpose:     Account for special character codes in filename after the file is downloaded to a Linux/Unix environment
+# Parameters:  name (name of file)
+# Returns:     Name of file with special character codes replaced with special characters
 
-def get_pdf_name_unix(name):
+def get_filename_unix(name):
     nameUnix = re.sub(r"%20", " ", name)
     nameUnix = re.sub(r"%28", "(", nameUnix)
     nameUnix = re.sub(r"%29", ")", nameUnix)
     nameUnix = re.sub(r"%2C", ",", nameUnix)
     return nameUnix
 
-#Name:        download_pdf
-#Purpose:     Download the PDF
-#Parameters:  projName (project name)
-#             state
-#             yyyy (4-digit year)
-#             mm (2-digit month)
-#             targetPDFNames (list of PDF names)
-#             targetURLs (list of URLs)
-#Returns:     status (string indicating PDF download status)
+# Name:        download_pdf
+# Purpose:     Download the PDF
+# Parameters:  projName (project name)
+#              state
+#              yyyy (4-digit year)
+#              mm (2-digit month)
+#              targetPDFNames (list of PDF names)
+#              targetURLs (list of URLs)
+# Returns:     status (string indicating PDF download status)
 
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = "{}_{}_{}".format(state, yyyy, mm)
@@ -415,7 +415,7 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
         pdfDownload = False
         for i in range(len(targetURLs)):
             targetPDFName = targetPDFNames[i]
-            targetPDFNameUnix = get_pdf_name_unix(targetPDFName)
+            targetPDFNameUnix = get_filename_unix(targetPDFName)
             targetURL = targetURLs[i]
             if not pdfDownload:
                 os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /{}/pdf/ \"{}\"".format(projName, targetURL))
@@ -437,12 +437,12 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             return "dlno"
     return "exist"
 
-#Name:        download_pdfs
-#Purpose:     Download PDFs
-#Parameters:  projName (project name)
-#             yyyy (4-digit year)
-#             mm (2-digit month)
-#Returns:     
+# Name:        download_pdfs
+# Purpose:     Download PDFs
+# Parameters:  projName (project name)
+#              yyyy (4-digit year)
+#              mm (2-digit month)
+# Returns:     
 
 def download_pdfs(projName, yyyy, mm):
     #Create year and month values
@@ -499,7 +499,7 @@ def download_pdfs(projName, yyyy, mm):
         month3 = "Dec"
         month4 = "Dec"
 
-    #List of states to loop through
+    # List of states to loop through
     states = ["AL", "CT", "NJ"]
     statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
         "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
@@ -627,7 +627,7 @@ def download_pdfs(projName, yyyy, mm):
     return
 
 def main():
-    #Check valid arguments
+    # Check valid arguments
     if valid_arguments():
         download_pdfs(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
