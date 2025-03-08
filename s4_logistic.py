@@ -151,6 +151,7 @@ def fit_and_predict(projName):
     return
 
 def main():
+    # Check valid arguments
     if valid_arguments():
         fit_and_predict(sys.argv[1])
     else:
