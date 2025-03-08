@@ -56,6 +56,7 @@ def download_pdfs(projName):
     return
 
 def main():
+    # Check valid arguments
     if valid_arguments():
         download_pdfs(sys.argv[1])
     else:
