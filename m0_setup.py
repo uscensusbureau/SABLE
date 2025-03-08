@@ -1,25 +1,25 @@
-#Name:        m0_setup.py
-#Purpose:     Set up project folders
-#Invocation:  python3 m0_setup.py <projName>
+# Name:        m0_setup.py
+# Purpose:     Set up project folders
+# Invocation:  python3 m0_setup.py <projName>
 
 import os
 import re
 import sys
 
-#Name:        valid_arguments
-#Purpose:     Check whether the command-line arguments are valid
-#Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
+# Name:        valid_arguments
+# Purpose:     Check whether the command-line arguments are valid
+# Parameters:  sys.argv (globally defined list of command-line arguments)
+# Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     if len(sys.argv) == 2 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]):
         return True
     return False
 
-#Name:        create_folders
-#Purpose:     Create project folders
-#Parameters:  projName (project name)
-#Returns:     
+# Name:        create_folders
+# Purpose:     Create project folders
+# Parameters:  projName (project name)
+# Returns:     
 
 def create_folders(projName):
     projDir = "/{}/".format(projName)
