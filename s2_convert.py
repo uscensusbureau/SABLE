@@ -286,6 +286,7 @@ def convert_files(projName, lng, clss):
     return
 
 def main():
+    # Check valid arguments
     if valid_arguments():
         convert_files(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
