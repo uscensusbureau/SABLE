@@ -1,16 +1,16 @@
-#Name:        m2_scrape.py
-#Purpose:     Scrape specific tax revenue values from downloaded PDFs
-#Invocation:  python3 m2_scrape.py <projName> <yyyy> <mm>
+# Name:        m2_scrape.py
+# Purpose:     Scrape specific tax revenue values from downloaded PDFs
+# Invocation:  python3 m2_scrape.py <projName> <yyyy> <mm>
 
 import codecs
 import os
 import re
 import sys
 
-#Name:        valid_arguments
-#Purpose:     Check whether the command-line arguments are valid
-#Parameters:  sys.argv (globally defined list of command-line arguments)
-#Returns:     True (all arguments are valid) or False (at least one argument is invalid)
+# Name:        valid_arguments
+# Purpose:     Check whether the command-line arguments are valid
+# Parameters:  sys.argv (globally defined list of command-line arguments)
+# Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
     yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
@@ -19,10 +19,10 @@ def valid_arguments():
         return True
     return False
 
-#Name:        print_section
-#Purpose:     Print name of section
-#Parameters:  section (section name)
-#Returns:     
+# Name:        print_section
+# Purpose:     Print name of section
+# Parameters:  section (section name)
+# Returns:     
 
 def print_section(section):
     n = len(section)
@@ -33,11 +33,11 @@ def print_section(section):
     print("")
     return
 
-#Name:        convert_pdf_to_txt
-#Purpose:     Convert PDF to TXT format using the pdftotext utility
-#Parameters:  pdfLoc (path of PDF)
-#             txtLoc (path of TXT file)
-#Returns:     
+# Name:        convert_pdf_to_txt
+# Purpose:     Convert PDF to TXT format using the pdftotext utility
+# Parameters:  pdfLoc (path of PDF)
+#              txtLoc (path of TXT file)
+# Returns:     
 
 def convert_pdf_to_txt(pdfLoc, txtLoc):
     os.system("pdftotext -layout {} {}".format(pdfLoc, txtLoc))
@@ -45,10 +45,10 @@ def convert_pdf_to_txt(pdfLoc, txtLoc):
         os.system("rm {}".format(txtLoc))
     return
 
-#Name:        clean_text
-#Purpose:     Remove whitespace and convert some characters to spaces
-#Parameters:  line (line of text)
-#Returns:     Cleaned line of text
+# Name:        clean_text
+# Purpose:     Remove whitespace and convert some characters to spaces
+# Parameters:  line (line of text)
+# Returns:     Cleaned line of text
 
 def clean_text(line):
     l = line.lower()
@@ -58,10 +58,10 @@ def clean_text(line):
     l = re.sub(r"[^ a-z0-9,.!?:;$%&<>()[]{}/_=+-]+", " ", l)
     return l
 
-#Name:        get_text
-#Purpose:     Read in TXT file
-#Parameters:  txtLoc (path of TXT file)
-#Returns:     List of cleaned lines of text
+# Name:        get_text
+# Purpose:     Read in TXT file
+# Parameters:  txtLoc (path of TXT file)
+# Returns:     List of cleaned lines of text
 
 def get_text(txtLoc):
     f = codecs.open(txtLoc, "r", encoding="utf8")
@@ -69,10 +69,10 @@ def get_text(txtLoc):
     f.close()
     return lines_clean
 
-#Name:        clean_value
-#Purpose:     Standardize negative tax value
-#Parameters:  value (tax value)
-#Returns:     Cleaned tax value
+# Name:        clean_value
+# Purpose:     Standardize negative tax value
+# Parameters:  value (tax value)
+# Returns:     Cleaned tax value
 
 def clean_value(value):
     value_temp = re.sub(r"\$", "", value)
@@ -86,15 +86,15 @@ def clean_value(value):
         value_new = value_temp
     return value_new
 
-#Name:        scrape_data_XX
-#Purpose:     Apply a template and scrape data from the PDF for state XX
-#Parameters:  lines_clean (clean lines of text)
+# Name:        scrape_data_XX
+# Purpose:     Apply a template and scrape data from the PDF for state XX
+# Parameters:  lines_clean (clean lines of text)
 #             state
 #             yyyy (4-digit year)
 #             mm (2-digit month)
-#Returns:     List of lists (one for each line item) containing scraped data
+# Returns:     List of lists (one for each line item) containing scraped data
 
-#Alabama
+# Alabama
 def scrape_data_AL(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -437,7 +437,7 @@ def scrape_data_AL(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Alaska
+# Alaska
 def scrape_data_AK(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -455,7 +455,7 @@ def scrape_data_AK(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Arizona
+# Arizona
 def scrape_data_AZ(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -473,7 +473,7 @@ def scrape_data_AZ(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Arkansas
+# Arkansas
 def scrape_data_AR(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -491,7 +491,7 @@ def scrape_data_AR(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#California
+# California
 def scrape_data_CA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -509,7 +509,7 @@ def scrape_data_CA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Colorado
+# Colorado
 def scrape_data_CO(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -527,7 +527,7 @@ def scrape_data_CO(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Connecticut
+# Connecticut
 def scrape_data_CT(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1062,7 +1062,7 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Delaware
+# Delaware
 def scrape_data_DE(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1080,7 +1080,7 @@ def scrape_data_DE(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Florida
+# Florida
 def scrape_data_FL(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1098,7 +1098,7 @@ def scrape_data_FL(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Georgia
+# Georgia
 def scrape_data_GA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1116,7 +1116,7 @@ def scrape_data_GA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Hawaii
+# Hawaii
 def scrape_data_HI(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1134,7 +1134,7 @@ def scrape_data_HI(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Idaho
+# Idaho
 def scrape_data_ID(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1152,7 +1152,7 @@ def scrape_data_ID(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Illinois
+# Illinois
 def scrape_data_IL(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1170,7 +1170,7 @@ def scrape_data_IL(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Indiana
+# Indiana
 def scrape_data_IN(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1188,7 +1188,7 @@ def scrape_data_IN(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Iowa
+# Iowa
 def scrape_data_IA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1206,7 +1206,7 @@ def scrape_data_IA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Kansas
+# Kansas
 def scrape_data_KS(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1224,7 +1224,7 @@ def scrape_data_KS(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Kentucky
+# Kentucky
 def scrape_data_KY(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1242,7 +1242,7 @@ def scrape_data_KY(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Louisiana
+# Louisiana
 def scrape_data_LA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1260,7 +1260,7 @@ def scrape_data_LA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Maine
+# Maine
 def scrape_data_ME(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1278,7 +1278,7 @@ def scrape_data_ME(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Maryland
+# Maryland
 def scrape_data_MD(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1296,7 +1296,7 @@ def scrape_data_MD(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Massachusetts
+# Massachusetts
 def scrape_data_MA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1314,7 +1314,7 @@ def scrape_data_MA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Michigan
+# Michigan
 def scrape_data_MI(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1332,7 +1332,7 @@ def scrape_data_MI(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Minnesota
+# Minnesota
 def scrape_data_MN(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1350,7 +1350,7 @@ def scrape_data_MN(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Mississippi
+# Mississippi
 def scrape_data_MS(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1368,7 +1368,7 @@ def scrape_data_MS(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Missouri
+# Missouri
 def scrape_data_MO(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1386,7 +1386,7 @@ def scrape_data_MO(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Montana
+# Montana
 def scrape_data_MT(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1404,7 +1404,7 @@ def scrape_data_MT(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Nebraska
+# Nebraska
 def scrape_data_NE(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1422,7 +1422,7 @@ def scrape_data_NE(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Nevada
+# Nevada
 def scrape_data_NV(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1440,7 +1440,7 @@ def scrape_data_NV(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#New Hampshire
+# New Hampshire
 def scrape_data_NH(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1458,7 +1458,7 @@ def scrape_data_NH(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#New Jersey
+# New Jersey
 def scrape_data_NJ(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1577,7 +1577,7 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#New Mexico
+# New Mexico
 def scrape_data_NM(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1595,7 +1595,7 @@ def scrape_data_NM(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#New York
+# New York
 def scrape_data_NY(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1613,7 +1613,7 @@ def scrape_data_NY(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#North Carolina
+# North Carolina
 def scrape_data_NC(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1631,7 +1631,7 @@ def scrape_data_NC(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#North Dakota
+# North Dakota
 def scrape_data_ND(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1649,7 +1649,7 @@ def scrape_data_ND(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Ohio
+# Ohio
 def scrape_data_OH(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1667,7 +1667,7 @@ def scrape_data_OH(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Oklahoma
+# Oklahoma
 def scrape_data_OK(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1685,7 +1685,7 @@ def scrape_data_OK(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Oregon
+# Oregon
 def scrape_data_OR(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1703,7 +1703,7 @@ def scrape_data_OR(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Pennsylvania
+# Pennsylvania
 def scrape_data_PA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1721,7 +1721,7 @@ def scrape_data_PA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Rhode Island
+# Rhode Island
 def scrape_data_RI(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1739,7 +1739,7 @@ def scrape_data_RI(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#South Carolina
+# South Carolina
 def scrape_data_SC(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1757,7 +1757,7 @@ def scrape_data_SC(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#South Dakota
+# South Dakota
 def scrape_data_SD(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1775,7 +1775,7 @@ def scrape_data_SD(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Tennessee
+# Tennessee
 def scrape_data_TN(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1793,7 +1793,7 @@ def scrape_data_TN(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Texas
+# Texas
 def scrape_data_TX(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1811,7 +1811,7 @@ def scrape_data_TX(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Utah
+# Utah
 def scrape_data_UT(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1829,7 +1829,7 @@ def scrape_data_UT(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Vermont
+# Vermont
 def scrape_data_VT(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1847,7 +1847,7 @@ def scrape_data_VT(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Virginia
+# Virginia
 def scrape_data_VA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1865,7 +1865,7 @@ def scrape_data_VA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Washington
+# Washington
 def scrape_data_WA(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1883,7 +1883,7 @@ def scrape_data_WA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#West Virginia
+# West Virginia
 def scrape_data_WV(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1901,7 +1901,7 @@ def scrape_data_WV(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Wisconsin
+# Wisconsin
 def scrape_data_WI(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1919,7 +1919,7 @@ def scrape_data_WI(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Wyoming
+# Wyoming
 def scrape_data_WY(lines_clean, state, yyyy, mm):
     data = []
     tax_types  = []
@@ -1937,11 +1937,11 @@ def scrape_data_WY(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
-#Name:        create_output
-#Purpose:     Create output TXT file containing scraped data
-#Parameters:  data (scraped data)
-#             loc (path of output file)
-#Returns:     
+# Name:        create_output
+# Purpose:     Create output TXT file containing scraped data
+# Parameters:  data (scraped data)
+#              loc (path of output file)
+# Returns:     
 
 def create_output(data, loc):
     if len(data) > 0:
@@ -1953,15 +1953,15 @@ def create_output(data, loc):
         f.close()
     return
 
-#Name:        scrape_data
-#Purpose:     Iterate through states and scrape data from previously downloaded PDFs
-#Parameters:  projName (project name)
-#             yyyy (4-digit year)
-#             mm (2-digit month)
-#Returns:     
+# Name:        scrape_data
+# Purpose:     Iterate through states and scrape data from previously downloaded PDFs
+# Parameters:  projName (project name)
+#              yyyy (4-digit year)
+#              mm (2-digit month)
+# Returns:     
 
 def scrape_data(projName, yyyy, mm):
-    #Create year and month values
+    # Create year and month values
     yy = yyyy[2:]
     month = ""
     month3 = ""
@@ -2015,11 +2015,11 @@ def scrape_data(projName, yyyy, mm):
         month3 = "Dec"
         month4 = "Dec"
 
-    #List to store all of the scraped data
+    # List to store all of the scraped data
     prod = []
     prodLoc = "/{}/prod/{}_{}.txt".format(projName, yyyy, mm)
 
-    #List of states to loop through
+    # List of states to loop through
     states = ["AL", "CT", "NJ"]
     statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
         "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
@@ -2183,7 +2183,7 @@ def scrape_data(projName, yyyy, mm):
     return
 
 def main():
-    #Check valid arguments
+    # Check valid arguments
     if valid_arguments():
         scrape_data(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
