@@ -20,16 +20,16 @@ def valid_arguments():
         return True
     return False
 
-# Name:        print_section
+# Name:        print_section_name
 # Purpose:     Print name of section
-# Parameters:  section (section name)
+# Parameters:  sectionName (section name)
 # Returns:     
 
-def print_section(section):
-    n = len(section)
+def print_section_name(sectionName):
+    n = len(sectionName)
     print("")
     print("=" * (n + 12))
-    print("===   {}   ===".format(section))
+    print("===   {}   ===".format(sectionName))
     print("=" * (n + 12))
     print("")
     return
@@ -398,7 +398,7 @@ def get_filename_unix(name):
 # Name:        download_pdf
 # Purpose:     Download the PDF
 # Parameters:  projName (project name)
-#              state
+#              state (2-letter abbreviation)
 #              yyyy (4-digit year)
 #              mm (2-digit month)
 #              targetPDFNames (list of PDF names)
@@ -408,31 +408,41 @@ def get_filename_unix(name):
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = "{}_{}_{}".format(state, yyyy, mm)
     pdfLoc = "/{}/pdf/{}.pdf".format(projName, PDFName)
+    pdfDownloaded = False
 
+    # If the PDF already exists
     if os.path.isfile(pdfLoc):
         print("PDF already exists.")
     else:
-        pdfDownload = False
+        # Iterate through the target URLs
         for i in range(len(targetURLs)):
             targetPDFName = targetPDFNames[i]
             targetPDFNameUnix = get_filename_unix(targetPDFName)
             targetURL = targetURLs[i]
-            if not pdfDownload:
+            # If the PDF is not downloaded
+            if not pdfDownloaded:
+                # Try using wget to download PDF
                 os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /{}/pdf/ \"{}\"".format(projName, targetURL))
+                # If the PDF exists
                 if os.path.isfile("/{}/pdf/{}.pdf".format(projName, targetPDFNameUnix)):
+                    # Try converting the PDF to TXT format
                     os.system("pdftotext -q -layout \"/{}/pdf/{}.pdf\" /{}/pdf/test.txt".format(projName, targetPDFNameUnix, projName))
+                    # If the converted TXT file does not exist
                     if not os.path.isfile("/{}/pdf/test.txt".format(projName)):
                         os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
+                    # If the converted TXT file has size 0
                     elif os.stat("/{}/pdf/test.txt".format(projName)).st_size == 0:
                         os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
                         os.system("rm /{}/pdf/test.txt".format(projName))
+                    # PDF is downloaded and can be converted to TXT format
                     else:
                         os.system("rm /{}/pdf/test.txt".format(projName))
                         os.system("mv \"/{}/pdf/{}.pdf\" {}".format(projName, targetPDFNameUnix, pdfLoc))
-                        pdfDownload = True
+                        # Set pdfDownloaded to True
+                        pdfDownloaded = True
                         print("PDF downloaded.")
                         return "dlyes"
-        if not pdfDownload:
+        if not pdfDownloaded:
             print("No PDF downloaded.")
             return "dlno"
     return "exist"
@@ -514,7 +524,7 @@ def download_pdfs(projName, yyyy, mm):
     statuses = []
     
     for state in states:
-        print_section(statesDict[state])
+        print_section_name(statesDict[state])
         targetPDFNames = []
         targetURLs = []
         if state == "AL":
@@ -619,10 +629,10 @@ def download_pdfs(projName, yyyy, mm):
             targetPDFNames, targetURLs = get_targets_WY(yyyy, yy, mm, month, month3, month4)
         statuses.append(download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs))
 
-    print_section("Summary")
-    print("Number of PDFs that already exist:    {}".format(len([status for status in statuses if status == "exist"])))
-    print("Number of successful PDF downloads:   {}".format(len([status for status in statuses if status == "dlyes"])))
-    print("Number of unsuccessful PDF downloads: {}".format(len([status for status in statuses if status == "dlno"])))
+    print_section_name("Summary")
+    print("Number of PDFs that already exist:     {}".format(len([status for status in statuses if status == "exist"])))
+    print("Number of successful PDF downloads:    {}".format(len([status for status in statuses if status == "dlyes"])))
+    print("Number of unsuccessful PDF downloads:  {}".format(len([status for status in statuses if status == "dlno"])))
     print("")
     return
 
