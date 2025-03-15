@@ -44,7 +44,7 @@ def print_section_name(sectionName):
 #              month4 (4-letter month)
 # Returns:     List of PDF names and list of URLs
 
-# Alabama
+# Alabama (AL)
 def get_targets_AL(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
     if mm in ["10", "11", "12"]:
@@ -70,37 +70,37 @@ def get_targets_AL(yyyy, yy, mm, month, month3, month4):
     targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_b))
     return targetPDFNames, targetURLs
 
-# Alaska
+# Alaska (AK)
 def get_targets_AK(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Arizona
+# Arizona (AZ)
 def get_targets_AZ(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Arkansas
+# Arkansas (AR)
 def get_targets_AR(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# California
+# California (CA)
 def get_targets_CA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Colorado
+# Colorado (CO)
 def get_targets_CO(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Connecticut
+# Connecticut (CT)
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -117,139 +117,139 @@ def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames.append(name) 
     return targetPDFNames, targetURLs
 
-# Delaware
+# Delaware (DE)
 def get_targets_DE(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Florida
+# Florida (FL)
 def get_targets_FL(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Georgia
+# Georgia (GA)
 def get_targets_GA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Hawaii
+# Hawaii (HI)
 def get_targets_HI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Idaho
+# Idaho (ID)
 def get_targets_ID(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Illinois
+# Illinois (IL)
 def get_targets_IL(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Indiana
+# Indiana (IN)
 def get_targets_IN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Iowa
+# Iowa (IA)
 def get_targets_IA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Kansas
+# Kansas (KS)
 def get_targets_KS(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Kentucky
+# Kentucky (KY)
 def get_targets_KY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Louisiana
+# Louisiana (LA)
 def get_targets_LA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Maine
+# Maine (ME)
 def get_targets_ME(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Maryland
+# Maryland (MD)
 def get_targets_MD(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Massachusetts
+# Massachusetts (MA)
 def get_targets_MA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Michigan
+# Michigan (MI)
 def get_targets_MI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Minnesota
+# Minnesota (MN)
 def get_targets_MN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Mississippi
+# Mississippi (MS)
 def get_targets_MS(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Missouri
+# Missouri (MO)
 def get_targets_MO(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Montana
+# Montana (MT)
 def get_targets_MT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Nebraska
+# Nebraska (NE)
 def get_targets_NE(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Nevada
+# Nevada (NV)
 def get_targets_NV(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# New Hampshire
+# New Hampshire (NH)
 def get_targets_NH(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# New Jersey
+# New Jersey (NJ)
 def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
     if mm in ["08", "09", "10", "11", "12"]:
@@ -263,121 +263,121 @@ def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     targetURLs.append("https://www.njleg.state.nj.us/legislativepub/budget/{}.pdf".format(targetPDFName_a))
     return targetPDFNames, targetURLs
 
-# New Mexico
+# New Mexico (NM)
 def get_targets_NM(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# New York
+# New York (NY)
 def get_targets_NY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# North Carolina
+# North Carolina (NC)
 def get_targets_NC(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# North Dakota
+# North Dakota (ND)
 def get_targets_ND(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Ohio
+# Ohio (OH)
 def get_targets_OH(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Oklahoma
+# Oklahoma (OK)
 def get_targets_OK(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Oregon
+# Oregon (OR)
 def get_targets_OR(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Pennsylvania
+# Pennsylvania (PA)
 def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Rhode Island
+# Rhode Island (RI)
 def get_targets_RI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# South Carolina
+# South Carolina (SC)
 def get_targets_SC(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# South Dakota
+# South Dakota (SD)
 def get_targets_SD(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Tennessee
+# Tennessee (TN)
 def get_targets_TN(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Texas
+# Texas (TX)
 def get_targets_TX(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Utah
+# Utah (UT)
 def get_targets_UT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Vermont
+# Vermont (VT)
 def get_targets_VT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Virginia
+# Virginia (VA)
 def get_targets_VA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Washington
+# Washington (WA)
 def get_targets_WA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# West Virginia
+# West Virginia (WV)
 def get_targets_WV(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Wisconsin
+# Wisconsin (WI)
 def get_targets_WI(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
     return targetPDFNames, targetURLs
 
-# Wyoming
+# Wyoming (WY)
 def get_targets_WY(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -455,7 +455,7 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
 # Returns:     
 
 def download_pdfs(projName, yyyy, mm):
-    #Create year and month values
+    # Create year and month values
     yy = yyyy[2:]
     month = ""
     month3 = ""
@@ -511,16 +511,16 @@ def download_pdfs(projName, yyyy, mm):
 
     # List of states to loop through
     states = ["AL", "CT", "NJ"]
-    statesDict = {"AL":"Alabama", "AK":"Alaska", "AZ":"Arizona", "AR":"Arkansas", "CA":"California",
-        "CO":"Colorado", "CT":"Connecticut", "DE":"Delaware", "FL":"Florida", "GA":"Georgia",
-        "HI":"Hawaii", "ID":"Idaho", "IL":"Illinois", "IN":"Indiana", "IA":"Iowa",
-        "KS":"Kansas", "KY":"Kentucky", "LA":"Louisiana", "ME":"Maine", "MD":"Maryland",
-        "MA":"Massachusetts", "MI":"Michigan", "MN":"Minnesota", "MS":"Mississippi", "MO":"Missouri",
-        "MT":"Montana", "NE":"Nebraska", "NV":"Nevada", "NH":"New Hampshire", "NJ":"New Jersey",
-        "NM":"New Mexico", "NY":"New York", "NC":"North Carolina", "ND":"North Dakota", "OH":"Ohio",
-        "OK":"Oklahoma", "OR":"Oregon", "PA":"Pennsylvania", "RI":"Rhode Island", "SC":"South Carolina",
-        "SD":"South Dakota", "TN":"Tennessee", "TX":"Texas", "UT":"Utah", "VT":"Vermont",
-        "VA":"Virginia", "WA":"Washington", "WV":"West Virginia", "WI":"Wisconsin", "WY":"Wyoming"}
+    statesDict = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+        "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
+        "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
+        "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+        "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri",
+        "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey",
+        "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
+        "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
+        "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
+        "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
     statuses = []
     
     for state in states:
