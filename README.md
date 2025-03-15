@@ -191,14 +191,14 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 
 ```
 # Enter seed URLs
->> vi s_project/urls/seed.txt
+>> vi ./s_project/urls/seed.txt
 
 # Crawl to a specified depth
->> crawl -s s_project/urls s_project/crawl 3
+>> crawl -s ./s_project/urls ./s_project/crawl 3
 
 # Output contents of Apache Nutch database to CSV format
->> readdb s_project/crawl/crawldb -dump s_project/dump -format csv
->> cat s_project/dump/part-r-00000 > s_project/dump/dump.csv
+>> readdb ./s_project/crawl/crawldb -dump ./s_project/dump -format csv
+>> cat ./s_project/dump/part-r-00000 > ./s_project/dump/dump.csv
 ```
 
 Download PDFs discovered during the web crawl to the folder ```s_project/download```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```s_project/pos_pdf``` and ```s_project/neg_pdf```.
