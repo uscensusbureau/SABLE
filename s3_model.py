@@ -170,23 +170,23 @@ def fit_models(projName):
     negDocs  = []
     
     # Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/{}/pos_txt/".format(projName)))
+    posDir = sorted(os.listdir("./{}/pos_txt".format(projName)))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
+            txtFile = "./{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
             tmpFile = codecs.open(txtFile, "r")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     # Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/{}/neg_txt/".format(projName)))
+    negDir = sorted(os.listdir("./{}/neg_txt".format(projName)))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
+            txtFile = "./{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
             tmpFile = codecs.open(txtFile, "r")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
