@@ -76,23 +76,23 @@ def fit_and_predict(projName):
     predDocs  = []
     
     # Read in text from documents classified as positive
-    posDir = sorted(os.listdir("/{}/pos_txt/".format(projName)))
+    posDir = sorted(os.listdir("./{}/pos_txt".format(projName)))
     for f in posDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             posDocs.append(nameMatch.group(1))
-            txtFile = "/{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
+            txtFile = "./{}/pos_txt/{}.txt".format(projName, nameMatch.group(1))
             tmpFile = codecs.open(txtFile, "r")
             posTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
     
     # Read in text from documents classified as negative
-    negDir = sorted(os.listdir("/{}/neg_txt/".format(projName)))
+    negDir = sorted(os.listdir("./{}/neg_txt".format(projName)))
     for f in negDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             negDocs.append(nameMatch.group(1))
-            txtFile = "/{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
+            txtFile = "./{}/neg_txt/{}.txt".format(projName, nameMatch.group(1))
             tmpFile = codecs.open(txtFile, "r")
             negTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
@@ -103,12 +103,12 @@ def fit_and_predict(projName):
     featsTrain = posFeatsTrain + negFeatsTrain
     
     # Read in text from documents for prediction
-    predDir = sorted(os.listdir("/{}/pred_txt/".format(projName)))
+    predDir = sorted(os.listdir("./{}/pred_txt".format(projName)))
     for f in predDir:
         nameMatch = re.search(r"^(\S+)\.txt$", f)
         if nameMatch:
             predDocs.append(nameMatch.group(1))
-            txtFile = "/{}/pred_txt/{}.txt".format(projName, nameMatch.group(1))
+            txtFile = "./{}/pred_txt/{}.txt".format(projName, nameMatch.group(1))
             tmpFile = codecs.open(txtFile, "r")
             predTexts.append(tmpFile.readlines()[0])
             tmpFile.close()
@@ -139,7 +139,7 @@ def fit_and_predict(projName):
         print("")
         
         # Create output
-        outputFile = "/{}/pred_output.txt".format(projName)
+        outputFile = {}/pred_output.txt".format(projName)
         varNames = ["docName", "predClass", "probPos", "probNeg"]
         f = open(outputFile, "w")
         f.write("|".join(varNames) + "\n")
