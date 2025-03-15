@@ -2043,17 +2043,17 @@ def scrape_data(projName, yyyy, mm):
             print("PDF exists.")
         else:
             print("No PDF exists.")
-            print("No intermediate TXT file created.")
+            print("No converted TXT file created.")
             print("No output TXT file created.")
 
         if os.path.isfile(txtLoc):
-            print("Intermediate TXT file already exists.")
+            print("Converted TXT file already exists.")
         elif os.path.isfile(pdfLoc):
             convert_pdf_to_txt(pdfLoc, txtLoc)
             if os.path.isfile(txtLoc):
-                print("Intermediate TXT file created.")
+                print("Converted TXT file created.")
             else:
-                print("No intermediate TXT file created.")
+                print("No converted TXT file created.")
         
         if os.path.isfile(datLoc):
             print("Output TXT file already exists.  Removing ...")
