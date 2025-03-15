@@ -37,7 +37,7 @@ def is_pdf(url, metadata):
 
 def download_pdf(url, projName):
     # Use the Linux/Unix utility wget to download the PDF
-    os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /{}/download/ {}".format(projName, url))
+    os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P ./{}/download \"{}\"".format(projName, url))
     return
 
 # Name:        download_pdfs
@@ -47,7 +47,7 @@ def download_pdf(url, projName):
 
 def download_pdfs(projName):
     # Read in the list of URLs crawled by Apache Nutch and download the PDFs
-    f = codecs.open("/{}/dump/dump.csv".format(projName), "r")
+    f = codecs.open("./{}/dump/dump.csv".format(projName), "r")
     rdr = csv.DictReader(f)
     for row in rdr:
         if is_pdf(row["Url"], row["Metadata"]):
