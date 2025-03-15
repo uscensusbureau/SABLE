@@ -240,16 +240,16 @@ Set up folders for an "M" series project called ```m_project```.
 >> python3 m0_setup.py m_project
 ```
 
-Iterate through a list of states and download PDFs containing tax revenue data for January 2020.
+Iterate through a list of states and download PDFs containing tax revenue data for January 2025.
 
 ```
->> python3 m1_download.py m_project 2020 01
+>> python3 m1_download.py m_project 2025 01
 ```
 
 Scrape tax revenue data from the downloaded PDFs and organize the results in a TXT file.
 
 ```
->> python3 m2_scrape.py m_project 2020 01
+>> python3 m2_scrape.py m_project 2025 01
 ```
 
 ## Contributors
