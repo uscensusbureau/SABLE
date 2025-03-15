@@ -115,9 +115,9 @@ def fit_and_predict(projName):
     
     # Print number of positive and negative observations used for training and number of observations for prediction
     print("")
-    print("Positive Training: {}".format(len(posTexts)))
-    print("Negative Training: {}".format(len(negTexts)))
-    print("Prediction:        {}\n".format(len(predTexts)))
+    print("Positive Training:  {}".format(len(posTexts)))
+    print("Negative Training:  {}".format(len(negTexts)))
+    print("Prediction:         {}\n".format(len(predTexts)))
     
     if len(posFeatsTrain) >= 10 and len(negFeatsTrain) >= 10:
     
