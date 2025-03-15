@@ -220,10 +220,10 @@ def fit_models(projName):
     
     # Print number of positive and negative observations used for training and testing
     print("")
-    print("Positive Training: {}".format(len(posTrain)))
-    print("Positive Testing:  {}".format(len(posTest)))
-    print("Negative Training: {}".format(len(negTrain)))
-    print("Negative Testing:  {}\n".format(len(negTest)))
+    print("Positive Training:  {}".format(len(posTrain)))
+    print("Positive Testing:   {}".format(len(posTest)))
+    print("Negative Training:  {}".format(len(negTrain)))
+    print("Negative Testing:   {}\n".format(len(negTest)))
     print("")
     
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
