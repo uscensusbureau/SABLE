@@ -90,29 +90,29 @@ This repository also contains lists of common "stop" words for multiple language
 
 ## Example Files and Output
 
-An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```/neg_txt/``` and ```/pos_txt/```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```/pred_txt/``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
+An example training set for predicting whether a PDF contains data on tax revenue collections is located in the folders ```neg_txt``` and ```pos_txt```.  These TXT files were created by applying the PDF-to-TXT conversion program ```s2_convert.py``` to PDFs discovered on various websites.  The folder ```pred_txt``` contains TXT files that represent previously unseen documents to be classified by a logistic regression model.
 
-| Folder           | Description                                                                   |
-| ---------------- | ----------------------------------------------------------------------------- |
-| ```/neg_txt/```  | Collection of TXT files belonging to the "negative" class in the training set |
-| ```/pos_txt/```  | Collection of TXT files belonging to the "positive" class in the training set |
-| ```/pred_txt/``` | Collection of TXT files that are to be classified by a model                  |
+| Folder         | Description                                                                   |
+| -------------- | ----------------------------------------------------------------------------- |
+| ```neg_txt```  | Collection of TXT files belonging to the "negative" class in the training set |
+| ```pos_txt```  | Collection of TXT files belonging to the "positive" class in the training set |
+| ```pred_txt``` | Collection of TXT files that are to be classified by a model                  |
 
-The following files are found in the ```/examples/``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the Census Bureau website: [https://www.census.gov](https://www.census.gov).
+The following files are found in the ```examples``` folder.  The three PDFs and corresponding TXT files are examples of the PDF-to-TXT conversion program applied to publications from the Census Bureau website: [https://www.census.gov](https://www.census.gov).
 
-| File                            | Description                                                                                |
-| ------------------------------- | ------------------------------------------------------------------------------------------ |
-| ```example_crawl_output.txt```  | Output from Apache Nutch applied to https://www.revenue.alabama.gov                        |
-| ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                          |
-| ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                       |
-| ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                               |
-| ```example_g16-aspp-sl.txt```   | Output from ```s2_convert.py``` applied to above PDF                                       |
-| ```example_g17-qtax4.pdf```     | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report                  |
-| ```example_g17-qtax4.txt```     | Output from ```s2_convert.py``` applied to above PDF                                       |
-| ```example_model_output.txt```  | Output from ```s3_model.py``` applied to training set                                      |
-| ```example_pred_output.txt```   | Output from ```s4_logistic.py``` applied to training set and TXT files in ```/pred_txt/``` |
-| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                          |
-| ```example_seed.txt```          | Example seed URLs for crawling state government websites                                   |
+| File                            | Description                                                                              |
+| ------------------------------- | ---------------------------------------------------------------------------------------- |
+| ```example_crawl_output.txt```  | Output from Apache Nutch applied to https://www.revenue.alabama.gov                      |
+| ```example_g12-cg-org.pdf```    | 2012 Census of Governments report                                                        |
+| ```example_g12-cg-org.txt```    | Output from ```s2_convert.py``` applied to above PDF                                     |
+| ```example_g16-aspp-sl.pdf```   | 2016 Annual Survey of Public Pensions report                                             |
+| ```example_g16-aspp-sl.txt```   | Output from ```s2_convert.py``` applied to above PDF                                     |
+| ```example_g17-qtax4.pdf```     | 2017q4 Quarterly Summary of State and Local Government Tax Revenue report                |
+| ```example_g17-qtax4.txt```     | Output from ```s2_convert.py``` applied to above PDF                                     |
+| ```example_model_output.txt```  | Output from ```s3_model.py``` applied to training set                                    |
+| ```example_pred_output.txt```   | Output from ```s4_logistic.py``` applied to training set and TXT files in ```pred_txt``` |
+| ```example_scrape_output.txt``` | Output from ```m2_scrape.py``` applied to New Jersey for May 2019                        |
+| ```example_seed.txt```          | Example seed URLs for crawling state government websites                                 |
 
 ## Organization of Files
 
@@ -121,58 +121,58 @@ The following organization of files and folders on a Linux/Unix system is assume
 ### "S" Series Folders and Python Programs
 
 ```
-/s_project/crawl/
-/s_project/download/
-/s_project/dump/
-/s_project/neg_pdf/
-/s_project/neg_prob/
-/s_project/neg_txt/
-/s_project/neg_xml/
-/s_project/pos_pdf/
-/s_project/pos_prob/
-/s_project/pos_txt/
-/s_project/pos_xml/
-/s_project/pred_pdf/
-/s_project/pred_prob/
-/s_project/pred_txt/
-/s_project/pred_xml/
-/s_project/urls/
-/pdf2txt.py
-/s0_setup.py
-/s1_download.py
-/s2_convert.py
-/s3_model.py
-/s4_logistic.py
+s_project/crawl
+s_project/download
+s_project/dump
+s_project/neg_pdf
+s_project/neg_prob
+s_project/neg_txt
+s_project/neg_xml
+s_project/pos_pdf
+s_project/pos_prob
+s_project/pos_txt
+s_project/pos_xml
+s_project/pred_pdf
+s_project/pred_prob
+s_project/pred_txt
+s_project/pred_xml
+s_project/urls
+pdf2txt.py
+s0_setup.py
+s1_download.py
+s2_convert.py
+s3_model.py
+s4_logistic.py
 ```
 
 ### "M" Series Folders and Python Programs
 
 ```
-/m_project/dat/
-/m_project/pdf/
-/m_project/prod/
-/m_project/txt/
-/m0_setup.py
-/m1_download.py
-/m2_scrape.py
+m_project/dat
+m_project/pdf
+m_project/prod
+m_project/txt
+m0_setup.py
+m1_download.py
+m2_scrape.py
 ```
 
 ### Lists of Stop Words
 
 ```
-/stop_danish.txt
-/stop_dutch.txt
-/stop_english.txt
-/stop_finnish.txt
-/stop_french.txt
-/stop_german.txt
-/stop_hungarian.txt
-/stop_italian.txt
-/stop_norwegian.txt
-/stop_portuguese.txt
-/stop_spanish.txt
-/stop_swedish.txt
-/stop_turkish.txt
+stop_danish.txt
+stop_dutch.txt
+stop_english.txt
+stop_finnish.txt
+stop_french.txt
+stop_german.txt
+stop_hungarian.txt
+stop_italian.txt
+stop_norwegian.txt
+stop_portuguese.txt
+stop_spanish.txt
+stop_swedish.txt
+stop_turkish.txt
 ```
 
 ## Example Runs
@@ -191,17 +191,17 @@ Create ```seed.txt```, which contains the seed URLs, or starting points, of the 
 
 ```
 # Enter seed URLs
->> vi /s_project/urls/seed.txt
+>> vi s_project/urls/seed.txt
 
 # Crawl to a specified depth
->> crawl -s /s_project/urls/ /s_project/crawl/ 3
+>> crawl -s s_project/urls s_project/crawl 3
 
 # Output contents of Apache Nutch database to CSV format
->> readdb /s_project/crawl/crawldb/ -dump /s_project/dump/ -format csv
->> cat /s_project/dump/part-r-00000 > /s_project/dump/dump.csv
+>> readdb s_project/crawl/crawldb -dump s_project/dump -format csv
+>> cat s_project/dump/part-r-00000 > s_project/dump/dump.csv
 ```
 
-Download PDFs discovered during the web crawl to the folder ```/s_project/download/```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```/s_project/pos_pdf/``` and ```/s_project/neg_pdf/```.
+Download PDFs discovered during the web crawl to the folder ```s_project/download```.  Manually classify the downloaded PDFs as "positive" (contains useful data) or "negative" and place them accordingly in the folders ```s_project/pos_pdf``` and ```s_project/neg_pdf```.
 
 ```
 >> python3 s1_download.py s_project
@@ -220,7 +220,7 @@ Fit and evaluate various text classification models.
 >> python3 s3_model.py s_project
 ```
 
-Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```/s_project/pred_pdf/```.  Convert these PDFs to TXT format.
+Obtain new PDFs (for example, through continued web crawling) and place them in the folder ```s_project/pred_pdf```.  Convert these PDFs to TXT format.
 
 ```
 >> python3 s2_convert.py s_project english pred
@@ -263,7 +263,7 @@ The following people have contributed to SABLE's codebase:
 
 ## References
 
-The ```/references/``` folder contains the following conference papers and presentations:
+The ```references``` folder contains the following conference papers and presentations:
 
 * Ferronato, H. and Dumbacher, B. (2022). <b>Web Scraping in Support of the U.S. Census Bureau's Public Sector Programs</b>. <i>Proceedings of the 2022 Federal Committee on Statistical Methodology (FCSM) Research and Policy Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
