@@ -13,9 +13,9 @@ import sys
 # Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
-    lngValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
-    clssValid = set(["neg", "pos", "pred"])
-    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in lngValid and sys.argv[3] in clssValid:
+    lngsValid = set(["danish", "dutch", "english", "finnish", "french", "german", "hungarian", "italian", "norwegian", "portuguese", "spanish", "swedish", "turkish"])
+    clssesValid = set(["neg", "pos", "pred"])
+    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in lngsValid and sys.argv[3] in clssesValid:
         return True
     return False
 
