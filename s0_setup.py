@@ -22,27 +22,27 @@ def valid_arguments():
 # Returns:     
 
 def create_folders(projName):
-    projDir = "/{}/".format(projName)
+    projDir = "./{}".format(projName)
     if os.path.isdir(projDir):
         print("\nProject folder {} already exists\n".format(projDir))
     else:
         os.system("mkdir {}".format(projDir))
-        os.system("mkdir {}crawl/".format(projDir))
-        os.system("mkdir {}download/".format(projDir))
-        # The folder /projName/dump/ is created by Apache Nutch when its database contents are output to CSV format
-        os.system("mkdir {}neg_pdf/".format(projDir))
-        os.system("mkdir {}neg_prob/".format(projDir))
-        os.system("mkdir {}neg_txt/".format(projDir))
-        os.system("mkdir {}neg_xml/".format(projDir))
-        os.system("mkdir {}pos_pdf/".format(projDir))
-        os.system("mkdir {}pos_prob/".format(projDir))
-        os.system("mkdir {}pos_txt/".format(projDir))
-        os.system("mkdir {}pos_xml/".format(projDir))
-        os.system("mkdir {}pred_pdf/".format(projDir))
-        os.system("mkdir {}pred_prob/".format(projDir))
-        os.system("mkdir {}pred_txt/".format(projDir))
-        os.system("mkdir {}pred_xml/".format(projDir))
-        os.system("mkdir {}urls/".format(projDir))
+        os.system("mkdir {}/crawl".format(projDir))
+        os.system("mkdir {}/download".format(projDir))
+        # The folder ./projName/dump is created by Apache Nutch when its database contents are output to CSV format
+        os.system("mkdir {}/neg_pdf".format(projDir))
+        os.system("mkdir {}/neg_prob".format(projDir))
+        os.system("mkdir {}/neg_txt".format(projDir))
+        os.system("mkdir {}/neg_xml".format(projDir))
+        os.system("mkdir {}/pos_pdf".format(projDir))
+        os.system("mkdir {}/pos_prob".format(projDir))
+        os.system("mkdir {}/pos_txt".format(projDir))
+        os.system("mkdir {}/pos_xml".format(projDir))
+        os.system("mkdir {}/pred_pdf".format(projDir))
+        os.system("mkdir {}/pred_prob".format(projDir))
+        os.system("mkdir {}/pred_txt".format(projDir))
+        os.system("mkdir {}/pred_xml".format(projDir))
+        os.system("mkdir {}/urls".format(projDir))
         print("\nProject folder {} and subfolders created\n".format(projDir))
     return
 
