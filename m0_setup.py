@@ -22,15 +22,15 @@ def valid_arguments():
 # Returns:     
 
 def create_folders(projName):
-    projDir = "/{}/".format(projName)
+    projDir = "./{}".format(projName)
     if os.path.isdir(projDir):
         print("\nProject folder {} already exists\n".format(projDir))
     else:
         os.system("mkdir {}".format(projDir))
-        os.system("mkdir {}dat/".format(projDir))
-        os.system("mkdir {}pdf/".format(projDir))
-        os.system("mkdir {}prod/".format(projDir))
-        os.system("mkdir {}txt/".format(projDir))
+        os.system("mkdir {}/dat".format(projDir))
+        os.system("mkdir {}/pdf".format(projDir))
+        os.system("mkdir {}/prod".format(projDir))
+        os.system("mkdir {}/txt".format(projDir))
         print("\nProject folder {} and subfolders created\n".format(projDir))
     return
 
