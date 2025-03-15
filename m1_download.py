@@ -14,9 +14,9 @@ from urllib.request import Request, urlopen
 # Returns:     True (all arguments are valid) or False (at least one argument is invalid)
 
 def valid_arguments():
-    yearValid = [str(yyyy) for yyyy in range(2000, 2051)]
-    monthValid = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearValid and sys.argv[3] in monthValid:
+    yearsValid = [str(yyyy) for yyyy in range(2000, 2051)]
+    monthsValid = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    if len(sys.argv) == 4 and re.search(r"^[a-zA-Z][a-zA-Z_-]*$", sys.argv[1]) and sys.argv[2] in yearsValid and sys.argv[3] in monthsValid:
         return True
     return False
 
@@ -407,7 +407,7 @@ def get_filename_unix(name):
 
 def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
     PDFName = "{}_{}_{}".format(state, yyyy, mm)
-    pdfLoc = "/{}/pdf/{}.pdf".format(projName, PDFName)
+    pdfLoc = "./{}/pdf/{}.pdf".format(projName, PDFName)
     pdfDownloaded = False
 
     # If the PDF already exists
@@ -422,22 +422,22 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             # If the PDF is not downloaded
             if not pdfDownloaded:
                 # Try using wget to download PDF
-                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P /{}/pdf/ \"{}\"".format(projName, targetURL))
+                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P ./{}/pdf \"{}\"".format(projName, targetURL))
                 # If the PDF exists
-                if os.path.isfile("/{}/pdf/{}.pdf".format(projName, targetPDFNameUnix)):
+                if os.path.isfile("./{}/pdf/{}.pdf".format(projName, targetPDFNameUnix)):
                     # Try converting the PDF to TXT format
-                    os.system("pdftotext -q -layout \"/{}/pdf/{}.pdf\" /{}/pdf/test.txt".format(projName, targetPDFNameUnix, projName))
+                    os.system("pdftotext -q -layout \"./{}/pdf/{}.pdf\" ./{}/pdf/test.txt".format(projName, targetPDFNameUnix, projName))
                     # If the converted TXT file does not exist
-                    if not os.path.isfile("/{}/pdf/test.txt".format(projName)):
-                        os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
+                    if not os.path.isfile("./{}/pdf/test.txt".format(projName)):
+                        os.system("rm \"./{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
                     # If the converted TXT file has size 0
-                    elif os.stat("/{}/pdf/test.txt".format(projName)).st_size == 0:
-                        os.system("rm \"/{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
-                        os.system("rm /{}/pdf/test.txt".format(projName))
+                    elif os.stat("./{}/pdf/test.txt".format(projName)).st_size == 0:
+                        os.system("rm \"./{}/pdf/{}.pdf\"".format(projName, targetPDFNameUnix))
+                        os.system("rm ./{}/pdf/test.txt".format(projName))
                     # PDF is downloaded and can be converted to TXT format
                     else:
-                        os.system("rm /{}/pdf/test.txt".format(projName))
-                        os.system("mv \"/{}/pdf/{}.pdf\" {}".format(projName, targetPDFNameUnix, pdfLoc))
+                        os.system("rm ./{}/pdf/test.txt".format(projName))
+                        os.system("mv \"./{}/pdf/{}.pdf\" {}".format(projName, targetPDFNameUnix, pdfLoc))
                         # Set pdfDownloaded to True
                         pdfDownloaded = True
                         print("PDF downloaded.")
