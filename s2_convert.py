@@ -208,10 +208,10 @@ def write_text(chars, txtFile):
 
 def create_output(projName, clss, docName):
     # Create file locations
-    pdfFile  = "/{}/{}_pdf/{}.pdf".format(projName, clss, docName)
-    xmlFile  = "/{}/{}_xml/{}.xml".format(projName, clss, docName)
-    txtFile  = "/{}/{}_txt/{}.txt".format(projName, clss, docName)
-    probFile = "/{}/{}_prob/{}.pdf".format(projName, clss, docName)
+    pdfFile  = "./{}/{}_pdf/{}.pdf".format(projName, clss, docName)
+    xmlFile  = "./{}/{}_xml/{}.xml".format(projName, clss, docName)
+    txtFile  = "./{}/{}_txt/{}.txt".format(projName, clss, docName)
+    probFile = "./{}/{}_prob/{}.pdf".format(projName, clss, docName)
 
     # probFlag indicates whether there is a problem extracting text from the PDF
     # The problem PDFs are moved to separate folders where they can be inspected
@@ -262,7 +262,7 @@ def create_output(projName, clss, docName):
 def convert_files(projName, lng, clss):
     # Read in stop words
     stopWordsList = []
-    f = codecs.open("stop_{}.txt".format(lng), "r")
+    f = codecs.open("./stop_{}.txt".format(lng), "r")
     for word in f:
         if word.strip() != "":
             stopWordsList.append(word.strip())
@@ -272,14 +272,14 @@ def convert_files(projName, lng, clss):
 
     # Iterate through PDFs of a given class, extract text, and create output files
     print("\n*****  {}  *****\n".format(clss))
-    pdfs = sorted(os.listdir("/{}/{}_pdf/".format(projName, clss)))
+    pdfs = sorted(os.listdir("./{}/{}_pdf".format(projName, clss)))
     for pdf in pdfs:
         pdfMatch = re.search(r"^(\S+)\.([pP][dD][fF])$", pdf)
         if pdfMatch:
             docName = pdfMatch.group(1)
             if pdfMatch.group(2) != "pdf":
-                oldFile = "/{}/{}_pdf/{}.{}".format(projName, clss, docName, pdfMatch.group(2))
-                newFile = "/{}/{}_pdf/{}.pdf".format(projName, clss, docName)
+                oldFile = "./{}/{}_pdf/{}.{}".format(projName, clss, docName, pdfMatch.group(2))
+                newFile = "./{}/{}_pdf/{}.pdf".format(projName, clss, docName)
                 os.system("mv {} {}".format(oldFile, newFile))
             create_output(projName, clss, docName)
     print("")
