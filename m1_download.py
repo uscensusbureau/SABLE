@@ -398,7 +398,7 @@ def get_filename_unix(name):
 # Name:        download_pdf
 # Purpose:     Download the PDF
 # Parameters:  projName (project name)
-#              state (2-letter abbreviation)
+#              state (2-letter state abbreviation)
 #              yyyy (4-digit year)
 #              mm (2-digit month)
 #              targetPDFNames (list of PDF names)
