@@ -521,8 +521,7 @@ def download_pdfs(projName, yyyy, mm):
         month3 = "Dec"
         month4 = "Dec"
 
-    # List of states to loop through
-    states = ["AL", "CT", "NJ"]
+    # Dictionary of state abbreviations (includes District of Columbia and Puerto Rico)
     statesDict = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
         "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida",
         "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
@@ -533,6 +532,11 @@ def download_pdfs(projName, yyyy, mm):
         "PA": "Pennsylvania", "PR": "Puerto Rico", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
         "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
         "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
+
+    # List of states to loop through
+    states = ["AL", "CT", "NJ"]
+
+    # Empty list of statuses
     statuses = []
     
     for state in states:
