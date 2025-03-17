@@ -123,6 +123,12 @@ def get_targets_DE(yyyy, yy, mm, month, month3, month4):
     targetURLs = []
     return targetPDFNames, targetURLs
 
+# District of Columbia (DC)
+def get_targets_DE(yyyy, yy, mm, month, month3, month4):
+    targetPDFNames = []
+    targetURLs = []
+    return targetPDFNames, targetURLs
+
 # Florida (FL)
 def get_targets_FL(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
@@ -306,6 +312,12 @@ def get_targets_OR(yyyy, yy, mm, month, month3, month4):
     return targetPDFNames, targetURLs
 
 # Pennsylvania (PA)
+def get_targets_PA(yyyy, yy, mm, month, month3, month4):
+    targetPDFNames = []
+    targetURLs = []
+    return targetPDFNames, targetURLs
+
+# Puerto Rico (PR)
 def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -512,15 +524,15 @@ def download_pdfs(projName, yyyy, mm):
     # List of states to loop through
     states = ["AL", "CT", "NJ"]
     statesDict = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
-        "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
-        "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
-        "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
-        "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri",
-        "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey",
-        "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
-        "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
-        "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
-        "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
+        "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida",
+        "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
+        "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts",
+        "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska",
+        "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+        "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon",
+        "PA": "Pennsylvania", "PR": "Puerto Rico", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
+        "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
+        "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
     statuses = []
     
     for state in states:
@@ -543,6 +555,8 @@ def download_pdfs(projName, yyyy, mm):
             targetPDFNames, targetURLs = get_targets_CT(yyyy, yy, mm, month, month3, month4)
         elif state == "DE":
             targetPDFNames, targetURLs = get_targets_DE(yyyy, yy, mm, month, month3, month4)
+        elif state == "DC":
+            targetPDFNames, targetURLs = get_targets_DC(yyyy, yy, mm, month, month3, month4)
         elif state == "FL":
             targetPDFNames, targetURLs = get_targets_FL(yyyy, yy, mm, month, month3, month4)
         elif state == "GA":
@@ -603,6 +617,8 @@ def download_pdfs(projName, yyyy, mm):
             targetPDFNames, targetURLs = get_targets_OR(yyyy, yy, mm, month, month3, month4)
         elif state == "PA":
             targetPDFNames, targetURLs = get_targets_PA(yyyy, yy, mm, month, month3, month4)
+        elif state == "PR":
+            targetPDFNames, targetURLs = get_targets_PR(yyyy, yy, mm, month, month3, month4)
         elif state == "RI":
             targetPDFNames, targetURLs = get_targets_RI(yyyy, yy, mm, month, month3, month4)
         elif state == "SC":
