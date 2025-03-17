@@ -1080,6 +1080,24 @@ def scrape_data_DE(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
+# District of Columbia (DC)
+def scrape_data_DE(lines_clean, state, yyyy, mm):
+    data = []
+    tax_types  = []
+    tax_values = []
+    tax_units  = []
+    tax_times  = []
+
+    n_types  = len(tax_types)
+    n_values = len(tax_values)
+    n_units  = len(tax_units)
+    n_times  = len(tax_times)
+
+    if n_types > 0 and n_types == n_values and n_values == n_units and n_units == n_times:
+        for i in range(len(tax_types)):
+            data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
+    return data
+
 # Florida (FL)
 def scrape_data_FL(lines_clean, state, yyyy, mm):
     data = []
@@ -1721,6 +1739,24 @@ def scrape_data_PA(lines_clean, state, yyyy, mm):
             data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
     return data
 
+# Puerto Rico (PR)
+def scrape_data_PA(lines_clean, state, yyyy, mm):
+    data = []
+    tax_types  = []
+    tax_values = []
+    tax_units  = []
+    tax_times  = []
+
+    n_types  = len(tax_types)
+    n_values = len(tax_values)
+    n_units  = len(tax_units)
+    n_times  = len(tax_times)
+
+    if n_types > 0 and n_types == n_values and n_values == n_units and n_units == n_times:
+        for i in range(len(tax_types)):
+            data.append([state, yyyy, mm, tax_types[i], tax_values[i], tax_units[i], tax_times[i]])
+    return data
+
 # Rhode Island (RI)
 def scrape_data_RI(lines_clean, state, yyyy, mm):
     data = []
@@ -2019,18 +2055,20 @@ def scrape_data(projName, yyyy, mm):
     prod = []
     prodLoc = "./{}/prod/{}_{}.txt".format(projName, yyyy, mm)
 
+    # Dictionary of state abbreviations (includes District of Columbia and Puerto Rico)
+    statesDict = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+        "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida",
+        "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
+        "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts",
+        "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska",
+        "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+        "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon",
+        "PA": "Pennsylvania", "PR": "Puerto Rico", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
+        "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia", "WA": "Washington",
+        "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
+
     # List of states to loop through
     states = ["AL", "CT", "NJ"]
-    statesDict = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
-        "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
-        "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
-        "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
-        "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri",
-        "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey",
-        "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
-        "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
-        "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
-        "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
 
     for state in states:
         print_section_name(statesDict[state])
@@ -2077,6 +2115,8 @@ def scrape_data(projName, yyyy, mm):
                 data = scrape_data_CT(lines_clean, state, yyyy, mm)
             elif state == "DE":
                 data = scrape_data_DE(lines_clean, state, yyyy, mm)
+            elif state == "DC":
+                data = scrape_data_DC(lines_clean, state, yyyy, mm)
             elif state == "FL":
                 data = scrape_data_FL(lines_clean, state, yyyy, mm)
             elif state == "GA":
@@ -2137,6 +2177,8 @@ def scrape_data(projName, yyyy, mm):
                 data = scrape_data_OR(lines_clean, state, yyyy, mm)
             elif state == "PA":
                 data = scrape_data_PA(lines_clean, state, yyyy, mm)
+            elif state == "PR":
+                data = scrape_data_PR(lines_clean, state, yyyy, mm)
             elif state == "RI":
                 data = scrape_data_RI(lines_clean, state, yyyy, mm)
             elif state == "SC":
