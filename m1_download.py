@@ -8,6 +8,8 @@ import sys
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
+SABLE_USER_AGENT = "SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/"
+
 # Name:        valid_arguments
 # Purpose:     Check whether the command-line arguments are valid
 # Parameters:  sys.argv (globally defined list of command-line arguments)
@@ -104,17 +106,29 @@ def get_targets_CO(yyyy, yy, mm, month, month3, month4):
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
-    url = "http://portal.ct.gov/DRS/DRS-Reports/Comparative-Statement-Reports/{}---{}-Monthly-Comparative-Statements".format(yyyy, int(yyyy) - 1) 
-    req = Request(url, headers={"User-Agent": "SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/"})
+
+    url = "http://portal.ct.gov/DRS/DRS-Reports/Comparative-Statement-Reports/{}---{}-Monthly-Comparative-Statements".format(yyyy, int(yyyy)-1) 
+    req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
     page = urlopen(req).read()
     html = page.decode("utf-8")
-    soup = BeautifulSoup(html)
-    links = soup.find("div", {"class" : "content"})
-    links = links.find_all("a")[1]
-    link = "https://portal.ct.gov" + links.get("href")
-    name = link[link.rfind("/")+1:-4]
-    targetURLs.append(link)
-    targetPDFNames.append(name) 
+    soup = BeautifulSoup(html, "html.parser")
+    div = soup.find("div", {"class": "content"})
+    links = div.find_all("a")
+    for l in links:
+        if re.search("{}|{}".format(month, month3), str(l), re.I) and re.search("{}".format(yyyy), str(l), re.I):
+            print("Link found.")
+            target_link = l.get("href")
+            if not re.search("ct\.gov", target_link, re.I):
+                target_link = "https://portal.ct.gov{}".format(target_link)
+            # There could be text after ".pdf" in target_link (e.g., "?rev=865...")
+            target_link = target_link[:target_link.rfind(".pdf")+4]
+            target_name = target_link[target_link.rfind("/")+1:-4]
+            targetPDFNames.append(target_name)
+            targetURLs.append(target_link)
+            break
+    else:
+        print("Link NOT found.")
+     
     return targetPDFNames, targetURLs
 
 # Delaware (DE)
@@ -434,7 +448,7 @@ def download_pdf(projName, state, yyyy, mm, targetPDFNames, targetURLs):
             # If the PDF is not downloaded
             if not pdfDownloaded:
                 # Try using wget to download PDF
-                os.system("wget --no-check-certificate -nv --user-agent=\"SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/\" -P ./{}/pdf \"{}\"".format(projName, targetURL))
+                os.system("wget --no-check-certificate -nv --user-agent=\"{}\" -P ./{}/pdf \"{}\"".format(SABLE_USER_AGENT, projName, targetURL))
                 # If the PDF exists
                 if os.path.isfile("./{}/pdf/{}.pdf".format(projName, targetPDFNameUnix)):
                     # Try converting the PDF to TXT format
