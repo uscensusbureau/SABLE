@@ -21,7 +21,7 @@
 
 ## Introduction
 
-Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in Portable Document Format (PDF), apply a text classification model to predict whether the PDF contains useful data, and then scrape data using templates, text analysis, and other methods.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
+Scraping Assisted by Learning (SABLE) is a collection of tools for web crawling and web scraping.  Some elements involve supervised machine learning to classify text.  The idea is to discover potential new data sources on the web in Portable Document Format (PDF), apply a text classification model to predict whether the PDF contains useful data, and then scrape data using regular expressions and text analysis.  SABLE was initially developed to scrape data from government websites in support of the U.S. Census Bureau's Quarterly Summary of State & Local Tax Revenue (QTAX).  For more information about QTAX, including technical documentation and experimental monthly state tax collections, visit [https://www.census.gov/programs-surveys/qtax.html](https://www.census.gov/programs-surveys/qtax.html).
 
 ## Software
 
@@ -71,18 +71,18 @@ This is the original series of SABLE programs used to discover potential new onl
 | ```s1_download.py``` | Download PDFs discovered during web crawling               |
 | ```s2_convert.py```  | Convert PDFs to TXT format                                 |
 | ```s3_model.py```    | Fit and evaluate text classification models                |
-| ```s4_logistic.py``` | Fit a logisitc regression model and apply it to new PDFs   |
+| ```s4_logistic.py``` | Fit a logistic regression model and apply it to new PDFs   |
 | ```pdf2txt.py```     | Extract text from PDFs (created by developers of PDFMiner) |
 
 ### "M" Series for Scraping Tax Revenue Data
 
 This series of Python programs is used to (1) download specific PDFs known to contain useful tax revenue data (mostly on a monthly basis), (2) scrape values and metadata from the downloaded PDFs, and (3) output the scraped data in an organized format.  This codebase was developed to scrape tax data in support of QTAX.  The programs ```m1_download.py``` and ```m2_scrape.py``` contain example code for a few state government websites.
 
-| Program              | Purpose                                                            |
-| -------------------- | ------------------------------------------------------------------ |
-| ```m0_setup.py```    | Set up project folders                                             |
-| ```m1_download.py``` | Download PDFs known to contain useful tax revenue data             |
-| ```m2_scrape.py```   | Scrape data from downloaded PDFs using templates and text analysis |
+| Program              | Purpose                                                                      |
+| -------------------- | ---------------------------------------------------------------------------- |
+| ```m0_setup.py```    | Set up project folders                                                       |
+| ```m1_download.py``` | Download PDFs known to contain useful tax revenue data                       |
+| ```m2_scrape.py```   | Scrape data from downloaded PDFs using regular expressions and text analysis |
 
 ## Lists of Stop Words
 
