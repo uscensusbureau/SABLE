@@ -115,7 +115,7 @@ def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     div = soup.find("div", {"class": "content"})
     links = div.find_all("a")
     for l in links:
-        if re.search("{}|{}".format(month, month3), str(l), re.I) and re.search("{}".format(yyyy), str(l), re.I):
+        if re.search(month3, str(l), re.I) and re.search(yyyy, str(l), re.I):
             print("Link found.")
             target_link = l.get("href")
             if not re.search("ct\.gov", target_link, re.I):
