@@ -5,7 +5,7 @@
 import os
 import re
 import sys
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from urllib.request import Request, urlopen
 
 SABLE_USER_AGENT = "SABLE (U.S. Census Bureau research to find alternative data sources and reduce respondent burden) https://github.com/uscensusbureau/sable/; census-aidcrb-support-team@census.gov; For more information, go to www.census.gov/scraping/"
@@ -272,15 +272,105 @@ def get_targets_NH(yyyy, yy, mm, month, month3, month4):
 # New Jersey (NJ)
 def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
-    if mm in ["08", "09", "10", "11", "12"]:
+    if mm in ["07", "08", "09", "10", "11", "12"]:
         fyyy = str(int(fyyy) + 1)
     fy = fyyy[2:]
 
-    targetPDFNames = []
-    targetURLs = []
-    targetPDFName_a = "FY{}_{}".format(fy, month)
-    targetPDFNames.append(targetPDFName_a)
-    targetURLs.append("https://www.njleg.state.nj.us/legislativepub/budget/{}.pdf".format(targetPDFName_a))
+    nyyy = yyyy
+    if mm == "12":
+        nyyy = str(int(yyyy) + 1)
+
+    # Nested/inner function
+    def NJ_repeat(url):
+        targetPDFNames = []
+        targetURLs = []
+
+        req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
+        page = urlopen(req).read()
+        html = page.decode("utf-8")
+        soup = BeautifulSoup(html, "html.parser", parse_only=SoupStrainer("td"))
+        cells = soup.find_all("td")
+        link = ""
+        for cell in cells:
+            if re.search(month, str(cell), re.I) and re.search("treasury", str(cell), re.I) and re.search("major\s*(taxes|revenue)", str(cell), re.I) and re.search("{}|{}".format(nyyy, yyyy), str(cell), re.I):
+                print("Press release found.")
+                link = cell.find("a").get("href")
+                if not re.search("https", link, re.I):
+                    link = "https://www.nj.gov/treasury/{}".format(link)
+                break
+
+        if link == "":
+            print("Press release NOT found.")
+            return targetPDFNames, targetURLs
+
+        req = Request(link, headers={"User-Agent": SABLE_USER_AGENT})
+        page = urlopen(req).read()
+        html = page.decode("utf-8")
+        soup = BeautifulSoup(html, "html.parser")
+        links = soup.find_all("a")
+        for l in links:
+            if re.search("FY{}.??{}".format(fy, month), str(l), re.I) or re.search("{}.??{}".format(month, yyyy), str(l), re.I):
+                if (re.search("monthly", str(l), re.I) and re.search("report", str(l), re.I) and re.search("snapshot", str(l), re.I)) or (re.search("revenue.??report", str(l), re.I)):
+                    link = l.get("href")
+                    link = link[link.rfind("pdf/"):]
+                    target_name = link[link.rfind("/")+1:]
+                    target_link_a = "https://www.nj.gov/treasury/news/{}/{}".format(nyyy, link)
+                    target_link_b = "https://www.nj.gov/treasury/{}".format(link)
+                    r = requests.get(target_link_a)
+                    if r.status_code != 404:
+                        print("Link found.")
+                        targetPDFNames.append(target_name)
+                        targetURLs.append(target_link_a)
+                    r = requests.get(target_link_b)
+                    if r.status_code != 404:
+                        print("Link found.")
+                        targetPDFNames.append(target_name)
+                        targetURLs.append(target_link_b)
+                    break
+
+        if len(targetPDFNames) == 0 and len(targetURLs) == 0:
+            ps = soup.find_all("p")
+            for p in ps:
+                if re.search("treasury", str(p), re.I) and re.search("{}".format(month), str(p), re.I) and re.search("revenue", str(p), re.I):
+                    # Iterate through the same links as above
+                    for l in links:
+                        if re.search("attached chart", str(l), re.I):
+                            link = l.get("href")
+                            link = link[link.rfind("pdf/"):]
+                            target_name = link[link.rfind("/")+1:]
+                            target_link_a = "https://www.nj.gov/treasury/news/{}/{}".format(nyyy, link)
+                            target_link_b = "https://www.nj.gov/treasury/{}".format(link)
+                            r = requests.get(target_link_a)
+                            if r.status_code != 404:
+                                print("Link found.")
+                                targetPDFNames.append(target_name)
+                                targetURLs.append(target_link_a)
+                            r = requests.get(target_link_b)
+                            if r.status_code != 404:
+                                print("Link found.")
+                                targetPDFNames.append(target_name)
+                                targetURLs.append(target_link_b)
+                            break
+                    else:
+                        continue
+                    break
+            else:
+                print("Link NOT found.")
+
+        return targetPDFNames, targetURLs
+    # End of nested/inner function
+
+    # First attempt: recent press releases page
+    print("Trying recent press releases page.")
+    url = "https://www.nj.gov/treasury/news.shtml"
+    targetPDFNames, targetURLs = NJ_repeat(url)
+
+    # Second attempt: archived press releases page
+    if len(targetPDFNames) == 0 and len(targetURLs) == 0:
+        print("Trying archived press releases page.")
+        url = "https://www.nj.gov/treasury/newsarchive.shtml"
+        targetPDFNames, targetURLs = NJ_repeat(url)
+    
     return targetPDFNames, targetURLs
 
 # New Mexico (NM)
