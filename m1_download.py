@@ -47,29 +47,9 @@ def print_section_name(sectionName):
 # Returns:     List of PDF names and list of URLs
 
 # Alabama (AL)
-def get_targets_AL(yyyy, yy, mm, month, month3, month4):
-    fyyy = yyyy
-    if mm in ["10", "11", "12"]:
-        fyyy = str(int(yyyy) + 1)
-    fy = fyyy[2:]
-    nm = mm
-    nyyy = yyyy
-    if nm == "12":
-        nm = "01"
-        nyyy = str(int(yyyy) + 1)
-    else:
-        nm = str(int(mm) + 1)
-        if len(nm) == 1:
-            nm = "0{}".format(nm)
- 
+def get_targets_AL(yyyy, yy, mm, month, month3, month4): 
     targetPDFNames = []
     targetURLs = []
-    targetPDFName_a = "abs{}{}web".format(month3.lower(), fy)
-    targetPDFName_b = "abs{}{}web".format(month4.lower(), fy)
-    targetPDFNames.append(targetPDFName_a)
-    targetPDFNames.append(targetPDFName_b)
-    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_a))
-    targetURLs.append("https://revenue.alabama.gov/wp-content/uploads/{}/{}/{}.pdf".format(nyyy, nm, targetPDFName_b))
     return targetPDFNames, targetURLs
 
 # Alaska (AK)
@@ -94,6 +74,44 @@ def get_targets_AR(yyyy, yy, mm, month, month3, month4):
 def get_targets_CA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
+
+    if mm in ["07", "08", "09", "10", "11", "12"]:
+        fy1 = str(yyyy)
+        fy2 = str(int(yyyy) + 1)
+    else:
+        fy1 = str(int(yyyy) - 1)
+        fy2 = str(yyyy)
+
+    print("Using default URL.")
+
+    url = "https://www.sco.ca.gov/ard_state_cash.html"
+    req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
+    page = urlopen(req).read()
+    html = page.decode("utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    links = soup.find_all("a")
+    for l in links:
+        if re.search("{}.??{}".format(fy1, fy2), str(l)):
+            print("Updating URL.")
+            url = "https://www.sco.ca.gov{}".format(l.get("href"))
+            break
+
+    req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
+    page = urlopen(req).read()
+    html = page.decode("utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    links = soup.find_all("a")
+    for l in links:
+        if re.search("{}.??{}".format(month, yyyy), str(l)):
+            print("Link found.")
+            target_link = "https://www.sco.ca.gov{}".format(l.get("href"))
+            target_name = target_link[target_link.rfind("/")+1:]
+            targetURLs.append(target_link)
+            targetPDFNames.append(target_name)
+            break
+    else:
+        print("Link NOT found.")
+    
     return targetPDFNames, targetURLs
 
 # Colorado (CO)
