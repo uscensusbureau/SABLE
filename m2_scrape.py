@@ -372,12 +372,116 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
     line_tct = 0
     line_rec = 0
     line_num = 0
-    col = 1
+    col = 2
     unit = "dollars"
     time = "month"
 
+    stringpart = "\s+([\d,.()$-]+)"
+    string = stringpart*2
+
+    tax_types_list = []
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    tax_types_list.append({"tax_type": "", "tax_regex": ""})
+    
+    tax_types_list_ref = []
+    tax_types_list_ref.append({"tax_type": "withholding refund",                   "tax_regex": "withholding"})
+    tax_types_list_ref.append({"tax_type": "income tax refund",                    "tax_regex": "income\s*tax"})
+    tax_types_list_ref.append({"tax_type": "sales and use refund",                 "tax_regex": "sales\s*.{0,3}?\s*use"})
+    tax_types_list_ref.append({"tax_type": "room occupancy refund",                "tax_regex": "room\s*occupancy"})
+    tax_types_list_ref.append({"tax_type": "business entity refund",               "tax_regex": "business\s*entity"})
+    tax_types_list_ref.append({"tax_type": "corporation business refund",          "tax_regex": "corporation\s*business"})
+    tax_types_list_ref.append({"tax_type": "r & d credit buybacks refund",         "tax_regex": "r\s*.{0,3}?\s*d\s*credit\s*buybacks"})
+    tax_types_list_ref.append({"tax_type": "pass-through entity refund",           "tax_regex": "pass\s*-?\s*through\s*entity"})
+    tax_types_list_ref.append({"tax_type": "unrelated business refund",            "tax_regex": "unrelated\s*business"})
+    tax_types_list_ref.append({"tax_type": "cable, satellite and video refund",    "tax_regex": "cable,\s*satellite\s*.{0,3}?\s*video"})
+    tax_types_list_ref.append({"tax_type": "peg account refund",                   "tax_regex": "peg\s*account"})
+    tax_types_list_ref.append({"tax_type": "electric and power refund",            "tax_regex": "electric\s*.{0,3}?\s*power"})
+    tax_types_list_ref.append({"tax_type": "gas companies refund",                 "tax_regex": "gas\s*companies"})
+    tax_types_list_ref.append({"tax_type": "estate and gift refund",               "tax_regex": "estate\s*.{0,3}?\s*gift"})
+    tax_types_list_ref.append({"tax_type": "domestic insurance refund",            "tax_regex": "domestic\s*insurance"})
+    tax_types_list_ref.append({"tax_type": "foreign insurance refund",             "tax_regex": "foreign\s*insurance"})
+    tax_types_list_ref.append({"tax_type": "health care centers refund",           "tax_regex": "health\s*care\s*centers"})
+    tax_types_list_ref.append({"tax_type": "nonadmitted insurance refund",         "tax_regex": "nonadmitted\s*insurance"})
+    tax_types_list_ref.append({"tax_type": "alcoholic beverages refund",           "tax_regex": "alcoholic\s*beverages"})
+    tax_types_list_ref.append({"tax_type": "cigarette refund",                     "tax_regex": "cigarette"})
+    tax_types_list_ref.append({"tax_type": "electronic cigarette products refund", "tax_regex": "electronic\s*cigarette\s*products"})
+    tax_types_list_ref.append({"tax_type": "tobacco products refund",              "tax_regex": "tobacco\s*products"})
+    tax_types_list_ref.append({"tax_type": "controlling interest refund",          "tax_regex": "controlling\s*interest"})
+    tax_types_list_ref.append({"tax_type": "real estate conveyance refund",        "tax_regex": "real\s*estate\s*conveyance"})
+    tax_types_list_ref.append({"tax_type": "petroleum gross earnings refund",      "tax_regex": "petroleum\s*gross\s*earnings"})
+    tax_types_list_ref.append({"tax_type": "admissions and dues refund",           "tax_regex": "admissions\s*.{0,3}?\s*dues"})
+    tax_types_list_ref.append({"tax_type": "dry cleaners refund",                  "tax_regex": "dry\s*cleaners"})
+    tax_types_list_ref.append({"tax_type": "occupational refund",                  "tax_regex": "occupational"})
+    tax_types_list_ref.append({"tax_type": "pre-paid wireless refund",             "tax_regex": "pre\s*-?\s*paid\s*wireless"})
+    tax_types_list_ref.append({"tax_type": "nursing home user fee refund",         "tax_regex": "nursing\s*home\s*user\s*fee"})
+    tax_types_list_ref.append({"tax_type": "hospitals refund",                     "tax_regex": "hospitals"})
+    tax_types_list_ref.append({"tax_type": "intermediate care facility refund",    "tax_regex": "intermediate\s*care\s*facility"})
+    tax_types_list_ref.append({"tax_type": "ambulatory surgical center refund",    "tax_regex": "ambulatory\s*surgical\s*center"})
+    tax_types_list_ref.append({"tax_type": "gasoline refund",                      "tax_regex": "gasoline"})
+    tax_types_list_ref.append({"tax_type": "special fuel refund",                  "tax_regex": "special\s*fuel"})
+    tax_types_list_ref.append({"tax_type": "motor carrier refund",                 "tax_regex": "motor\s*carrier"})
+    tax_types_list_ref.append({"tax_type": "highway use fee refund",               "tax_regex": "highway\s*use\s*fee"})
+    tax_types_list_ref.append({"tax_type": "beverage containers refund",           "tax_regex": "beverage\s*containers"})
+    tax_types_list_ref.append({"tax_type": "miscellaneous refund",                 "tax_regex": "miscellaneous"})
+    tax_types_list_ref.append({"tax_type": "second hospital user fee refund",      "tax_regex": "second\s*hospital\s*user\s*fee"})
+    
     m_nn = False
+
     for line in lines_clean:
+        line_found = False
         if len(line) != 0:
             line_num += 1
 
@@ -389,7 +493,7 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
                 elif m_table_title.group(1) == "current month refunds comparison":
                     rev_zone = False
                     ref_zone = True
-            m_table_totals = re.search(r"(totals|total\s+refunds)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
+            m_table_totals = re.search(r"(totals|(total\s+refunds))\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
             if m_table_totals:
                 rev_zone = False
                 ref_zone = False
@@ -397,490 +501,97 @@ def scrape_data_CT(lines_clean, state, yyyy, mm):
             m_col1 = re.search(r"(type\s+of\s+revenue|type\s+of\s+refund)\s+(\d{4})\s+(\d{4})", line)
             m_col2 = re.search(r"tax\s+type\s+through\s+\S+\s+(\d{4})\s+through\s+\S+\s+(\d{4})", line)
  
-            if m_col1 and int(m_col1.group(3)) > int(m_col1.group(2)):
-                col = 2
-            if m_col2 and int(m_col2.group(2)) > int(m_col2.group(1)):
-                col = 2
+            if m_col1:
+                if int(m_col1.group(3)) > int(m_col1.group(2)):
+                    col = 3
+                else:
+                    col = 2
+            if m_col2:
+                if int(m_col2.group(2)) > int(m_col2.group(1)):
+                    col = 3
+                else:
+                    col = 2
 
             if rev_zone:
+                for l in range(len(tax_types_list)):
+                    tax_type = tax_types_list[l]["tax_type"]
+                    tax_regex = tax_types_list[l]["tax_regex"]
 
-                m = re.search(r"withholding\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("withholding")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"estimates\s+and\s+finals\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("estimates and finals")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"sales\s+and\s+use\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("sales and use")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"room\s+occupancy\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("room occupancy")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"corporation\s+business\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("corporation business")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"pass-through\s+entity.\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("pass-through entity")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"unrelated\s+business\s+income\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("unrelated business income")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"cable,\s+satellite\s+and\s+video\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("cable satellite and video")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"peg\s+account\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("peg account")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"electric\s+&\s+power\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("electric and power")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"gas\s+companies\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("gas companies")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"railroads\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("railroads")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"estate\s+and\s+gift\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m and "estate and gift" not in tax_types:
-                    tax_types.append("estate and gift")
-                    tax_values.append(clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"domestic\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("domestic")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"foreign\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("foreign")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"health\s+care\s+centers\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("health care centers")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m_nonadm = re.search(r"nonadmitted\s*/\s*unauthorized\s*/\s*", line)
-                if m_nonadm:
-                    m_nn = True
-                m = re.search(r"\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m_nn and m:
-                    m_nn = False
-                    tax_types.append("nonadmitted unauthorized captive insurers")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(alcoholic|alchoholic)\s+beverages\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("alcoholic beverages")
-                    tax_values.append(clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"cigarette\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("cigarette")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"electronic\s+cigarette\s+products\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("electronic cigarette products")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"tobacco\s+products\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("tobacco products")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"controlling\s+interest\s+transfer\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("controlling interest transfer")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"real\s+estate\s+conveyance\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m and "real estate conveyance" not in tax_types:
-                    tax_types.append("real estate conveyance")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"petroleum\s+gross\s+earnings\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("petroleum gross earnings")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"admissions\s+&\s+dues\s+and\s+tnc\s+fee\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("admission and dues and tnc fee")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"dry\s+cleaners\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("dry cleaners")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"occupational\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("occupational")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"rental\s+surcharge\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("rental surcharge")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"solid\s+waste\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("solid waste")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"tourism\s+tax\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("tourism tax")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"controlled\s+substances\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("controlled substances")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"prepaid\s+wireless\s+e-?9-?1-?1\s+fee\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("prepaid wireless e911 fee")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"paid\s+preparer\s+fee\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("paid preparer fee")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"repealed\s+taxes\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("repealed taxes")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"nursing\s+home\s+user\s+fee\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("nursing home user fee")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"hospitals\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("hospitals")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"intermediate\s+care\s+facility\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("intermediate care facility")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"ambulatory\s+surgical\s+center\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("ambulatory surgical center")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"gasoline\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("gasoline")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"special\s+fuel\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("special fuel")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"motor\s+carrier\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("motor carrier")
-                    tax_values.append(clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
+                    tax = "(" + tax_regex + ")" + string
+                    if tax_type == "nonadmitted unauthorized captive insurers":
+                        m_nonadm = re.search(tax_regex, line)
+                        if m_nonadm:
+                            m_nn = True
+
+                    else:
+                        m = re.search(tax, line)
+                        if m:
+                            line_found = True
+                            if tax_type in ["estate and gift", "real estate conveyance"]:
+                                if tax_type in tax_types:
+                                    continue
+                            tax_types.append(tax_type)
+                            tax_values.append(clean_value(m.group(col)))
+                            tax_units.append(unit)
+                            tax_times.append(time)
+                    if m_nn:
+                        m = re.search(string, line)
+                        if m:
+                            line_found = True
+                            m_nn = False
+                            tax_types.append("nonadmitted unauthorized captive insurers")
+                            tax_values.append(clean_value(m.group(col-1)))
+                            tax_units.append(unit)
+                            tax_times.append(time)
+                            
+                if not line_found:
+                    #tax = "^\s*([a-z]+[\D]*?)" + string
+                    tax = "^\s*(\(.*\))?\s*([a-z]+[\D]*?)" + string
+                    m = re.search(tax, line)
+                    if m:
+                        if clean_value(m.group(2).strip()) == "type of revenue":
+                            continue
+                        tax_types.append(clean_value(m.group(2)).strip())
+                        tax_values.append(clean_value(m.group(col + 1)))
+                        tax_units.append(unit)
+                        tax_times.append(time)
 
             if ref_zone:
+                for l in range(len(tax_types_list_ref)):
+                    tax_type = tax_types_list_ref[l]["tax_type"]
+                    tax_regex = tax_types_list_ref[l]["tax_regex"]
 
-                m = re.search(r"(income\s+tax\s+withholding|withholding)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("withholding refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(income\s+tax|income\s+tax\s+finals\s+&\s+estimates)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("income tax refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"sales\s+and\s+use\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("sales and use refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"business\s+use\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("business use refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"room\s+occupancy\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("room occupancy refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"business\s+entity\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("business entity refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"corporation\s+business\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("corporation business refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(r\s+&\s+d\s+credit\s+buybacks|corporation\s+r&d|corporation\s+r\s+&\s+d)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("r and d credit buybacks refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"unrelated\s+business\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("unrelated business refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"cable,?\s+satellite,?\s+and\s+video\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("cable satellite and video refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"electric\s+&\s+power\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("electric and power refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"gas\s+companies\s+([\d,.$-]+)\s+([\d,.$-]+)", line)
-                if m:
-                    tax_types.append("gas companies refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"estate\s+and\s+gift\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m and "estate and gift refund" not in tax_types:
-                    tax_types.append("estate and gift refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"domestic\s+insurance\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("domestic insurance refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"foreign\s+(insurance|insurers)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("foreign insurance refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(alcoholic|alchoholic)\s+beverages\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("alcoholic beverages refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(cigarette|cigarette\s+tax)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("cigarette refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"electronic\s+cigarette\s+products\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("electronic cigarette products refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"tobacco\s+products\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("tobacco products refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"controlling\s+interest\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("controlling interest refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"real\s+estate\s+conveyance\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m and "real estate conveyance refund" not in tax_types:
-                    tax_types.append("real estate conveyance refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"petroleum\s+gross\s+earnings\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("petroleum gross earnings refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"admissions\s+&\s+dues\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("admissions and dues refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"occupational\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("occupational refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"solid\s+waste\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("solid waste refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"(hospitals|hospital\s+net\s+revenue)\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("hospitals refund")
-                    tax_values.append("-" + clean_value(m.group(col + 1)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"nursing\s+home\s+user\s+fee\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("nursing home user fee refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"gasoline\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("gasoline refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"special\s+fuel\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("special fuel refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"motor\s+carrier\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("motor carrier refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-                m = re.search(r"miscellaneous\s+([\d,.()$-]+)\s+([\d,.()$-]+)", line)
-                if m:
-                    tax_types.append("miscellaneous refund")
-                    tax_values.append("-" + clean_value(m.group(col)))
-                    tax_units.append(unit)
-                    tax_times.append(time)
-
-    tax_types_sub, tax_values_sub, tax_times_sub, tax_units_sub = [], [], [], []
-    tax_types2 = tax_types
-    for tt in tax_types2:
-        tt_r = "{} refund".format(tt)
-        idxB = tax_types.index(tt)
-        unit_sub = tax_units[idxB]
-        time_sub = tax_times[idxB]
-        value_sub = tax_values[idxB]
-        if tt_r in tax_types:
-            idxA = tax_types.index(tt_r)
-            value_sub = abs(float(value_sub.replace(",", ""))) - abs(float(tax_values[idxA].replace(",", "")))
-        else:
-            value_sub
-
-        tax_types_sub.append(tt)
-        tax_values_sub.append(str(value_sub))
-        tax_times_sub.append(time_sub)
-        tax_units_sub.append(unit_sub)
-
-    for tt in range(len(tax_types_sub)):
-        if "refund" in tax_types_sub[tt]:
-            del tax_types_sub[tt:]
-            del tax_values_sub[tt:]
-            del tax_units_sub[tt:]
-            del tax_times_sub[tt:]
-            break
-
-    tax_types, tax_values, tax_times, tax_units = tax_types_sub, tax_values_sub, tax_times_sub, tax_units_sub
-
-    unique = {}
-    for tt_idx in range(len(tax_types)):
-        tax_type = tax_types[tt_idx]
-        if tax_type not in unique:
-            unique[tax_type] = tax_values[tt_idx]
-        else:
-            tax_types.pop(tt_idx)
-            tax_values.pop(tt_idx)
+                    tax = "(" + tax_regex + ")" + string
+                    m = re.search(tax, line)
+                    if m:
+                        line_found = True
+                        if tax_type in ["estate and gift", "real estate conveyance"]:
+                            if tax_type in tax_types:
+                                continue
+                        tax_types.append(tax_type)
+                        if tax_type in ["r and d credit buybacks refund", "hospitals refund"]:
+                            # tax_values.append(clean_value(m.group(col + 1)))
+                            value = clean_value(m.group(col + 1))
+                        else:
+                            # tax_values.append
+                            value = clean_value(m.group(col))
+                        value = str(-1 * abs(float(value.replace(",", "").replace("--", ""))))
+                        tax_values.append(value)
+                        tax_units.append(unit)
+                        tax_times.append(time)
+                        
+                if not line_found:
+                    tax = "^\s*([a-z]+[\D]*?)" + string
+                    m = re.search(tax, line)
+                    if m:
+                        if clean_value(m.group(1).strip()) == "type of refund":
+                            continue
+                        tax_types.append(clean_value(m.group(1)).strip() + " refund")
+                        value = clean_value(m.group(col))
+                        value = str(-1 * abs(float(value.replace(",", "").replace("--", ""))))
+                        tax_values.append(value)
+                        tax_units.append(unit)
+                        tax_times.append(time)
     
     n_types  = len(tax_types)
     n_values = len(tax_values)
