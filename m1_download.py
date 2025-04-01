@@ -656,7 +656,7 @@ def download_pdfs(projName, yyyy, mm):
         "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
 
     # List of states to loop through
-    states = ["AL", "CT", "NJ"]
+    states = ["CA", "CT", "NJ"]
 
     # Empty list of statuses
     statuses = []
