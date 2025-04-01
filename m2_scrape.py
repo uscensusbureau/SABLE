@@ -1314,107 +1314,91 @@ def scrape_data_NJ(lines_clean, state, yyyy, mm):
     tax_units  = []
     tax_times  = []
 
-    col = 3
-    unit = "millions"
-    time = "ytd thru month"
+    col = 2
+    unit = "thousands"
+    time = "month"
 
+    stringpart = "\s*\$?\s*([\d,.()$%-]+)"
+    string1 = stringpart*3
+    stringpart = "\s+\$?\s*([\d,.()$%-]+)"
+    string2 = stringpart*3
+
+    tax_types_list = []
+    tax_types_list.append({"tax_type": "sales",                             "tax_regex": "sales"})
+    tax_types_list.append({"tax_type": "sales tax - energy tax receipts",   "tax_regex": "sales\s*tax\s*-?\s*energy\s*tax\s*receipts"})
+    tax_types_list.append({"tax_type": "sales tax dedication",              "tax_regex": "sales\s*tax\s*dedication"})
+    tax_types_list.append({"tax_type": "net sales tax",                     "tax_regex": "net\s*sales\s*tax"})
+    tax_types_list.append({"tax_type": "corporation business",              "tax_regex": "corporation\s*business"})
+    tax_types_list.append({"tax_type": "cbt - energy tax receipts",         "tax_regex": "cbt\s*-?\s*energy\s*tax\s*receipts"})
+    tax_types_list.append({"tax_type": "net corporation business tax",      "tax_regex": "net\s*corporation\s*business\s*tax"})
+    tax_types_list.append({"tax_type": "business alternative income tax",   "tax_regex": "business\s*alternative\s*income\s*tax"})
+    tax_types_list.append({"tax_type": "motor fuels",                       "tax_regex": "motor\s*fuels"})
+    tax_types_list.append({"tax_type": "motor vehicle fees",                "tax_regex": "motor\s*vehicle\s*fees"})
+    tax_types_list.append({"tax_type": "transfer inheritance tax",          "tax_regex": "transfer\s*inheritance\s*tax"})
+    tax_types_list.append({"tax_type": "estate tax",                        "tax_regex": "estate\s*tax"})
+    tax_types_list.append({"tax_type": "insurance premium",                 "tax_regex": "insurance\s*premium"})
+    tax_types_list.append({"tax_type": "cigarette",                         "tax_regex": "cigarette"})
+    tax_types_list.append({"tax_type": "petroleum products gross receipts", "tax_regex": "petroleum\s*products\s*gross\s*receipts"})
+    tax_types_list.append({"tax_type": "capital reserve",                   "tax_regex": "capital\s*reserve"})
+    tax_types_list.append({"tax_type": "alcoholic beverage excise",         "tax_regex": "alcoholic\s*beverage\s*excise"})
+    tax_types_list.append({"tax_type": "realty transfer",                   "tax_regex": "realty\s*transfer"})
+    tax_types_list.append({"tax_type": "tobacco products wholesale sales",  "tax_regex": "tobacco\s*products\s*wholesale\s*sales"})
+    tax_types_list.append({"tax_type": "public utility",                    "tax_regex": "public\s*utility"})
+    tax_types_list.append({"tax_type": "total general fund revenues",       "tax_regex": "total\s*general\s*fund\s*revenues"})
+    tax_types_list.append({"tax_type": "gross income tax (ptrf)",           "tax_regex": "gross\s*income\s*tax\s*\(*ptrf\)*"})
+    tax_types_list.append({"tax_type": "sales tax dedication",              "tax_regex": "sales\s*tax\s*dedication"})
+    tax_types_list.append({"tax_type": "net gross income tax (ptrf)",       "tax_regex": "net\s*gross\s*income\s*tax\s*\(*ptrf\)*"})
+    tax_types_list.append({"tax_type": "casino revenue",                    "tax_regex": "casino\s*revenue"})
+    tax_types_list.append({"tax_type": "total major revenues",              "tax_regex": "total\s*major\s*revenues"})
+    tax_types_list.append({"tax_type": "lottery",                           "tax_regex": "lottery"})
+
+    rev_zone = False
+    started = False
     for line in lines_clean:
+        line_found = False
+
         if len(line) != 0:
+            rev_start = re.search(r"\s*(\d{4})\s+(\d{4})\s+change\s*", line)
+            if rev_start:
+                rev_zone = True
+                started = True
+                if rev_start.group(1) == yyyy:
+                    col = 1
+                elif rev_start.group(2) == yyyy:
+                    col = 2
+            else:
+                started = False
+                
+            if rev_zone:
+                rev_end = re.search(r"^\s*(\*|(\(?[a-z]))", line)
+                if rev_end:
+                    rev_zone = False
 
-            m_col = re.search(r"fy\s*(\d{4})\s+fy\s*(\d{4})", line)
-            if m_col and int(m_col.group(1)) > int(m_col.group(2)):
-                col = 2
+            if rev_zone and not started:
+                for l in range(len(tax_types_list)):
+                    tax_type = tax_types_list[l]["tax_type"]
+                    tax_regex = tax_types_list[l]["tax_regex"]
 
-            m_unit = re.search(r"\(\$\s*(dollars|thousands|millions|billions)\)", line)
-            if m_unit:
-                if m_unit.group(1) == "dollars":
-                    unit = "dollars"
-                elif m_unit.group(1) == "thousands":
-                    unit = "thousands"
-                elif m_unit.group(1) == "millions":
-                    unit = "millions"
-                elif m_unit.group(1) == "billions":
-                    unit = "billions"
+                    tax = "^" + string1 + "\s*(" + tax_regex + ")\s*(\(*.??\)*)?" + string2
 
-            m = re.search(r"(gross\s+income\s+tax|gross\s+income\s+tax\s+\(git\)|income tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("gross income tax (git)")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(sales\s+tax|sale\s+tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("sales tax")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(corp\.\s+bus\.\s+tax|corp\.\s+bus\.\s+tax\s+\(cbt\)|corporation\s+tax)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("corporate business tax (cbt)")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(petroleum\s+products)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("petroleum products")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(insurance\s+premium)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("insurance premium")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(motor\s+fuels)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("motor fuels")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(motor\s+vehicle\s+fees)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("motor vehicle fees")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(transfer\s+inheritance)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("transfer inheritance")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(realty\s+transfer)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("realty transfer")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(casino)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("casino")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(banks\s+&\s+financial|banks\s+&\s+financial\s+\(cbt\))\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("banks and financial (cbt)")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(alcohol\s+excise)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("alcohol excise")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-            m = re.search(r"(cigarette)\s+([\d,.()$]+)\s+([\d,.()$]+)", line)
-            if m:
-                tax_types.append("cigarette")
-                tax_values.append(clean_value(m.group(col)))
-                tax_units.append(unit)
-                tax_times.append(time)
-
+                    m = re.search(tax, line, re.I)
+                    if m:
+                        tax_types.append(tax_type)
+                        tax_values.append(clean_value(m.group(col)))
+                        tax_units.append(unit)
+                        tax_times.append(time)
+                        line_found = True
+                        break
+                    
+                if not line_found and not started:
+                    tax = "^" + string1 + "\s*([a-z]+[\D]*?)\s*(\(*.??\)*)?" + string2
+                    m = re.search(tax, line)
+                    if m:
+                        tax_types.append(clean_value(m.group(4)).strip())
+                        tax_values.append(clean_value(m.group(col)))
+                        tax_units.append(unit)
+                        tax_times.append(time)
+    
     n_types  = len(tax_types)
     n_values = len(tax_values)
     n_units  = len(tax_units)
