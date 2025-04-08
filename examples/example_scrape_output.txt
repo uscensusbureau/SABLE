@@ -1,14 +1,28 @@
 state|year|month|tax_type|tax_value|tax_unit|tax_time
-NJ|2019|05|gross income tax (git)|13,759.2|millions|ytd thru month
-NJ|2019|05|sales tax|8,098.5|millions|ytd thru month
-NJ|2019|05|corporate business tax (cbt)|3,248.3|millions|ytd thru month
-NJ|2019|05|petroleum products|1,243.9|millions|ytd thru month
-NJ|2019|05|motor fuels|408.6|millions|ytd thru month
-NJ|2019|05|insurance premium|468.6|millions|ytd thru month
-NJ|2019|05|transfer inheritance|455.7|millions|ytd thru month
-NJ|2019|05|motor vehicle fees|374.2|millions|ytd thru month
-NJ|2019|05|realty transfer|314.2|millions|ytd thru month
-NJ|2019|05|banks and financial (cbt)|268.4|millions|ytd thru month
-NJ|2019|05|casino|229.1|millions|ytd thru month
-NJ|2019|05|alcohol excise|87.3|millions|ytd thru month
-NJ|2019|05|cigarette|60.9|millions|ytd thru month
+NJ|2025|01|sales|1,492,761|thousands|month
+NJ|2025|01|sales tax - energy tax receipts|36,397|thousands|month
+NJ|2025|01|sales tax dedication|-115,409|thousands|month
+NJ|2025|01|net sales tax|1,413,749|thousands|month
+NJ|2025|01|corporation business|197,621|thousands|month
+NJ|2025|01|cbt - energy tax receipts|5|thousands|month
+NJ|2025|01|net corporation business tax|197,626|thousands|month
+NJ|2025|01|business alternative income tax|529,432|thousands|month
+NJ|2025|01|motor fuels|41,389|thousands|month
+NJ|2025|01|motor vehicle fees|70,883|thousands|month
+NJ|2025|01|transfer inheritance tax|47,459|thousands|month
+NJ|2025|01|estate tax|20|thousands|month
+NJ|2025|01|insurance premium|-44,862|thousands|month
+NJ|2025|01|cigarette|0|thousands|month
+NJ|2025|01|petroleum products gross receipts|128,985|thousands|month
+NJ|2025|01|capital reserve|0|thousands|month
+NJ|2025|01|alcoholic beverage excise|27,104|thousands|month
+NJ|2025|01|realty transfer|44,968|thousands|month
+NJ|2025|01|tobacco products wholesale sales|4,355|thousands|month
+NJ|2025|01|public utility|0|thousands|month
+NJ|2025|01|total general fund revenues|2,461,108|thousands|month
+NJ|2025|01|gross income tax (ptrf)|2,694,611|thousands|month
+NJ|2025|01|sales tax dedication|117,819|thousands|month
+NJ|2025|01|net gross income tax (ptrf)|2,812,430|thousands|month
+NJ|2025|01|casino revenue|52,590|thousands|month
+NJ|2025|01|total major revenues|5,326,128|thousands|month
+NJ|2025|01|lottery|78,737|thousands|month
