@@ -437,6 +437,16 @@ def get_targets_OR(yyyy, yy, mm, month, month3, month4):
 def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
+
+    url = "https://www.pa.gov/en/agencies/revenue/resources/reports-and-statistics/monthly-revenue-reports.html"
+    req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
+    page = urlopen(req).read()
+    html = page.decode("utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    links = soup.find_all("a")
+
+    # Enter remaining code here
+
     return targetPDFNames, targetURLs
 
 # Puerto Rico (PR)
