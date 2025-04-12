@@ -105,7 +105,7 @@ def get_targets_CA(yyyy, yy, mm, month, month3, month4):
         if re.search("{}.??{}".format(month, yyyy), str(l)):
             print("Link found.")
             target_link = "https://www.sco.ca.gov{}".format(l.get("href"))
-            target_name = target_link[target_link.rfind("/")+1:]
+            target_name = target_link[target_link.rfind("/")+1:target_link.rfind(".pdf")]
             targetURLs.append(target_link)
             targetPDFNames.append(target_name)
             break
@@ -140,7 +140,7 @@ def get_targets_CT(yyyy, yy, mm, month, month3, month4):
                 target_link = "https://portal.ct.gov{}".format(target_link)
             # There could be text after ".pdf" in target_link (e.g., "?rev=865...")
             target_link = target_link[:target_link.rfind(".pdf")+4]
-            target_name = target_link[target_link.rfind("/")+1:-4]
+            target_name = target_link[target_link.rfind("/")+1:target_link.rfind(".pdf")]
             targetPDFNames.append(target_name)
             targetURLs.append(target_link)
             break
@@ -331,7 +331,7 @@ def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
                 if (re.search("monthly", str(l), re.I) and re.search("report", str(l), re.I) and re.search("snapshot", str(l), re.I)) or (re.search("revenue.??report", str(l), re.I)):
                     link = l.get("href")
                     link = link[link.rfind("pdf/"):]
-                    target_name = link[link.rfind("/")+1:]
+                    target_name = link[link.rfind("/")+1:link.rfind(".pdf")]
                     target_link_a = "https://www.nj.gov/treasury/news/{}/{}".format(nyyy, link)
                     target_link_b = "https://www.nj.gov/treasury/{}".format(link)
                     r = requests.get(target_link_a)
@@ -355,7 +355,7 @@ def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
                         if re.search("attached chart", str(l), re.I):
                             link = l.get("href")
                             link = link[link.rfind("pdf/"):]
-                            target_name = link[link.rfind("/")+1:]
+                            target_name = link[link.rfind("/")+1:link.rfind(".pdf")]
                             target_link_a = "https://www.nj.gov/treasury/news/{}/{}".format(nyyy, link)
                             target_link_b = "https://www.nj.gov/treasury/{}".format(link)
                             r = requests.get(target_link_a)
@@ -438,14 +438,11 @@ def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
 
-    url = "https://www.pa.gov/en/agencies/revenue/resources/reports-and-statistics/monthly-revenue-reports.html"
-    req = Request(url, headers={"User-Agent": SABLE_USER_AGENT})
-    page = urlopen(req).read()
-    html = page.decode("utf-8")
-    soup = BeautifulSoup(html, "html.parser")
-    links = soup.find_all("a")
-
-    # Enter remaining code here
+    print("Trying static search.")
+    target_name = "{}_{}_mrr".format(yyyy, mm)
+    target_link = "https://www.pa.gov/content/dam/copapwp-pagov/en/revenue/documents/news-and-statistics/reportsstats/mrr/documents/{}/{}.pdf".format(yyyy, target_name)
+    targetPDFNames.append(target_name)
+    targetURLs.append(target_link)
 
     return targetPDFNames, targetURLs
 
