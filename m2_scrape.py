@@ -1254,6 +1254,123 @@ def scrape_data_PA(lines_clean, state, yyyy, mm):
     tax_units  = []
     tax_times  = []
 
+    fund_zone = False
+    atoe_zone = False
+    col = 2
+    unit = "thousands"
+    time = "month"
+
+    stringpart = "\s+([\d,.()$-]+)"
+    string = stringpart*2
+
+    tax_types_list = []
+    tax_types_list.append({"tax_type": "total - general fund",                  "tax_regex": "total\s*-?\s*general\s*fund"})
+    tax_types_list.append({"tax_type": "total - tax revenue",                   "tax_regex": "total\s*-?\s*tax\s*revenue"})
+    tax_types_list.append({"tax_type": "total - corporation taxes",             "tax_regex": "total\s*-?\s*corporation\s*taxes"})
+    tax_types_list.append({"tax_type": "accelerated deposits",                  "tax_regex": "accelerated\s*deposits"})
+    tax_types_list.append({"tax_type": "corporate net income",                  "tax_regex": "corporate\s*net\s*income"})
+    tax_types_list.append({"tax_type": "gross receipts",                        "tax_regex": "gross\s*receipts"})
+    tax_types_list.append({"tax_type": "utility property",                      "tax_regex": "utility\s*property"})
+    tax_types_list.append({"tax_type": "insurance premiums",                    "tax_regex": "insurance\s*premiums"})
+    tax_types_list.append({"tax_type": "bank shares",                           "tax_regex": "bank\s*shares"})
+    tax_types_list.append({"tax_type": "mutual thrift",                         "tax_regex": "mutual\s*thrift"})
+    tax_types_list.append({"tax_type": "total - consumption taxes",             "tax_regex": "total\s*-?\s*consumption\s*taxes"})
+    tax_types_list.append({"tax_type": "sales and use",                         "tax_regex": "sales\s*.{0,3}?\s*use"})
+    tax_types_list.append({"tax_type": "non-motor vehicle",                     "tax_regex": "non\s*-?\s*motor\s*vehicle"})
+    tax_types_list.append({"tax_type": "motor vehicle",                         "tax_regex": "motor\s*vehicle"})
+    tax_types_list.append({"tax_type": "cigarette",                             "tax_regex": "cigarette"})
+    tax_types_list.append({"tax_type": "other tobacco products",                "tax_regex": "other\s*tobacco\s*products"})
+    tax_types_list.append({"tax_type": "malt beverage",                         "tax_regex": "malt\s*beverage"})
+    tax_types_list.append({"tax_type": "liquor",                                "tax_regex": "liquor"})
+    tax_types_list.append({"tax_type": "total - other taxes",                   "tax_regex": "total\s*-?\s*other\s*taxes"})
+    tax_types_list.append({"tax_type": "total - personal income & other taxes", "tax_regex": "total\s*-?\s*personal\s*income\s*.{0,3}?\s*other\s*taxes"})
+    tax_types_list.append({"tax_type": "personal income",                       "tax_regex": "personal\s*income"})
+    tax_types_list.append({"tax_type": "withholding",                           "tax_regex": "withholding"})
+    tax_types_list.append({"tax_type": "quarterly",                             "tax_regex": "quarterly"})
+    tax_types_list.append({"tax_type": "annual",                                "tax_regex": "annual"})
+    tax_types_list.append({"tax_type": "realty transfer",                       "tax_regex": "realty\s*transfer"})
+    tax_types_list.append({"tax_type": "inheritance",                           "tax_regex": "inheritance"})
+    tax_types_list.append({"tax_type": "gaming",                                "tax_regex": "gaming"})
+    tax_types_list.append({"tax_type": "minor and repealed",                    "tax_regex": "minor\s*.{0,3}?\s*repealed"})
+    tax_types_list.append({"tax_type": "total - non-tax revenue",               "tax_regex": "total\s*-?\s*non\s*-?\s*tax\s*revenue"})
+    tax_types_list.append({"tax_type": "liquor store profits",                  "tax_regex": "liquor\s*store\s*profits"})
+    tax_types_list.append({"tax_type": "licenses & fees",                       "tax_regex": "licenses\s*.{0,3}?\s*fees"})
+    tax_types_list.append({"tax_type": "miscellaneous",                         "tax_regex": "miscellaneous"})
+    tax_types_list.append({"tax_type": "fines, penalties, & interest",          "tax_regex": "fines.??\s*penalties.??\s*.{0,3}?\s*interest"})
+    tax_types_list.append({"tax_type": "revenue sources",                       "tax_regex": "revenue\s*sources"})
+    tax_types_list.append({"tax_type": "total - motor license fund",            "tax_regex": "total\s*-?\s*motor\s*license\s*fund"})
+    tax_types_list.append({"tax_type": "total liquid fuels taxes",              "tax_regex": "total\s*-?\s*liquid\s*fuels\s*taxes"})
+    tax_types_list.append({"tax_type": "motor carriers/ifta",                   "tax_regex": "motor\s*carriers\s*\/?\s*ifta"})
+    tax_types_list.append({"tax_type": "alternative fuels",                     "tax_regex": "alternative\s*fuels"})
+    tax_types_list.append({"tax_type": "oil company franchise",                 "tax_regex": "oil\s*company\s*franchise"})
+    tax_types_list.append({"tax_type": "total - licenses and fees",             "tax_regex": "total\s*-?\s*licenses\s*.{0,3}?\s*fees"})
+    tax_types_list.append({"tax_type": "special hauling permits",               "tax_regex": "special\s*hauling\s*permits"})
+    tax_types_list.append({"tax_type": "registrations other states-irp",        "tax_regex": "registrations\s*other\s*states\s*-?\s*irp"})
+    tax_types_list.append({"tax_type": "operators licenses",                    "tax_regex": "operators\s*licenses"})
+    tax_types_list.append({"tax_type": "real id",                               "tax_regex": "real\s*id"})
+    tax_types_list.append({"tax_type": "vehicle registrations and titling",     "tax_regex": "vehicle\s*registrations\s*.{0,3}?\s*titling"})
+    tax_types_list.append({"tax_type": "miscellaneous collections",             "tax_regex": "miscellaneous\s*collections"})
+    tax_types_list.append({"tax_type": "treasury",                              "tax_regex": "treasury"})
+    tax_types_list.append({"tax_type": "escheats",                              "tax_regex": "escheats"})
+    tax_types_list.append({"tax_type": "electric vehicle",                      "tax_regex": "electric\s*vehicles?"})
+
+    for line in lines_clean:
+        line_found = False
+        
+        if len(line) != 0:
+            m_fund = re.search(r"general\s+fund\s+comparison\s+of\s*actual\s*to\s*estimate\s*$", line) 
+            m_end = re.search(r"total[ -]+other\s+motor\s+receipts", line)
+            if m_fund:
+                fund_zone = True
+            elif m_end:
+                fund_zone = False
+
+            m_col = re.search(r"revenue\s+sources\s+(actual|estimated)\s+(actual|estimated)", line)
+            if m_col:
+                if m_col.group(2) == "actual":
+                    col = 3
+                elif m_col.group(1) == "actual": 
+                    col = 2
+
+            if fund_zone:
+                for l in tax_types_list.index:
+                    tax_type = tax_types_list[l]["tax_type"]
+                    tax_regex = tax_types_list[l]["tax_regex"]
+
+                    tax = "(" + tax_regex + ")" + string
+
+                    m = re.search(tax, line)
+                    if m:
+                        tax_types.append(tax_type)
+                        tax_values.append(clean_value(m.group(col)))
+                        tax_units.append(unit)
+                        tax_times.append(time)
+                        line_found = True
+
+                if not line_found:
+                     tax = "^\s*([a-z]+[^\d]*?)" + string
+                     m = re.search(tax, line)
+                     if m:
+                        tax_types.append(clean_value(m.group(1)).strip())
+                        tax_values.append(clean_value(m.group(col)))
+                        tax_units.append(unit)
+                        tax_times.append(time)
+
+    tts = []
+    tvs = []
+    tus = []
+    ttms = []
+    for i in range(len(tax_types)):
+        if tax_types[i] not in tts:
+            tts.append(tax_types[i])
+            tvs.append(tax_values[i])
+            tus.append(tax_units[i])
+            ttms.append(tax_times[i])
+    tax_types = tts
+    tax_values = tvs
+    tax_units = tus
+    tax_times = ttms
+    
     n_types  = len(tax_types)
     n_values = len(tax_values)
     n_units  = len(tax_units)
