@@ -1710,7 +1710,7 @@ def scrape_data(projName, yyyy, mm):
         "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
 
     # List of states to loop through
-    states = ["CA", "CT", "NJ"]
+    states = ["CA", "CT", "NJ", "PA"]
 
     for state in states:
         print_section_name(statesDict[state])
