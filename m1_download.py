@@ -71,6 +71,7 @@ def get_targets_AR(yyyy, yy, mm, month, month3, month4):
     return targetPDFNames, targetURLs
 
 # California (CA)
+# Statement of General Fund Cash Receipts and Disbursements
 def get_targets_CA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -121,6 +122,7 @@ def get_targets_CO(yyyy, yy, mm, month, month3, month4):
     return targetPDFNames, targetURLs
 
 # Connecticut (CT)
+# Monthly Comparative Statement of Tax Revenue
 def get_targets_CT(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -288,6 +290,7 @@ def get_targets_NH(yyyy, yy, mm, month, month3, month4):
     return targetPDFNames, targetURLs
 
 # New Jersey (NJ)
+# Month and Year-to-Date Cash Collections
 def get_targets_NJ(yyyy, yy, mm, month, month3, month4):
     fyyy = yyyy
     if mm in ["07", "08", "09", "10", "11", "12"]:
@@ -434,6 +437,7 @@ def get_targets_OR(yyyy, yy, mm, month, month3, month4):
     return targetPDFNames, targetURLs
 
 # Pennsylvania (PA)
+# Monthly Revenue Report
 def get_targets_PA(yyyy, yy, mm, month, month3, month4):
     targetPDFNames = []
     targetURLs = []
@@ -663,7 +667,7 @@ def download_pdfs(projName, yyyy, mm):
         "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
 
     # List of states to loop through
-    states = ["CA", "CT", "NJ"]
+    states = ["CA", "CT", "NJ", "PA"]
 
     # Empty list of statuses
     statuses = []
