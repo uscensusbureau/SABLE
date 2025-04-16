@@ -794,7 +794,8 @@ def main():
     if valid_arguments():
         download_pdfs(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
-        print("\nInvalid arguments\n")
+        print("\nInvalid arguments")
+        print("Invocation:  python3 m1_download.py <projName> <yyyy> <mm>\n")
     return
 
 if __name__ == "__main__":
