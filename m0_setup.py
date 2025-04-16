@@ -39,7 +39,8 @@ def main():
     if valid_arguments():
         create_folders(sys.argv[1])
     else:
-        print("\nInvalid arguments\n")
+        print("\nInvalid arguments")
+        print("Invocation:  python3 m0_setup.py <projName>\n")
     return
 
 if __name__ == "__main__":
