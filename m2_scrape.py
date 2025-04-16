@@ -1871,7 +1871,8 @@ def main():
     if valid_arguments():
         scrape_data(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
-        print("\nInvalid arguments\n")
+        print("\nInvalid arguments")
+        print("Invocation:  python3 m2_scrape.py <projName> <yyyy> <mm>\n")
     return   
 
 if __name__ == "__main__":
