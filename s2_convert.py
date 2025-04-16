@@ -290,7 +290,8 @@ def main():
     if valid_arguments():
         convert_files(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
-        print("\nInvalid arguments\n")
+        print("\nInvalid arguments")
+        print("Invocation:  python3 s2_convert.py <projName> <lng> <clss>\n")
     return
 
 if __name__ == "__main__":
