@@ -155,7 +155,8 @@ def main():
     if valid_arguments():
         fit_and_predict(sys.argv[1])
     else:
-        print("\nInvalid arguments\n")
+        print("\nInvalid arguments")
+        print("Invocation:  python3 s4_logistic.py <projName>\n")
     return
 
 if __name__ == "__main__":
