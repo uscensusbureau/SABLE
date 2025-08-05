@@ -256,6 +256,10 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 We appreciate any feedback you would like to provide us; please post any questions that you may have in the GitHub issues section.
 
+## Disclaimer
+
+Any opinions and conclusions expressed herein are those of the authors and do not reflect the views of the U.S. Census Bureau. No estimates—numerical or otherwise—based on internal Census Bureau information are included.
+
 ## Contributors
 
 The following people have contributed to SABLE's codebase:
@@ -281,3 +285,4 @@ The ```references``` folder contains the following conference papers and present
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
 * Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
 * Dumbacher, B. and Capps, C. (2016). <b>Big Data Methods for Scraping Government Tax Revenue from the Web</b>. <i>2016 Proceedings of the American Statistical Association, Section on Statistical Learning and Data Science</i>. Alexandria, VA: American Statistical Association, 2940-2954.
+
