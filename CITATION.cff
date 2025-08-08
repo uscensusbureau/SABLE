@@ -1,0 +1,35 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: 'SABLE: Scraping Assisted by Learning'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Brian
+    family-names: Dumbacher
+    email: brian.dumbacher@census.gov
+    affiliation: U.S. Census Bureau
+    orcid: 'https://orcid.org/0000-0002-7832-932X'
+  - given-names: Alan
+    family-names: Weisel
+    email: alan.e.weisel@census.gov
+    affiliation: U.S. Census Bureau and Reveal Global Consulting
+  - given-names: Hector
+    family-names: Ferronato
+    email: hector.r.ferronato@census.gov
+    affiliation: U.S. Census Bureau and Reveal Global Consulting
+  - given-names: Eric
+    family-names: Valentine
+    email: eric.valentine@census.gov
+    affiliation: U.S. Census Bureau
+repository-code: 'https://github.com/uscensusbureau/SABLE/'
+keywords:
+  - machine learning
+  - text classification
+  - web scraping
+license: CC0-1.0
+version: '1.0'
+date-released: '2025-08-08'
