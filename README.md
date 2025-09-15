@@ -256,15 +256,19 @@ Scrape tax revenue data from the downloaded PDFs and organize the results in a T
 
 We appreciate any feedback you would like to provide us; please post any questions that you may have in the GitHub issues section.
 
-## Disclaimer
+## Disclosure Statement
 
 Any opinions and conclusions expressed herein are those of the authors and do not reflect the views of the U.S. Census Bureau. No estimates—numerical or otherwise—based on internal Census Bureau information are included.
+
+## Disclaimer
+
+U.S. Census Bureau code is provided on an 'as is' basis, and the user assumes responsibility for its use. The Census Bureau has relinquished control of the information and no longer has responsibility to protect the integrity, confidentiality, or availability of the information. Any claims against the Census Bureau stemming from the use of its GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Census Bureau. The Census Bureau seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by the Census Bureau or the United States Government.
 
 ## Contributors
 
 The following people have contributed to SABLE's codebase:
 
-* Brian Dumbacher ([@brian-dumbacher](https://www.github.com/brian-dumbacher))
+* Brian Dumbacher ([@brian-dumbacher-census](https://www.github.com/brian-dumbacher-census))
 * Alan Weisel
 * Hector Ferronato
 * Eric Valentine
@@ -274,7 +278,7 @@ The following people have contributed to SABLE's codebase:
 Please use the information in ```CITATION.cff``` to cite this repository. A suggested citation is below:
 
 ```
-Dumbacher, B., Weisel, A., Ferronato, H., and Valentine, E. (2025). SABLE: Scraping Assisted by Learning. GitHub. <https://github.com/uscensusbureau/SABLE>, accessed on DATE.
+U.S. Census Bureau, "SABLE: Scraping Assisted by Learning," v1.0 [GitHub], 2025, <https://github.com/uscensusbureau/SABLE>, accessed on DATE.
 ```
 
 ## References
@@ -285,4 +289,6 @@ The ```references``` folder contains the following conference papers and present
 * Dumbacher, B. and Diamond, L.K. (2018). <b>SABLE: Tools for Web Crawling, Web Scraping, and Text Classification</b>. <i>Proceedings of the 2018 Federal Committee on Statistical Methodology (FCSM) Research Conference</i>. Washington, DC: Federal Committee on Statistical Methodology.
 * Dumbacher, B. and Hanna, D. (2017). <b>Using Passive Data Collection, System-to-System Data Collection, and Machine Learning to Improve Economic Surveys</b>. <i>2017 Proceedings of the American Statistical Association, Business and Economic Statistics Section</i>. Alexandria, VA: American Statistical Association, 772-785.
 * Dumbacher, B. and Capps, C. (2016). <b>Big Data Methods for Scraping Government Tax Revenue from the Web</b>. <i>2016 Proceedings of the American Statistical Association, Section on Statistical Learning and Data Science</i>. Alexandria, VA: American Statistical Association, 2940-2954.
+
+
 
